@@ -1,0 +1,178 @@
+# Deployment Guide
+
+Step-by-step instructions for getting **Bollywood** onto every major store.
+
+> **Prerequisite:** Your PWA must already be hosted on a public HTTPS URL with a valid SSL certificate (Netlify / Vercel / GitHub Pages / your own domain — all free options listed in [`README.md`](./README.md)). Verify it works in a desktop browser before continuing.
+
+---
+
+## 🌐 Step 0 — Verify your PWA is store-ready
+
+Before any store submission, run [PWABuilder](https://www.pwabuilder.com/) on your hosted URL. It scores your PWA on three axes (Manifest, Service Worker, Security). You want all three green.
+
+1. Open https://www.pwabuilder.com/
+2. Paste your hosted URL
+3. Click **Start**
+4. Fix any reported issues (this manifest already covers most of them)
+
+---
+
+## 🤖 Google Play Store (Android)
+
+There are **two** main routes. PWABuilder is the easiest for non-developers.
+
+### Route A — PWABuilder (recommended)
+
+1. Open [pwabuilder.com](https://www.pwabuilder.com/) → enter your hosted URL → **Start**
+2. Click **Package For Stores → Android**
+3. Fill in:
+   - **Package ID:** `com.ashishmishra.bollywood`
+   - **App name:** `Bollywood`
+   - **Launcher name:** `Bollywood`
+   - **App version:** `1.0.0`
+   - **App version code:** `1`
+   - **Display mode:** Standalone
+   - **Status bar color:** `#4a0e2a`
+   - **Splash background color:** `#fff5e1`
+4. Click **Generate Package**
+5. Download the `.zip` — it contains a signed `.aab` (Android App Bundle) + a `.apk` for testing + `signing-key-info.txt` (back this up — you need it for future updates!)
+6. Test: install the `.apk` on your Android phone via USB or transfer
+
+#### Submit to Play Store
+1. Sign up for [Google Play Console](https://play.google.com/console) (one-time **$25 fee**)
+2. Create a new app → upload the `.aab` file
+3. Fill in the required pages: **App content → privacy policy, ads, target audience, etc.**
+4. Add **screenshots** (at least 2 phone screenshots — capture from your installed PWA)
+5. Add **feature graphic** (1024×500 — you can use the 1024px icon as a base)
+6. Submit for review (takes 1–7 days)
+
+### Route B — Bubblewrap (CLI, more control)
+
+If you're comfortable with command line:
+
+```bash
+npm install -g @bubblewrap/cli
+bubblewrap init --manifest https://YOUR-URL/manifest.webmanifest
+bubblewrap build
+```
+
+Bubblewrap also generates a signed `.aab`. Same submission steps as above.
+
+---
+
+## 🍎 Apple App Store (iPhone / iPad / Mac)
+
+Apple has stricter rules and a $99/year developer fee. Two routes:
+
+### Route A — PWABuilder iOS package (lightweight)
+
+1. On [pwabuilder.com](https://www.pwabuilder.com/) → enter URL → **Start**
+2. Click **Package For Stores → iOS**
+3. Fill in:
+   - **Bundle ID:** `com.ashishmishra.bollywood`
+   - **App name:** `Bollywood`
+   - **Project name:** `Bollywood`
+   - **App URL:** your hosted URL
+4. Download the iOS package (`.zip` containing an Xcode project)
+
+> ⚠️ **You'll need a Mac with Xcode** to actually build and submit the IPA. There's no shortcut around this for App Store.
+
+### Route B — Capacitor (recommended for serious iOS work)
+
+This wraps the PWA in a native iOS shell with full native API access (more flexible long-term). See [`CAPACITOR.md`](./CAPACITOR.md) for the full walkthrough.
+
+### Submit to App Store
+
+1. Sign up for [Apple Developer Program](https://developer.apple.com/programs/) — **$99/year**
+2. Open the Xcode project (from PWABuilder or Capacitor)
+3. Set your **Team** (signing identity) in Project Settings
+4. **Product → Archive** to build a release IPA
+5. **Window → Organizer → Distribute App → App Store Connect**
+6. Go to [App Store Connect](https://appstoreconnect.apple.com/), create a new app
+7. Upload metadata: app name, description, keywords, support URL, privacy policy URL
+8. Add screenshots: required for iPhone 6.7" + iPad 12.9" sizes
+9. Submit for review (typically 1–3 days)
+
+> Apple will reject submissions that are *just a wrapped website*. Make sure to add at least one native iOS feature: the Capacitor route makes this much easier (haptics, share sheet, etc.).
+
+---
+
+## 🪟 Microsoft Store (Windows)
+
+Easiest of the three — Microsoft loves PWAs.
+
+1. Sign up for [Microsoft Partner Center](https://partner.microsoft.com/dashboard) — **$19 one-time** for individuals
+2. On [pwabuilder.com](https://www.pwabuilder.com/) → enter URL → **Start**
+3. Click **Package For Stores → Windows**
+4. Fill in:
+   - **Package ID:** `12345AshishMishra.Bollywood` (publisher prefix from Microsoft)
+   - **Publisher Display Name:** `Ashish Mishra` (from Partner Center)
+   - **Publisher ID:** `CN=...` (from Partner Center)
+5. Generate & download the `.msixbundle`
+6. In Partner Center → create new submission → upload the bundle
+7. Submit for certification (24–72 hours)
+
+---
+
+## 🌟 Other distribution options
+
+### Direct sharing (no store)
+Just share your hosted URL. Anyone can install it via their browser's "Install" prompt. **No store fees, no review.**
+
+### Self-hosted APK (sideloading)
+Take the `.apk` file generated by PWABuilder and host it on your website with a "Download for Android" button. Users will need to enable "Install from unknown sources" on their phone.
+
+### Internal testing (Play Store)
+Play Console has a **Closed/Internal testing** track. Add testers' Gmail addresses and they install via a special link without going through public review. Great for friends-and-family testing before going public.
+
+### TestFlight (iOS)
+Apple's beta-testing platform. Upload a build, invite up to 10,000 testers via email — no App Store review needed. Beta builds expire after 90 days.
+
+---
+
+## 📋 Submission checklist
+
+Before clicking submit on **any** store, make sure you have:
+
+- [ ] **App icon** — already covered (`icons/icon-512.png`)
+- [ ] **At least 2 screenshots** of the installed app on a real device
+- [ ] **Privacy Policy URL** — required by all stores. The simplest version: a static page saying "this app does not collect personal data; all gameplay stays on your device". Host it on the same site.
+- [ ] **App description** (short + full) — see suggested text below
+- [ ] **Category** — Games / Casual or Word
+- [ ] **Content rating** — fill out Apple's IARC questionnaire (this game is "Everyone")
+- [ ] **Support email** — `ashishmishra2511@gmail.com` is already set in the manifest
+
+### Suggested store description
+
+> **Short:** A two-player Bollywood movie guessing game. Pass and play.
+>
+> **Full:**
+> Bollywood is a charming pass-and-play movie guessing game for two players. Player 1 picks a movie title, Player 2 has to guess the letters before BOLLYWOOD strikes out — every wrong letter strikes off one letter from the banner. Built-in scoring across infinite rounds, with cinematic clapperboard sound effects, haptic feedback, and a vibrant Bollywood-poster aesthetic.
+>
+> • Pass-and-play for two players on one device
+> • No internet needed once installed
+> • Vowels revealed automatically, consonants and digits guessed
+> • Live scoring with instant round results
+> • Designed mobile-first, plays beautifully on tablets and desktops too
+>
+> Made with ♥ in India by Ashish Mishra.
+
+---
+
+## After your app is live
+
+- **Updates:** for PWA-wrapped apps, you don't need to resubmit for content changes — just update your hosted PWA, and installed apps get the new version automatically (the service worker handles it). You only need to resubmit when changing manifest properties (name, icons, version code).
+- **Analytics:** if you want to see installs/usage, add Google Analytics or Plausible to `index.html` (privacy policy must mention it).
+- **Reviews:** respond promptly. Both stores reward developer engagement.
+
+---
+
+## Need help?
+
+- PWABuilder docs: https://docs.pwabuilder.com/
+- Bubblewrap docs: https://github.com/GoogleChromeLabs/bubblewrap
+- Capacitor docs: https://capacitorjs.com/docs
+- Apple App Store guidelines: https://developer.apple.com/app-store/review/guidelines/
+- Play Store policy: https://play.google.com/console/about/programs/
+
+Good luck with the launch! 🎬

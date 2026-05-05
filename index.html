@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<title>Bollywood — Movie Guessing Game</title>
+
+<!-- SEO & social -->
+<meta name="description" content="A two-player Bollywood-themed movie guessing game. Guess the movie before BOLLYWOOD strikes out!" />
+<meta name="author" content="Ashish Mishra" />
+<meta name="application-name" content="Bollywood" />
+
+<!-- PWA core -->
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#4a0e2a" />
+<meta name="background-color" content="#fff5e1" />
+<meta name="color-scheme" content="light" />
+
+<!-- iOS / Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Bollywood" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png" />
+<link rel="apple-touch-icon" sizes="167x167" href="icons/icon-167.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png" />
+
+<!-- Microsoft / Windows -->
+<meta name="msapplication-TileColor" content="#4a0e2a" />
+<meta name="msapplication-TileImage" content="icons/icon-144.png" />
+<meta name="msapplication-config" content="none" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+<link rel="shortcut icon" href="icons/favicon-32.png" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Bollywood — Movie Guessing Game" />
+<meta property="og:description" content="A two-player Bollywood-themed movie guessing game." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="icons/icon-512.png" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Bollywood — Movie Guessing Game" />
+<meta name="twitter:description" content="A two-player Bollywood-themed movie guessing game." />
+<meta name="twitter:image" content="icons/icon-512.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Bungee+Inline&family=Bungee&family=Yatra+One&family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-1: #fff5e1;
+    --bg-2: #ffe5b8;
+    --surface: #fffdf8;
+    --surface-2: #fff8e7;
+    --line: #f0d8a8;
+
+    --ink: #4a0e2a;
+    --ink-soft: #8b1538;
+    --ink-mute: rgba(74, 14, 42, .55);
+    --ink-shadow: rgba(74, 14, 42, .3);
+
+    --gold: #d4a017;
+    --gold-bright: #f5c542;
+    --gold-light: #ffd86b;
+    --gold-deep: #8a6a0e;
+
+    --pink: #e91e63;
+    --pink-deep: #8b0a30;
+    --saffron: #f97316;
+    --saffron-deep: #b8460e;
+    --mint: #14a085;
+    --mint-deep: #0e7d6a;
+    --teal: #4dc4c4;
+    --teal-deep: #2d8a8a;
+
+    --shadow-card: 0 10px 30px rgba(74, 14, 42, .12);
+    --line-cartoon: 3px solid var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    height: 100dvh;
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink);
+    background: var(--bg-1);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 140, 26, .22), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 0% 100%, rgba(255, 45, 112, .14), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 80%, rgba(212, 160, 23, .14), transparent 60%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  }
+
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.4'/></svg>");
+    opacity: .04; z-index: 1;
+  }
+
+  input, textarea { user-select: text; -webkit-user-select: text; }
+
+  .icon { display: inline-block; vertical-align: -3px; }
+
+  .app {
+    height: 100%;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 12px 12px max(12px, env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============ AUDIO TOGGLE ============ */
+  .sound-toggle {
+    position: fixed;
+    top: 14px; right: 14px;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: var(--line-cartoon);
+    box-shadow: 0 3px 0 var(--ink-shadow);
+    display: grid; place-items: center;
+    cursor: pointer;
+    z-index: 70;
+    transition: transform .15s, box-shadow .15s;
+    color: var(--ink);
+  }
+  .sound-toggle:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink-shadow); }
+
+  /* ============ BANNER (BOLLYWOOD = LIVES, BIGGER) ============ */
+  .banner {
+    text-align: center;
+    padding: 16px 14px 12px;
+    border-radius: 18px;
+    background: var(--surface);
+    border: var(--line-cartoon);
+    box-shadow: 0 4px 0 var(--ink-shadow), var(--shadow-card);
+    position: relative;
+    flex-shrink: 0;
+    transition: transform .1s;
+  }
+
+  .banner.shake { animation: bannerShake .45s cubic-bezier(.36, .07, .19, .97); }
+  @keyframes bannerShake {
+    10%, 90% { transform: translate(-2px, 0); }
+    20%, 80% { transform: translate(3px, 0); }
+    30%, 50%, 70% { transform: translate(-5px, 0); }
+    40%, 60% { transform: translate(5px, 0); }
+  }
+
+  .banner::before, .banner::after {
+    content: "✦";
+    position: absolute;
+    color: var(--gold);
+    font-size: 14px;
+    opacity: .6;
+    top: 8px;
+    animation: starTwinkle 2s ease-in-out infinite;
+  }
+  .banner::before { left: 14px; }
+  .banner::after { right: 56px; animation-delay: 1s; }
+  @keyframes starTwinkle {
+    0%, 100% { opacity: .6; transform: scale(1) rotate(0); }
+    50% { opacity: 1; transform: scale(1.3) rotate(180deg); }
+  }
+
+  .brand {
+    display: inline-flex;
+    gap: clamp(2px, .6vw, 6px);
+    flex-wrap: nowrap;
+    justify-content: center;
+    line-height: 1;
+    font-family: 'Bungee Shade', cursive;
+    padding: 4px 0;
+  }
+
+  .brand-letter {
+    font-size: clamp(1.9rem, 7.2vw, 4rem);
+    background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-bright) 35%, var(--saffron) 75%, #b91c1c 100%);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 3px 0 rgba(74, 14, 42, .3));
+    transition: filter .4s;
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+  }
+
+  /* Pow-burst behind letter on strike */
+  .brand-letter::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(255, 23, 68, .8) 0%, rgba(255, 140, 26, .4) 35%, transparent 65%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+  }
+  .brand-letter.just-struck::before { animation: powBurst .55s ease-out; }
+  @keyframes powBurst {
+    0% { opacity: 0; transform: scale(0); }
+    35% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(2); }
+  }
+
+  .brand-letter.struck {
+    background: linear-gradient(180deg, #d4b896, #a08560);
+    -webkit-background-clip: text; background-clip: text;
+    filter: drop-shadow(0 1px 0 rgba(74, 14, 42, .15)) opacity(.4);
+    transform: rotate(-3deg) scale(.92);
+  }
+
+  .brand-letter.struck::after {
+    content: "";
+    position: absolute;
+    left: -10%; right: -10%;
+    top: 50%; height: 6px;
+    background: var(--pink);
+    border-radius: 4px;
+    transform: translateY(-50%) rotate(-8deg);
+    box-shadow: 0 2px 6px rgba(233, 30, 99, .5);
+    animation: slashSlam .35s cubic-bezier(.34, 1.56, .64, 1) .35s both;
+    z-index: 2;
+  }
+  @keyframes slashSlam {
+    0% {
+      transform: translateY(-50%) rotate(-30deg) scaleX(0);
+      background: #ff1744;
+      box-shadow: 0 0 30px #ff1744;
+      height: 9px;
+    }
+    55% {
+      transform: translateY(-50%) rotate(-3deg) scaleX(1.2);
+      height: 8px;
+    }
+    100% {
+      transform: translateY(-50%) rotate(-8deg) scaleX(1);
+      background: var(--pink);
+      box-shadow: 0 2px 6px rgba(233, 30, 99, .5);
+      height: 6px;
+    }
+  }
+
+  .brand-letter.just-struck { animation: dramaticStrike .85s cubic-bezier(.34, 1.56, .64, 1); z-index: 5; }
+  @keyframes dramaticStrike {
+    0% { transform: scale(1) rotate(0); filter: drop-shadow(0 3px 0 rgba(74, 14, 42, .3)); }
+    12% { transform: scale(1.2) rotate(-10deg); filter: drop-shadow(0 0 12px rgba(255, 45, 112, .9)) brightness(1.4); }
+    28% { transform: scale(1.45) rotate(14deg); filter: drop-shadow(0 0 18px rgba(255, 45, 112, .9)) brightness(1.6); }
+    44% { transform: scale(1.4) rotate(-12deg); filter: drop-shadow(0 0 14px rgba(255, 45, 112, .7)) brightness(1.4); }
+    60% { transform: scale(1.1) rotate(8deg); filter: drop-shadow(0 0 8px rgba(255, 45, 112, .4)) brightness(1.1); }
+    78% { transform: scale(.95) rotate(-3deg); filter: opacity(.6); }
+    100% { transform: scale(.92) rotate(-3deg); filter: drop-shadow(0 1px 0 rgba(74, 14, 42, .15)) opacity(.4); }
+  }
+
+  /* HUD */
+  .hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px dashed var(--line);
+    flex-wrap: wrap;
+  }
+  .scoreboard { display: flex; gap: 6px; flex-wrap: wrap; }
+  .score-pill {
+    padding: 6px 12px;
+    border-radius: 30px;
+    background: var(--surface-2);
+    border: 2px solid var(--ink);
+    font-size: .8rem;
+    color: var(--ink);
+    display: flex; align-items: center; gap: 6px;
+    box-shadow: 0 2px 0 var(--ink-shadow);
+    font-weight: 600;
+  }
+  .score-pill.active {
+    background: linear-gradient(135deg, var(--gold-bright), var(--saffron));
+    color: var(--surface);
+    border-color: var(--ink);
+    box-shadow: 0 2px 0 var(--ink), 0 4px 14px rgba(245, 197, 66, .45);
+    animation: pillPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pillPulse {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  .score-pill .pname { font-weight: 700; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .score-pill .pscore { font-family: 'Bungee Inline', cursive; font-size: 1rem; min-width: 18px; text-align: center; }
+  .round-pill {
+    padding: 6px 12px;
+    border-radius: 30px;
+    background: var(--ink);
+    color: var(--gold-light);
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border: 2px solid var(--ink);
+    box-shadow: 0 2px 0 var(--ink-shadow);
+  }
+
+  /* ============ STAGE / MOVIE ============ */
+  .stage {
+    flex: 1;
+    padding: 14px 12px;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: var(--line-cartoon);
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 4px 0 var(--ink-shadow), var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .now-showing {
+    font-family: 'Bungee', cursive;
+    color: var(--saffron);
+    font-size: .8rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .now-showing::before, .now-showing::after { content: "▸"; margin: 0 6px; color: var(--gold); }
+  .now-showing::after { content: "◂"; }
+
+  .movie-board {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: 8px 18px;
+    overflow-y: auto;
+    padding: 6px 4px;
+  }
+  .word-group {
+    display: flex; gap: 5px;
+    padding: 6px 8px;
+    background: rgba(245, 197, 66, .08);
+    border-radius: 10px;
+    border: 1px dashed rgba(212, 160, 23, .25);
+  }
+  .word-sep {
+    color: var(--gold);
+    font-size: 1.4rem;
+    opacity: .5;
+    align-self: center;
+    margin: 0 -4px;
+    user-select: none;
+  }
+
+  .tile {
+    width: clamp(28px, 5.4vw, 42px);
+    height: clamp(38px, 7vw, 52px);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-family: 'Bungee Inline', cursive;
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    background: var(--surface);
+    color: transparent;
+    border: 2px solid var(--ink);
+    box-shadow: 0 3px 0 var(--ink-shadow);
+    transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
+    position: relative;
+  }
+  .tile.vowel {
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color: var(--ink);
+    box-shadow: 0 3px 0 var(--gold-deep);
+    animation: tileFlip .55s ease-out;
+  }
+  .tile.number-blank {
+    border-style: dashed;
+    border-color: var(--gold);
+    background: rgba(245, 197, 66, .12);
+  }
+  .tile.number-blank::after {
+    content: "#";
+    position: absolute;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: .5;
+    font-size: 1rem;
+  }
+  .tile.number-revealed {
+    background: linear-gradient(180deg, #ffe066, var(--gold));
+    color: var(--ink);
+    border-style: solid;
+    box-shadow: 0 3px 0 var(--gold-deep);
+    animation: tileFlip .55s ease-out;
+  }
+  .tile.revealed {
+    background: linear-gradient(180deg, #34c4a6, var(--mint));
+    color: var(--surface);
+    box-shadow: 0 3px 0 var(--mint-deep);
+    animation: tileFlip .55s ease-out;
+  }
+  @keyframes tileFlip {
+    0% { transform: rotateY(180deg) scale(.6); opacity: 0; }
+    60% { transform: rotateY(0deg) scale(1.18); }
+    100% { transform: rotateY(0deg) scale(1); opacity: 1; }
+  }
+
+  .stage-empty {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--ink-mute);
+    font-size: 1.4rem;
+    padding: 20px 10px;
+  }
+  .stage-empty .reel {
+    width: 60px; height: 60px;
+    margin: 0 auto 6px;
+    display: block;
+    animation: reelSpin 4s linear infinite;
+  }
+  @keyframes reelSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ============ INPUT ZONE — CLAPPERBOARD ============ */
+  .input-zone {
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .clapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .clapper-top {
+    height: 30px;
+    background: repeating-linear-gradient(115deg,
+      #1a0510 0 14px,
+      #fff5d6 14px 28px);
+    border-radius: 8px 8px 0 0;
+    border: 3px solid var(--ink);
+    border-bottom: none;
+    transform-origin: bottom left;
+    transform: rotate(-14deg);
+    transition: transform .15s;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 -4px 14px rgba(74, 14, 42, .15);
+  }
+  .clapper.snap .clapper-top { animation: snapShut 1s cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes snapShut {
+    0% { transform: rotate(-14deg); }
+    18% { transform: rotate(3deg); }
+    28% { transform: rotate(-3deg); }
+    40% { transform: rotate(1deg); }
+    50% { transform: rotate(0deg); }
+    85% { transform: rotate(0deg); }
+    100% { transform: rotate(-14deg); }
+  }
+  .clapper.snap .clapper-body { animation: clapperShake .35s ease-out .3s; }
+  @keyframes clapperShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-1px); }
+  }
+
+  .clapper-body {
+    background: linear-gradient(180deg, #2a0816, #1a0510);
+    border: 3px solid var(--ink);
+    border-radius: 0 0 14px 14px;
+    padding: 14px 18px 16px;
+    color: var(--gold-light);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 0 var(--ink), 0 8px 24px rgba(74, 14, 42, .25);
+  }
+
+  .slate-info {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Outfit', sans-serif;
+    font-size: .65rem;
+    letter-spacing: .25em;
+    color: var(--gold-light);
+    opacity: .7;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+  }
+  .slate-info strong { color: var(--gold-bright); font-weight: 700; letter-spacing: .15em; }
+
+  .letter-display {
+    font-family: 'Bungee Inline', cursive;
+    font-size: clamp(2.6rem, 8vw, 3.6rem);
+    background: linear-gradient(180deg, var(--gold-light), var(--gold-bright), var(--saffron));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    height: clamp(58px, 11vw, 78px);
+    display: grid; place-items: center;
+    text-shadow: 0 0 30px rgba(245, 197, 66, .3);
+    transition: all .3s;
+  }
+  .letter-display.flash { animation: letterPunch .8s ease-out; }
+  @keyframes letterPunch {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    40% { transform: scale(1.4) rotate(8deg); opacity: 1; }
+    65% { transform: scale(.95) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  .letter-display.empty::before {
+    content: "?";
+    background: linear-gradient(180deg, rgba(255, 216, 107, .3), rgba(245, 197, 66, .15));
+    -webkit-background-clip: text; background-clip: text;
+    animation: pulseHint 2s ease-in-out infinite;
+  }
+  @keyframes pulseHint {
+    0%, 100% { opacity: .3; }
+    50% { opacity: .7; }
+  }
+
+  .verdict {
+    font-family: 'Bungee', cursive;
+    font-size: .95rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    height: 22px;
+    margin-top: 2px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .verdict.show { opacity: 1; animation: verdictIn .4s ease-out; }
+  .verdict.hit { color: #34c4a6; text-shadow: 0 0 12px var(--mint); }
+  .verdict.miss { color: var(--pink); text-shadow: 0 0 12px var(--pink); }
+  @keyframes verdictIn {
+    from { transform: translateY(8px) scale(.7); }
+    to { transform: translateY(0) scale(1); }
+  }
+
+  .clapper-prompt {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--gold-light);
+    font-size: .95rem;
+    margin-top: 4px;
+    opacity: .7;
+  }
+
+  .hidden-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px; height: 1px;
+    pointer-events: none;
+  }
+
+  .clapper.disabled { opacity: .55; pointer-events: none; }
+
+  /* tried letters */
+  .tried {
+    margin-top: 10px;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 5px; min-height: 26px;
+  }
+  .tried-letter {
+    width: 24px; height: 24px;
+    border-radius: 5px;
+    display: grid; place-items: center;
+    font-size: .75rem; font-weight: 700;
+    border: 2px solid var(--ink);
+  }
+  .tried-letter.right { background: var(--mint); color: var(--surface); }
+  .tried-letter.right.num { background: var(--gold); color: var(--ink); }
+  .tried-letter.wrong {
+    background: var(--surface-2); color: var(--ink-mute);
+    text-decoration: line-through; text-decoration-color: var(--pink);
+    text-decoration-thickness: 2px;
+  }
+
+  .input-zone .btn-row { margin-top: 12px; }
+
+  /* ============ CARTOON BUTTONS ============ */
+  .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    padding: 12px 22px;
+    border: 3px solid var(--ink);
+    border-radius: 50px;
+    font-family: 'Yatra One', cursive;
+    font-size: 1rem;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s;
+    position: relative;
+    color: var(--ink);
+    background: var(--surface);
+    box-shadow: 0 5px 0 var(--ink-shadow);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink-shadow); }
+
+  .btn-primary {
+    background: linear-gradient(180deg, var(--saffron) 0%, var(--pink) 100%);
+    color: var(--surface);
+    box-shadow: 0 5px 0 var(--pink-deep), 0 10px 24px rgba(233, 30, 99, .35);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
+  }
+  .btn-primary:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--pink-deep); }
+  .btn-primary::before {
+    content: ''; position: absolute;
+    inset: 3px 3px 50% 3px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .35), transparent);
+    border-radius: 50px 50px 0 0;
+    pointer-events: none;
+  }
+
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--ink-soft);
+  }
+  .btn-ghost:hover { background: var(--surface-2); }
+
+  .btn-sm { padding: 9px 18px; font-size: .9rem; }
+  .btn-giant {
+    padding: 16px 32px;
+    font-size: 1.15rem;
+    border-radius: 60px;
+    border-width: 3px;
+  }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  /* ============ MODAL ============ */
+  .modal-back {
+    position: fixed; inset: 0;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(74, 14, 42, .4);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    padding: 16px;
+  }
+  .modal-back.show { display: flex; animation: backFade .3s; }
+  @keyframes backFade {
+    from { opacity: 0; backdrop-filter: blur(0); }
+    to { opacity: 1; backdrop-filter: blur(8px); }
+  }
+
+  .modal {
+    width: 100%; max-width: 480px;
+    background: var(--surface);
+    border-radius: 24px;
+    border: 4px solid var(--ink);
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 8px 0 var(--ink-shadow), 0 28px 70px rgba(74, 14, 42, .35);
+    animation: pop .55s cubic-bezier(.34, 1.56, .64, 1);
+    max-height: 90dvh;
+    overflow-y: auto;
+    position: relative;
+  }
+  @keyframes pop {
+    0% { transform: scale(.4) rotate(-8deg); opacity: 0; }
+    60% { transform: scale(1.08) rotate(2deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+
+  .modal-title {
+    font-family: 'Bungee Shade', cursive;
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    background: linear-gradient(180deg, var(--gold-bright), var(--saffron));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    line-height: 1.1;
+  }
+  .modal-title.flop {
+    background: linear-gradient(180deg, var(--pink), var(--ink-soft));
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .modal-sub {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--ink-soft);
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    margin-top: 4px;
+  }
+  .modal-movie {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 1.3rem;
+    color: var(--ink);
+    letter-spacing: .06em;
+    margin-bottom: 14px;
+    padding: 10px;
+    background: var(--surface-2);
+    border-radius: 10px;
+    border: 2px dashed var(--gold);
+  }
+  .modal-points {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 3.4rem;
+    background: linear-gradient(180deg, var(--gold-bright), var(--saffron));
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(245, 197, 66, .3);
+  }
+  .modal-points-label {
+    font-size: .7rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 4px; font-weight: 700;
+  }
+  .modal-running {
+    margin-top: 14px;
+    display: flex; gap: 8px; justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ============ WELCOME (sequential player entry) ============ */
+  .welcome-modal { padding: 28px 22px; min-height: 380px; }
+
+  .welcome-stage {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: stageIn .55s cubic-bezier(.34, 1.56, .64, 1);
+  }
+  .welcome-stage.active { display: flex; }
+  .welcome-stage.exiting { animation: stageOut .35s ease-in forwards; }
+  @keyframes stageIn {
+    0% { opacity: 0; transform: translateX(60px) scale(.92); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes stageOut {
+    to { opacity: 0; transform: translateX(-60px) scale(.92); }
+  }
+
+  .mascot {
+    margin-bottom: 6px;
+    animation: mascotEnter .7s cubic-bezier(.34, 1.56, .64, 1), mascotBounce 2.4s ease-in-out 0.7s infinite;
+    display: inline-block;
+    filter: drop-shadow(0 6px 8px rgba(74, 14, 42, .25));
+  }
+  @keyframes mascotEnter {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  @keyframes mascotBounce {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+  }
+
+  .speech-bubble {
+    position: relative;
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 12px 22px;
+    border-radius: 18px;
+    font-family: 'Yatra One', cursive;
+    font-size: 1.05rem;
+    border: 3px solid var(--gold);
+    box-shadow: 0 4px 0 rgba(74, 14, 42, .35);
+    margin: 8px 0 18px;
+    max-width: 320px;
+  }
+  .speech-bubble::before {
+    content: ''; position: absolute;
+    top: -16px; left: 50%; transform: translateX(-50%);
+    border: 9px solid transparent;
+    border-bottom-color: var(--gold);
+  }
+  .speech-bubble::after {
+    content: ''; position: absolute;
+    top: -10px; left: 50%; transform: translateX(-50%);
+    border: 7px solid transparent;
+    border-bottom-color: var(--ink);
+  }
+
+  .giant-input {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 18px;
+    text-align: center;
+    border-radius: 16px;
+    border: 3px solid var(--ink);
+    background: var(--surface-2);
+    font-family: 'Yatra One', cursive;
+    font-size: 1.2rem;
+    color: var(--ink);
+    outline: none;
+    box-shadow: 0 4px 0 var(--ink-shadow);
+    margin-bottom: 16px;
+    transition: all .2s;
+  }
+  .giant-input:focus {
+    background: var(--surface);
+    box-shadow: 0 4px 0 var(--ink-shadow), 0 0 0 4px rgba(245, 197, 66, .35);
+    transform: translateY(-1px);
+  }
+
+  .player-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--gold-bright), var(--saffron));
+    color: var(--surface);
+    border-radius: 50px;
+    border: 3px solid var(--ink);
+    font-family: 'Yatra One', cursive;
+    font-size: .95rem;
+    box-shadow: 0 3px 0 var(--ink-shadow);
+    margin-bottom: 14px;
+    animation: chipDrop .6s cubic-bezier(.34, 1.56, .64, 1);
+  }
+  @keyframes chipDrop {
+    0% { transform: translateY(-30px) scale(.5); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  .progress-dots {
+    display: flex; gap: 8px; justify-content: center;
+    margin-top: 10px;
+  }
+  .progress-dots .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--line);
+    border: 2px solid var(--ink);
+    transition: all .3s;
+  }
+  .progress-dots .dot.active {
+    background: var(--gold-bright);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px var(--gold-bright);
+  }
+  .progress-dots .dot.done { background: var(--mint); }
+
+  /* ============ INPUT FIELDS (set modal) ============ */
+  .field { margin-bottom: 12px; text-align: left; }
+  .field-label {
+    display: block;
+    font-size: .7rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 3px solid var(--ink);
+    background: var(--surface-2);
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    transition: all .2s;
+    outline: none;
+    box-shadow: 0 3px 0 var(--ink-shadow);
+  }
+  .input:focus {
+    background: var(--surface);
+    box-shadow: 0 3px 0 var(--ink-shadow), 0 0 0 4px rgba(245, 197, 66, .25);
+  }
+
+  .input-with-toggle { position: relative; }
+  .input-with-toggle .input { padding-right: 76px; }
+  .input-toggle {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    background: var(--surface); border: 2px solid var(--ink); cursor: pointer;
+    color: var(--ink-soft); font-size: .75rem;
+    padding: 5px 10px; border-radius: 8px;
+    box-shadow: 0 2px 0 var(--ink-shadow);
+    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .input-toggle:active { transform: translateY(-50%) translateY(2px); box-shadow: 0 0 0 var(--ink-shadow); }
+
+  /* number-hint chip */
+  .number-hint {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    background: rgba(245, 197, 66, .15);
+    border: 1.5px dashed var(--gold);
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    color: var(--gold-deep);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ============ SPARKLES ============ */
+  .sparkle-layer { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+  .sparkle {
+    position: absolute;
+    font-size: 16px;
+    animation: sparkleRise 1.4s ease-out forwards;
+  }
+  @keyframes sparkleRise {
+    0% { transform: translateY(0) scale(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(-130px) scale(1.4) rotate(180deg); opacity: 0; }
+  }
+
+  /* ============ FINAL SCORES ============ */
+  .final-scores {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; max-width: 420px; width: 100%;
+    margin: 16px auto 16px;
+  }
+  .final-score {
+    padding: 14px 12px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    border: 3px solid var(--ink);
+    box-shadow: 0 3px 0 var(--ink-shadow);
+  }
+  .final-score.top {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-bright));
+    transform: scale(1.04);
+  }
+  .final-score .fs-name { font-family: 'Yatra One', cursive; font-size: 1rem; margin-bottom: 2px; }
+  .final-score .fs-pts { font-family: 'Bungee Inline', cursive; font-size: 1.7rem; color: var(--ink); }
+
+  @media (max-height: 700px) {
+    .banner { padding: 12px 12px 10px; }
+    .stage { padding: 10px 10px; }
+    .clapper-body { padding: 10px 14px 12px; }
+    .letter-display { height: 56px; font-size: 2.4rem; }
+    .welcome-modal { padding: 22px 18px; min-height: 340px; }
+  }
+
+  /* ============ ABOUT MODAL ============ */
+  .about-modal { padding: 26px 22px 22px; }
+  .about-logo {
+    margin: 0 auto 8px;
+    display: inline-block;
+    animation: mascotEnter .55s cubic-bezier(.34, 1.56, .64, 1);
+    filter: drop-shadow(0 6px 8px rgba(74, 14, 42, .25));
+  }
+  .about-info {
+    margin: 14px 0;
+    background: var(--surface-2);
+    border-radius: 14px;
+    border: 2px dashed var(--gold);
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .about-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px dashed rgba(212, 160, 23, .25);
+  }
+  .about-row:last-child { border-bottom: none; }
+  .about-label {
+    font-size: .68rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+  .about-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: .9rem;
+    color: var(--ink);
+    text-align: right;
+  }
+  .about-link {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 2px dotted var(--gold);
+    transition: color .2s;
+  }
+  .about-link:hover { color: var(--pink); }
+  .about-tagline {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--saffron);
+    font-size: 1rem;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  .ios-hint {
+    font-family: 'Outfit', sans-serif;
+    font-size: .85rem;
+    color: var(--ink-soft);
+    background: var(--surface-2);
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 2px dashed var(--gold);
+    line-height: 1.45;
+  }
+</style>
+</head>
+<body>
+
+<button class="sound-toggle" id="aboutToggle" aria-label="About this app" style="right:60px;">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="16" x2="12" y2="12"/>
+    <line x1="12" y1="8" x2="12.01" y2="8"/>
+  </svg>
+</button>
+
+<button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+  <svg id="iconVolume" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </svg>
+</button>
+
+<div class="app">
+
+  <header class="banner" id="bannerEl">
+    <div class="brand" id="brandMain"></div>
+    <div class="hud">
+      <div class="scoreboard">
+        <div class="score-pill" id="hudP1"><span class="pname">Player 1</span> · <span class="pscore">0</span></div>
+        <div class="score-pill" id="hudP2"><span class="pname">Player 2</span> · <span class="pscore">0</span></div>
+      </div>
+      <div class="round-pill">Round <span id="gameRound">1</span></div>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="now-showing">Now Showing</div>
+    <div class="movie-board" id="movieBoard">
+      <div class="stage-empty">
+        <svg class="reel" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="26"/>
+          <circle cx="32" cy="32" r="6"/>
+          <circle cx="32" cy="14" r="3" fill="currentColor"/>
+          <circle cx="32" cy="50" r="3" fill="currentColor"/>
+          <circle cx="14" cy="32" r="3" fill="currentColor"/>
+          <circle cx="50" cy="32" r="3" fill="currentColor"/>
+        </svg>
+        Get ready for the show…
+      </div>
+    </div>
+  </main>
+
+  <section class="input-zone">
+    <div class="clapper disabled" id="clapper">
+      <div class="clapper-top"></div>
+      <div class="clapper-body">
+        <div class="slate-info">
+          <span>SCENE <strong id="slateScene">01</strong></span>
+          <span>TAKE <strong id="slateTake">01</strong></span>
+        </div>
+        <div class="letter-display empty" id="letterDisplay"></div>
+        <div class="verdict" id="verdict"></div>
+        <div class="clapper-prompt" id="clapperPrompt">Tap to type · or use your keyboard</div>
+      </div>
+      <input type="text" class="hidden-input" id="hiddenInput" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
+    </div>
+
+    <div class="tried" id="triedRow"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost btn-sm" id="newGameBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 0 1 14.85-6.85L21 8"/>
+          <polyline points="21 3 21 8 16 8"/>
+          <path d="M21 12a9 9 0 0 1-14.85 6.85L3 16"/>
+          <polyline points="3 21 3 16 8 16"/>
+        </svg>
+        New Game
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ MODAL: WELCOME (sequential names) ============ -->
+<div class="modal-back show" id="welcomeModal">
+  <div class="modal welcome-modal">
+
+    <!-- Stage 1: Player 1 -->
+    <div class="welcome-stage active" data-stage="p1">
+      <div class="mascot">
+        <svg viewBox="0 0 100 100" width="78" height="78">
+          <rect x="10" y="38" width="80" height="50" rx="6" fill="#4a0e2a"/>
+          <line x1="20" y1="58" x2="80" y2="58" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+          <line x1="20" y1="68" x2="60" y2="68" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+          <line x1="20" y1="78" x2="70" y2="78" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+          <g transform="rotate(-12 14 30)">
+            <rect x="6" y="22" width="84" height="16" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
+            <rect x="14" y="25" width="14" height="11" fill="#fff5d6"/>
+            <rect x="42" y="25" width="14" height="11" fill="#fff5d6"/>
+            <rect x="70" y="25" width="14" height="11" fill="#fff5d6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="speech-bubble">First up… what's your name, hero?</div>
+      <input class="giant-input" id="p1NameInput" placeholder="Player 1 name…" maxlength="18" />
+      <button class="btn btn-primary btn-giant" id="p1Submit">Cue Player 2</button>
+      <div class="progress-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Stage 2: Player 2 -->
+    <div class="welcome-stage" data-stage="p2">
+      <div class="player-chip" id="p1Chip"><span></span></div>
+      <div class="mascot">
+        <svg viewBox="0 0 100 100" width="78" height="78">
+          <polygon points="50,8 60,38 92,40 66,58 76,90 50,72 24,90 34,58 8,40 40,38" fill="#f5c542" stroke="#4a0e2a" stroke-width="4" stroke-linejoin="round"/>
+          <polygon points="50,22 56,42 78,43 62,55 67,76 50,64 33,76 38,55 22,43 44,42" fill="#ffd86b"/>
+        </svg>
+      </div>
+      <div class="speech-bubble">And the co-star… you are?</div>
+      <input class="giant-input" id="p2NameInput" placeholder="Player 2 name…" maxlength="18" />
+      <button class="btn btn-primary btn-giant" id="p2Submit">Lights · Camera · Action</button>
+      <div class="progress-dots">
+        <span class="dot done"></span>
+        <span class="dot active"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ MODAL: SET MOVIE (no hint) ============ -->
+<div class="modal-back" id="setModal">
+  <div class="modal">
+    <h2 class="modal-title">Your turn, <span id="directorName">Player 1</span></h2>
+    <p class="modal-sub">Set a movie · keep it secret · Round <span id="setRound">1</span></p>
+
+    <div class="field">
+      <label class="field-label">Movie Title</label>
+      <div class="input-with-toggle">
+        <input class="input" id="movieInput" type="password" placeholder="e.g. SHOLAY or 3 IDIOTS"
+               autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
+        <button class="input-toggle" id="toggleMovie" type="button">
+          <svg id="iconEye" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <span id="toggleLabel">Show</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary btn-giant" id="lockMovie">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="11" width="16" height="10" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+        Lock Movie
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: HANDOFF ============ -->
+<div class="modal-back" id="handoffModal">
+  <div class="modal">
+    <h2 class="modal-title">Pass the Device</h2>
+    <p class="modal-sub"><span id="guesserName">Player 2</span> · your turn to guess</p>
+    <p style="color:var(--ink-mute); font-family:'Caveat', cursive; font-weight:700; font-size:1.05rem; margin: 0 0 6px;">
+      Type letters &amp; numbers · wrong ones strike off the BOLLYWOOD banner
+    </p>
+    <div id="numberHintWrap"></div>
+    <div class="btn-row" style="margin-top: 18px;">
+      <button class="btn btn-primary btn-giant" id="startRound">Start Guessing</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ROUND END ============ -->
+<div class="modal-back" id="roundModal">
+  <div class="modal">
+    <h2 class="modal-title" id="modalTitle">SUPERHIT!</h2>
+    <p class="modal-sub" id="modalSub">— The title was —</p>
+    <div class="modal-movie" id="modalMovie">SHOLAY</div>
+    <div class="modal-points-label">Points Earned</div>
+    <div class="modal-points" id="modalPoints">0</div>
+    <div class="modal-running" id="modalRunning"></div>
+    <div class="btn-row" style="margin-top:18px;">
+      <button class="btn btn-primary btn-giant" id="modalContinue">Next Round</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: NEW GAME CONFIRM ============ -->
+<div class="modal-back" id="newGameModal">
+  <div class="modal">
+    <h2 class="modal-title">Start a New Game?</h2>
+    <p class="modal-sub" id="newGameSub">Current scoreboard</p>
+    <div class="final-scores" id="newGameScores"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost btn-sm" id="cancelNewGame">Keep Playing</button>
+      <button class="btn btn-primary btn-sm" id="confirmNewGame">Start Fresh</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ABOUT ============ -->
+<div class="modal-back" id="aboutModal">
+  <div class="modal about-modal">
+    <div class="about-logo">
+      <svg viewBox="0 0 100 100" width="68" height="68">
+        <rect x="6" y="22" width="88" height="68" rx="10" fill="#4a0e2a"/>
+        <g transform="rotate(-12 14 18)">
+          <rect x="2" y="10" width="92" height="18" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
+          <rect x="10" y="13" width="14" height="12" fill="#fff5d6"/>
+          <rect x="38" y="13" width="14" height="12" fill="#fff5d6"/>
+          <rect x="66" y="13" width="14" height="12" fill="#fff5d6"/>
+        </g>
+        <text x="50" y="68" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="900" font-size="34" fill="#f5c542">B</text>
+      </svg>
+    </div>
+    <h2 class="modal-title">Bollywood</h2>
+    <p class="modal-sub">A Movie Guessing Game · v1.0.0</p>
+
+    <div class="about-info">
+      <div class="about-row">
+        <span class="about-label">Created by</span>
+        <span class="about-value">Ashish Mishra</span>
+      </div>
+      <div class="about-row">
+        <span class="about-label">Contact</span>
+        <a class="about-value about-link" href="mailto:ashishmishra2511@gmail.com">ashishmishra2511@gmail.com</a>
+      </div>
+      <div class="about-row">
+        <span class="about-label">Players</span>
+        <span class="about-value">2 · pass &amp; play</span>
+      </div>
+      <div class="about-row">
+        <span class="about-label">License</span>
+        <span class="about-value">MIT · © 2025</span>
+      </div>
+    </div>
+
+    <div id="installSection" style="display:none; margin: 14px 0;">
+      <button class="btn btn-primary" id="installBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Install on this device
+      </button>
+    </div>
+
+    <div id="iosInstallHint" style="display:none; margin: 10px 0;">
+      <p class="ios-hint">
+        On iPhone &amp; iPad: tap the
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+          <polyline points="16 6 12 2 8 6"/>
+          <line x1="12" y1="2" x2="12" y2="15"/>
+        </svg>
+        Share button, then choose <strong>Add to Home Screen</strong>.
+      </p>
+    </div>
+
+    <p class="about-tagline">Made with ♥ for movie lovers</p>
+
+    <div class="btn-row" style="margin-top: 8px;">
+      <button class="btn btn-ghost btn-sm" id="closeAbout">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+<script>
+  // ========== AUDIO ==========
+  let audioCtx = null;
+  let soundOn = true;
+
+  function ensureAudio() {
+    if (!audioCtx) {
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
+    }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+
+  function tone(freq, dur, type='sine', vol=0.08, slideTo=null, delay=0) {
+    if (!audioCtx || !soundOn) return;
+    const t = audioCtx.currentTime + delay;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, t);
+    if (slideTo) osc.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
+    gain.gain.setValueAtTime(vol, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  }
+
+  const SFX = {
+    tap: () => tone(700, 0.05, 'sine', 0.05),
+    snap: () => { tone(140, 0.04, 'square', 0.18); tone(80, 0.06, 'square', 0.12, null, 0.03); },
+    ding: () => { tone(880, 0.08, 'sine', 0.08); tone(1318, 0.18, 'sine', 0.06, null, 0.05); },
+    buzz: () => tone(180, 0.18, 'sawtooth', 0.06, 80),
+    stamp: () => { tone(70, 0.1, 'square', 0.2); tone(45, 0.15, 'square', 0.15, null, 0.05); },
+    whoosh: () => tone(440, 0.15, 'sine', 0.04, 220),
+    chime: () => { [523, 659, 784].forEach((f, i) => tone(f, 0.18, 'sine', 0.06, null, i * 0.06)); },
+    fanfare: () => {
+      [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, 0.22, 'triangle', 0.07, null, i * 0.08));
+      [330, 415, 494].forEach((f, i) => tone(f, 0.4, 'sine', 0.05, null, 0.4 + i * 0.05));
+    },
+    sad: () => { tone(440, 0.2, 'triangle', 0.06, 220); tone(220, 0.4, 'triangle', 0.05, 110, 0.2); }
+  };
+
+  function vibrate(p) { if (soundOn && navigator.vibrate) navigator.vibrate(p); }
+
+  document.getElementById("soundToggle").addEventListener("click", () => {
+    soundOn = !soundOn;
+    const wrap = document.getElementById("soundToggle");
+    if (soundOn) {
+      ensureAudio();
+      SFX.tap();
+      wrap.innerHTML = `<svg id="iconVolume" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
+    } else {
+      wrap.innerHTML = `<svg id="iconVolume" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>`;
+    }
+  });
+
+  // ========== STATE ==========
+  const VOWELS = new Set(["A","E","I","O","U"]);
+  const BOLLYWOOD = "BOLLYWOOD".split("");
+
+  const state = {
+    p1: "Player 1",
+    p2: "Player 2",
+    scores: { p1: 0, p2: 0 },
+    roundsPlayed: 0,
+    round: 1,
+    director: "p1",
+    guesser: "p2",
+    movie: "",
+    revealed: new Set(),
+    wrong: new Set(),
+    strikes: 0,
+    take: 1,
+    gameActive: false
+  };
+
+  const $ = (id) => document.getElementById(id);
+
+  function isDigit(ch) { return /^[0-9]$/.test(ch); }
+  function isAutoShown(ch) { return VOWELS.has(ch); }   // numbers no longer auto-shown
+  function isGuessable(ch) { return /^[A-Z0-9]$/.test(ch) && !VOWELS.has(ch); }
+
+  function showModal(id) {
+    document.querySelectorAll(".modal-back").forEach(m => m.classList.remove("show"));
+    $(id).classList.add("show");
+    SFX.whoosh();
+  }
+  function hideAllModals() {
+    document.querySelectorAll(".modal-back").forEach(m => m.classList.remove("show"));
+  }
+
+  function renderBrand(strikes = 0) {
+    const el = $("brandMain");
+    if (el.children.length === BOLLYWOOD.length) {
+      [...el.children].forEach((span, i) => {
+        const isStruck = i < strikes;
+        const wasStruck = span.classList.contains("struck");
+        span.classList.toggle("struck", isStruck);
+        if (isStruck && !wasStruck) {
+          span.classList.add("just-struck");
+          setTimeout(() => span.classList.remove("just-struck"), 900);
+        }
+      });
+      return;
+    }
+    el.innerHTML = "";
+    BOLLYWOOD.forEach((ch, i) => {
+      const span = document.createElement("span");
+      span.className = "brand-letter" + (i < strikes ? " struck" : "");
+      span.textContent = ch;
+      el.appendChild(span);
+    });
+  }
+  renderBrand(0);
+
+  function sanitizeMovie(text) {
+    return text.toUpperCase().replace(/[^A-Z0-9\s]/g, "").replace(/\s+/g, " ").trim();
+  }
+
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+
+  // ========== HUD ==========
+  function updateHud() {
+    const p1 = $("hudP1"), p2 = $("hudP2");
+    p1.querySelector(".pname").textContent = state.p1;
+    p1.querySelector(".pscore").textContent = state.scores.p1;
+    p2.querySelector(".pname").textContent = state.p2;
+    p2.querySelector(".pscore").textContent = state.scores.p2;
+    p1.classList.toggle("active", state.gameActive && state.guesser === "p1");
+    p2.classList.toggle("active", state.gameActive && state.guesser === "p2");
+    $("gameRound").textContent = state.round;
+  }
+  updateHud();
+
+  // ========== STAGE ==========
+  function renderBoard() {
+    const board = $("movieBoard");
+    if (!state.gameActive) {
+      board.innerHTML = `<div class="stage-empty">
+        <svg class="reel" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="26"/>
+          <circle cx="32" cy="32" r="6"/>
+          <circle cx="32" cy="14" r="3" fill="currentColor"/>
+          <circle cx="32" cy="50" r="3" fill="currentColor"/>
+          <circle cx="14" cy="32" r="3" fill="currentColor"/>
+          <circle cx="50" cy="32" r="3" fill="currentColor"/>
+        </svg>
+        Get ready for the show…
+      </div>`;
+      return;
+    }
+    board.innerHTML = "";
+    const words = state.movie.split(" ");
+    words.forEach((word, idx) => {
+      const wg = document.createElement("div");
+      wg.className = "word-group";
+      [...word].forEach(ch => {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        if (isDigit(ch)) {
+          if (state.revealed.has(ch)) {
+            tile.classList.add("number-revealed");
+            tile.textContent = ch;
+          } else {
+            tile.classList.add("number-blank");
+          }
+        } else if (VOWELS.has(ch)) {
+          tile.classList.add("vowel");
+          tile.textContent = ch;
+        } else if (state.revealed.has(ch)) {
+          tile.classList.add("revealed");
+          tile.textContent = ch;
+        } else {
+          tile.textContent = "";
+        }
+        wg.appendChild(tile);
+      });
+      board.appendChild(wg);
+      if (idx < words.length - 1) {
+        const sep = document.createElement("span");
+        sep.className = "word-sep";
+        sep.textContent = "·";
+        board.appendChild(sep);
+      }
+    });
+  }
+  renderBoard();
+
+  function renderTried() {
+    const row = $("triedRow");
+    row.innerHTML = "";
+    [...state.revealed].sort().forEach(ch => {
+      const el = document.createElement("span");
+      el.className = "tried-letter right" + (isDigit(ch) ? " num" : "");
+      el.textContent = ch;
+      row.appendChild(el);
+    });
+    [...state.wrong].sort().forEach(ch => {
+      const el = document.createElement("span");
+      el.className = "tried-letter wrong";
+      el.textContent = ch;
+      row.appendChild(el);
+    });
+  }
+
+  // ========== CLAPPERBOARD ==========
+  function setClapperEnabled(on) { $("clapper").classList.toggle("disabled", !on); }
+  function updateSlate() {
+    $("slateScene").textContent = pad2(state.round);
+    $("slateTake").textContent = pad2(state.take);
+  }
+
+  function snapClapper(letter, kind, helpText) {
+    const clapper = $("clapper");
+    const display = $("letterDisplay");
+    const verdict = $("verdict");
+    const prompt = $("clapperPrompt");
+
+    display.classList.remove("empty", "flash");
+    void display.offsetWidth;
+    display.textContent = letter;
+    display.classList.add("flash");
+
+    verdict.classList.remove("hit", "miss", "show");
+    void verdict.offsetWidth;
+    if (kind === "hit") { verdict.textContent = "✓ HIT!"; verdict.classList.add("hit", "show"); }
+    else if (kind === "miss") { verdict.textContent = "✗ MISS!"; verdict.classList.add("miss", "show"); }
+
+    if (helpText) prompt.textContent = helpText;
+
+    clapper.classList.remove("snap");
+    void clapper.offsetWidth;
+    clapper.classList.add("snap");
+    SFX.snap();
+
+    setTimeout(() => {
+      display.textContent = "";
+      display.classList.add("empty");
+      verdict.classList.remove("show");
+      verdict.textContent = "";
+      prompt.textContent = "Tap to type · or use your keyboard";
+      clapper.classList.remove("snap");
+    }, 1200);
+  }
+
+  $("clapper").addEventListener("click", () => {
+    if (!state.gameActive) return;
+    ensureAudio();
+    $("hiddenInput").focus();
+  });
+
+  $("hiddenInput").addEventListener("input", (e) => {
+    const v = e.target.value;
+    e.target.value = "";
+    if (v && v.length > 0) handleLetterChar(v[v.length - 1]);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!state.gameActive) return;
+    if (document.querySelector(".modal-back.show")) return;
+    if (e.key.length === 1 && /^[a-zA-Z0-9]$/.test(e.key) && document.activeElement !== $("hiddenInput")) {
+      handleLetterChar(e.key);
+    }
+  });
+
+  function shakeBanner() {
+    const b = $("bannerEl");
+    b.classList.remove("shake");
+    void b.offsetWidth;
+    b.classList.add("shake");
+    setTimeout(() => b.classList.remove("shake"), 500);
+  }
+
+  function handleLetterChar(rawCh) {
+    const ch = (rawCh || "").toUpperCase();
+    if (!/^[A-Z0-9]$/.test(ch)) return;
+    ensureAudio();
+
+    if (VOWELS.has(ch)) {
+      snapClapper(ch, null, "Vowels are revealed already!");
+      vibrate(15);
+      return;
+    }
+    if (state.revealed.has(ch) || state.wrong.has(ch)) {
+      snapClapper(ch, null, "Already tried " + ch);
+      vibrate(15);
+      return;
+    }
+
+    state.take++;
+    updateSlate();
+
+    if (state.movie.includes(ch)) {
+      state.revealed.add(ch);
+      snapClapper(ch, "hit");
+      SFX.ding();
+      vibrate(20);
+      sparkleBurst(10);
+      renderBoard(); renderTried();
+      checkAutoWin();
+    } else {
+      state.wrong.add(ch);
+      if (state.strikes < BOLLYWOOD.length) {
+        state.strikes++;
+        renderBrand(state.strikes);
+        shakeBanner();
+      }
+      snapClapper(ch, "miss");
+      SFX.buzz();
+      SFX.stamp();
+      vibrate([40, 30, 40]);
+      renderTried();
+      if (state.strikes >= BOLLYWOOD.length) setTimeout(() => endRound(false), 1000);
+    }
+  }
+
+  function checkAutoWin() {
+    const guessables = [...state.movie].filter(c => c !== " " && isGuessable(c));
+    if (guessables.length === 0 || guessables.every(c => state.revealed.has(c))) {
+      setTimeout(() => endRound(true), 700);
+    }
+  }
+
+  // ========== WELCOME ==========
+  function setStage(stageId) {
+    document.querySelectorAll(".welcome-stage").forEach(s => {
+      if (s.dataset.stage === stageId) {
+        s.classList.add("active");
+        s.classList.remove("exiting");
+      } else s.classList.remove("active");
+    });
+  }
+
+  $("p1Submit").addEventListener("click", () => {
+    ensureAudio();
+    const name = $("p1NameInput").value.trim() || "Player 1";
+    state.p1 = name;
+    $("p1Chip").querySelector("span").textContent = name;
+    SFX.tap(); SFX.chime();
+    vibrate(20);
+    const stage = document.querySelector('.welcome-stage[data-stage="p1"]');
+    stage.classList.add("exiting");
+    setTimeout(() => setStage("p2"), 350);
+    setTimeout(() => $("p2NameInput").focus(), 600);
+  });
+
+  $("p1NameInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); $("p1Submit").click(); }
+  });
+
+  $("p2Submit").addEventListener("click", () => {
+    ensureAudio();
+    const name = $("p2NameInput").value.trim() || "Player 2";
+    state.p2 = name;
+    SFX.tap(); SFX.fanfare();
+    vibrate([30, 50, 30]);
+    state.scores = { p1: 0, p2: 0 };
+    state.roundsPlayed = 0;
+    state.round = 1;
+    state.director = "p1";
+    state.guesser = "p2";
+    updateHud();
+    bigConfetti(20);
+    goToSetMovie();
+  });
+
+  $("p2NameInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); $("p2Submit").click(); }
+  });
+
+  // ========== SET MOVIE ==========
+  function goToSetMovie() {
+    $("setRound").textContent = state.round;
+    $("directorName").textContent = state[state.director];
+    $("movieInput").value = "";
+    $("movieInput").type = "password";
+    $("toggleLabel").textContent = "Show";
+    showModal("setModal");
+    setTimeout(() => $("movieInput").focus(), 250);
+  }
+
+  $("toggleMovie").addEventListener("click", () => {
+    SFX.tap();
+    const inp = $("movieInput");
+    const lbl = $("toggleLabel");
+    if (inp.type === "password") { inp.type = "text"; lbl.textContent = "Hide"; }
+    else { inp.type = "password"; lbl.textContent = "Show"; }
+  });
+
+  $("lockMovie").addEventListener("click", () => {
+    ensureAudio();
+    const m = sanitizeMovie($("movieInput").value);
+    if (m.length < 2) {
+      $("movieInput").focus();
+      $("movieInput").style.borderColor = "var(--pink)";
+      setTimeout(() => $("movieInput").style.borderColor = "", 1200);
+      SFX.buzz();
+      return;
+    }
+    state.movie = m;
+    state.revealed = new Set();
+    state.wrong = new Set();
+    state.strikes = 0;
+    state.take = 1;
+    SFX.tap();
+    goToHandoff();
+  });
+
+  function goToHandoff() {
+    $("guesserName").textContent = state[state.guesser];
+    const hasNumbers = /[0-9]/.test(state.movie);
+    $("numberHintWrap").innerHTML = hasNumbers
+      ? `<div class="number-hint">Heads up · this title has digits 0–9</div>`
+      : "";
+    showModal("handoffModal");
+  }
+
+  $("startRound").addEventListener("click", () => {
+    ensureAudio();
+    state.gameActive = true;
+    renderBrand(0);
+    updateHud();
+    renderBoard();
+    renderTried();
+    updateSlate();
+    setClapperEnabled(true);
+    hideAllModals();
+    SFX.chime();
+    vibrate(30);
+    setTimeout(() => $("hiddenInput").focus(), 250);
+  });
+
+  // ========== END ROUND ==========
+  function endRound(won) {
+    state.gameActive = false;
+    setClapperEnabled(false);
+    const remaining = BOLLYWOOD.length - state.strikes;
+    const points = won ? remaining * 10 : 0;
+    state.scores[state.guesser] += points;
+    state.roundsPlayed++;
+    updateHud();
+
+    if (won) {
+      bigConfetti();
+      SFX.fanfare();
+      vibrate([40, 60, 40, 60, 80]);
+      $("modalTitle").textContent = "SUPERHIT!";
+      $("modalTitle").classList.remove("flop");
+      $("modalSub").textContent = "— The title was —";
+    } else {
+      SFX.sad();
+      vibrate([60, 80, 60]);
+      $("modalTitle").textContent = "FLOP SHOW!";
+      $("modalTitle").classList.add("flop");
+      $("modalSub").textContent = "— The movie was —";
+    }
+    $("modalMovie").textContent = state.movie;
+    $("modalRunning").innerHTML = `
+      <span class="score-pill"><span class="pname">${state.p1}</span> · <span class="pscore">${state.scores.p1}</span></span>
+      <span class="score-pill"><span class="pname">${state.p2}</span> · <span class="pscore">${state.scores.p2}</span></span>
+    `;
+    showModal("roundModal");
+    animateScore(points, $("modalPoints"));
+  }
+
+  function animateScore(target, el) {
+    if (target === 0) { el.textContent = "0"; return; }
+    const start = performance.now();
+    const dur = 800;
+    function step(now) {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(target * eased);
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  $("modalContinue").addEventListener("click", () => {
+    SFX.tap();
+    state.round++;
+    [state.director, state.guesser] = [state.guesser, state.director];
+    goToSetMovie();
+  });
+
+  // ========== NEW GAME ==========
+  $("newGameBtn").addEventListener("click", () => {
+    SFX.tap();
+    const s1 = state.scores.p1, s2 = state.scores.p2;
+    let lead = "Start a fresh game with same players?";
+    if (state.roundsPlayed > 0) {
+      if (s1 > s2) lead = `${state.p1} leads · go again?`;
+      else if (s2 > s1) lead = `${state.p2} leads · go again?`;
+      else lead = `Tied · go again?`;
+    }
+    $("newGameSub").textContent = lead;
+    const top1 = s1 >= s2, top2 = s2 >= s1;
+    $("newGameScores").innerHTML = state.roundsPlayed > 0 ? `
+      <div class="final-score ${top1 ? "top" : ""}">
+        <div class="fs-name">${state.p1}</div>
+        <div class="fs-pts">${s1}</div>
+      </div>
+      <div class="final-score ${top2 ? "top" : ""}">
+        <div class="fs-name">${state.p2}</div>
+        <div class="fs-pts">${s2}</div>
+      </div>
+    ` : "";
+    showModal("newGameModal");
+  });
+
+  $("cancelNewGame").addEventListener("click", () => {
+    SFX.tap();
+    hideAllModals();
+    if (state.gameActive) setTimeout(() => $("hiddenInput").focus(), 100);
+  });
+
+  $("confirmNewGame").addEventListener("click", () => {
+    SFX.tap();
+    state.scores = { p1: 0, p2: 0 };
+    state.roundsPlayed = 0;
+    state.round = 1;
+    state.director = "p1";
+    state.guesser = "p2";
+    state.gameActive = false;
+    state.movie = "";
+    state.revealed = new Set();
+    state.wrong = new Set();
+    state.strikes = 0;
+    renderBrand(0);
+    renderBoard();
+    renderTried();
+    updateHud();
+    setClapperEnabled(false);
+    $("p1NameInput").value = state.p1 === "Player 1" ? "" : state.p1;
+    $("p2NameInput").value = state.p2 === "Player 2" ? "" : state.p2;
+    $("p1Chip").querySelector("span").textContent = state.p1;
+    setStage("p1");
+    showModal("welcomeModal");
+    setTimeout(() => $("p1NameInput").focus(), 300);
+  });
+
+  setTimeout(() => $("p1NameInput").focus(), 400);
+
+  // ========== SPARKLES ==========
+  function sparkleBurst(count = 8) {
+    const layer = $("sparkleLayer");
+    const symbols = ["✦","✧","★","✨","◆"];
+    const colors = ["#f5c542","#e91e63","#f97316","#14a085"];
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("span");
+      s.className = "sparkle";
+      s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      s.style.left = (cx + (Math.random() - .5) * 240) + "px";
+      s.style.top = (cy + (Math.random() - .5) * 120) + "px";
+      s.style.color = colors[Math.floor(Math.random() * colors.length)];
+      s.style.fontSize = (14 + Math.random() * 10) + "px";
+      layer.appendChild(s);
+      setTimeout(() => s.remove(), 1500);
+    }
+  }
+
+  function bigConfetti(count = 50) {
+    const layer = $("sparkleLayer");
+    const symbols = ["✦","✧","★","✨","◆","♪"];
+    const colors = ["#f5c542","#e91e63","#f97316","#14a085","#ffd86b"];
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement("span");
+      s.className = "sparkle";
+      s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      s.style.left = (Math.random() * window.innerWidth) + "px";
+      s.style.top = (Math.random() * window.innerHeight * .7) + "px";
+      s.style.fontSize = (14 + Math.random() * 18) + "px";
+      s.style.color = colors[Math.floor(Math.random() * colors.length)];
+      s.style.animationDuration = (1 + Math.random() * 1.6) + "s";
+      s.style.animationDelay = (Math.random() * .6) + "s";
+      layer.appendChild(s);
+      setTimeout(() => s.remove(), 2800);
+    }
+  }
+
+  // ========== ABOUT MODAL ==========
+  $("aboutToggle").addEventListener("click", () => {
+    SFX.tap();
+    showModal("aboutModal");
+    refreshInstallUI();
+  });
+  $("closeAbout").addEventListener("click", () => {
+    SFX.tap();
+    hideAllModals();
+    if (state.gameActive) setTimeout(() => $("hiddenInput").focus(), 100);
+  });
+
+  // ========== PWA INSTALL ==========
+  let deferredInstallPrompt = null;
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    refreshInstallUI();
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    refreshInstallUI();
+  });
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+  function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+  }
+
+  function refreshInstallUI() {
+    const installSection = $("installSection");
+    const iosHint = $("iosInstallHint");
+    if (!installSection || !iosHint) return;
+
+    if (isStandalone()) {
+      installSection.style.display = "none";
+      iosHint.style.display = "none";
+      return;
+    }
+    if (deferredInstallPrompt) {
+      installSection.style.display = "block";
+      iosHint.style.display = "none";
+    } else if (isIOS()) {
+      installSection.style.display = "none";
+      iosHint.style.display = "block";
+    } else {
+      // Other desktop browsers — show a generic note
+      installSection.style.display = "none";
+      iosHint.style.display = "none";
+    }
+  }
+
+  $("installBtn").addEventListener("click", async () => {
+    SFX.tap();
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    if (outcome === "accepted") {
+      SFX.fanfare();
+      vibrate(40);
+    }
+    deferredInstallPrompt = null;
+    refreshInstallUI();
+  });
+
+  // ========== SERVICE WORKER ==========
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .catch(err => console.warn("SW registration failed:", err));
+    });
+  }
+</script>
+</body>
+</html>
