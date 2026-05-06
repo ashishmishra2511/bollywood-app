@@ -48,9 +48,28 @@
 <meta name="twitter:description" content="A two-player Bollywood-themed movie guessing game." />
 <meta name="twitter:image" content="icons/icon-512.png" />
 
+<!-- ============ ANALYTICS (paste your provider's snippet here) ============
+     For real visitor tracking (countries, devices, page views, referrers), pick one:
+
+     1. CLOUDFLARE WEB ANALYTICS (free, no cookies, no banner needed):
+        Sign up at https://www.cloudflare.com/web-analytics/ and paste:
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+                data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'></script>
+
+     2. GOATCOUNTER (free for personal sites, no cookies):
+        Sign up at https://www.goatcounter.com/ and paste:
+        <script data-goatcounter="https://YOUR_CODE.goatcounter.com/count"
+                async src="//gc.zgo.at/count.js"></script>
+
+     3. PLAUSIBLE (paid $9/mo, polished dashboards, GDPR-friendly):
+        Sign up at https://plausible.io/ and paste:
+        <script defer data-domain="ashishmishra2511.github.io"
+                src="https://plausible.io/js/script.js"></script>
+============================================================== -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Bungee+Inline&family=Bungee&family=Yatra+One&family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee+Shade&family=Bungee+Inline&family=Bungee&family=Yatra+One&family=Outfit:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-1: #fff5e1;
@@ -157,12 +176,12 @@
     transition: transform .1s;
   }
 
-  .banner.shake { animation: bannerShake .45s cubic-bezier(.36, .07, .19, .97); }
+  .banner.shake { animation: bannerShake .55s cubic-bezier(.36, .07, .19, .97); }
   @keyframes bannerShake {
-    10%, 90% { transform: translate(-2px, 0); }
-    20%, 80% { transform: translate(3px, 0); }
-    30%, 50%, 70% { transform: translate(-5px, 0); }
-    40%, 60% { transform: translate(5px, 0); }
+    10%, 90% { transform: translate(-3px, 0); }
+    20%, 80% { transform: translate(5px, 0); }
+    30%, 50%, 70% { transform: translate(-8px, 0); }
+    40%, 60% { transform: translate(8px, 0); }
   }
 
   .banner::before, .banner::after {
@@ -192,11 +211,11 @@
   }
 
   .brand-letter {
-    font-size: clamp(1.9rem, 7.2vw, 4rem);
+    font-size: clamp(2.4rem, 9vw, 5rem);
     background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold-bright) 35%, var(--saffron) 75%, #b91c1c 100%);
     -webkit-background-clip: text; background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 3px 0 rgba(74, 14, 42, .3));
+    filter: drop-shadow(0 4px 0 rgba(74, 14, 42, .35));
     transition: filter .4s;
     position: relative;
     display: inline-block;
@@ -207,19 +226,19 @@
   .brand-letter::before {
     content: "";
     position: absolute;
-    inset: -30%;
-    background: radial-gradient(circle, rgba(255, 23, 68, .8) 0%, rgba(255, 140, 26, .4) 35%, transparent 65%);
+    inset: -45%;
+    background: radial-gradient(circle, rgba(255, 23, 68, .95) 0%, rgba(255, 140, 26, .55) 30%, rgba(245, 197, 66, .25) 50%, transparent 70%);
     border-radius: 50%;
     z-index: -1;
     opacity: 0;
     transform: scale(0);
     pointer-events: none;
   }
-  .brand-letter.just-struck::before { animation: powBurst .55s ease-out; }
+  .brand-letter.just-struck::before { animation: powBurst .7s ease-out; }
   @keyframes powBurst {
     0% { opacity: 0; transform: scale(0); }
-    35% { opacity: 1; transform: scale(1.2); }
-    100% { opacity: 0; transform: scale(2); }
+    25% { opacity: 1; transform: scale(1.4); }
+    100% { opacity: 0; transform: scale(2.4); }
   }
 
   .brand-letter.struck {
@@ -232,42 +251,42 @@
   .brand-letter.struck::after {
     content: "";
     position: absolute;
-    left: -10%; right: -10%;
-    top: 50%; height: 6px;
+    left: -14%; right: -14%;
+    top: 50%; height: 7px;
     background: var(--pink);
     border-radius: 4px;
     transform: translateY(-50%) rotate(-8deg);
-    box-shadow: 0 2px 6px rgba(233, 30, 99, .5);
-    animation: slashSlam .35s cubic-bezier(.34, 1.56, .64, 1) .35s both;
+    box-shadow: 0 2px 8px rgba(233, 30, 99, .6);
+    animation: slashSlam .4s cubic-bezier(.34, 1.56, .64, 1) .35s both;
     z-index: 2;
   }
   @keyframes slashSlam {
     0% {
-      transform: translateY(-50%) rotate(-30deg) scaleX(0);
+      transform: translateY(-50%) rotate(-35deg) scaleX(0);
       background: #ff1744;
-      box-shadow: 0 0 30px #ff1744;
-      height: 9px;
+      box-shadow: 0 0 35px #ff1744, 0 0 70px #ff1744;
+      height: 11px;
     }
     55% {
-      transform: translateY(-50%) rotate(-3deg) scaleX(1.2);
-      height: 8px;
+      transform: translateY(-50%) rotate(-3deg) scaleX(1.25);
+      height: 9px;
     }
     100% {
       transform: translateY(-50%) rotate(-8deg) scaleX(1);
       background: var(--pink);
-      box-shadow: 0 2px 6px rgba(233, 30, 99, .5);
-      height: 6px;
+      box-shadow: 0 2px 8px rgba(233, 30, 99, .6);
+      height: 7px;
     }
   }
 
-  .brand-letter.just-struck { animation: dramaticStrike .85s cubic-bezier(.34, 1.56, .64, 1); z-index: 5; }
+  .brand-letter.just-struck { animation: dramaticStrike 1s cubic-bezier(.34, 1.56, .64, 1); z-index: 5; }
   @keyframes dramaticStrike {
-    0% { transform: scale(1) rotate(0); filter: drop-shadow(0 3px 0 rgba(74, 14, 42, .3)); }
-    12% { transform: scale(1.2) rotate(-10deg); filter: drop-shadow(0 0 12px rgba(255, 45, 112, .9)) brightness(1.4); }
-    28% { transform: scale(1.45) rotate(14deg); filter: drop-shadow(0 0 18px rgba(255, 45, 112, .9)) brightness(1.6); }
-    44% { transform: scale(1.4) rotate(-12deg); filter: drop-shadow(0 0 14px rgba(255, 45, 112, .7)) brightness(1.4); }
-    60% { transform: scale(1.1) rotate(8deg); filter: drop-shadow(0 0 8px rgba(255, 45, 112, .4)) brightness(1.1); }
-    78% { transform: scale(.95) rotate(-3deg); filter: opacity(.6); }
+    0% { transform: scale(1) rotate(0); filter: drop-shadow(0 4px 0 rgba(74, 14, 42, .35)); }
+    10% { transform: scale(1.25) rotate(-12deg); filter: drop-shadow(0 0 16px rgba(255, 45, 112, 1)) brightness(1.5); }
+    25% { transform: scale(1.55) rotate(16deg); filter: drop-shadow(0 0 22px rgba(255, 45, 112, 1)) brightness(1.7) saturate(1.4); }
+    42% { transform: scale(1.5) rotate(-14deg); filter: drop-shadow(0 0 18px rgba(255, 45, 112, .8)) brightness(1.5); }
+    58% { transform: scale(1.18) rotate(10deg); filter: drop-shadow(0 0 12px rgba(255, 45, 112, .5)) brightness(1.2); }
+    74% { transform: scale(.97) rotate(-4deg); filter: opacity(.65); }
     100% { transform: scale(.92) rotate(-3deg); filter: drop-shadow(0 1px 0 rgba(74, 14, 42, .15)) opacity(.4); }
   }
 
@@ -348,16 +367,20 @@
 
   .movie-board {
     display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-    gap: 8px 18px;
+    gap: 8px 14px;
     overflow-y: auto;
-    padding: 6px 4px;
+    padding: 6px 8px;
+    width: 100%;
   }
   .word-group {
     display: flex; gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 6px 8px;
     background: rgba(245, 197, 66, .08);
     border-radius: 10px;
     border: 1px dashed rgba(212, 160, 23, .25);
+    max-width: 100%;
   }
   .word-sep {
     color: var(--gold);
@@ -368,19 +391,82 @@
     user-select: none;
   }
 
+  /* tile sizes scale with density — bigger on mobile */
   .tile {
-    width: clamp(28px, 5.4vw, 42px);
-    height: clamp(38px, 7vw, 52px);
-    border-radius: 8px;
+    width: clamp(34px, 7.5vw, 46px);
+    height: clamp(46px, 9.5vw, 58px);
+    border-radius: 9px;
     display: grid; place-items: center;
     font-family: 'Bungee Inline', cursive;
-    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.7vw, 1.6rem);
     background: var(--surface);
     color: transparent;
     border: 2px solid var(--ink);
     box-shadow: 0 3px 0 var(--ink-shadow);
     transition: all .35s cubic-bezier(.34, 1.56, .64, 1);
     position: relative;
+    flex-shrink: 0;
+  }
+  .movie-board.density-mid .tile {
+    width: clamp(28px, 6vw, 38px);
+    height: clamp(38px, 7.8vw, 48px);
+    font-size: clamp(.95rem, 2.1vw, 1.3rem);
+  }
+  .movie-board.density-high .tile {
+    width: clamp(24px, 5vw, 32px);
+    height: clamp(32px, 6.4vw, 40px);
+    font-size: clamp(.8rem, 1.8vw, 1.1rem);
+    border-radius: 6px;
+  }
+  .movie-board.density-mid .word-group { padding: 5px 6px; gap: 4px; }
+  .movie-board.density-high .word-group { padding: 4px 5px; gap: 3px; }
+  .movie-board.density-mid { gap: 6px 10px; }
+  .movie-board.density-high { gap: 5px 8px; }
+
+  /* Dramatic pop animation for newly-revealed tiles */
+  .tile.just-revealed {
+    animation: tilePop .8s cubic-bezier(.34, 1.56, .64, 1);
+    z-index: 5;
+  }
+  @keyframes tilePop {
+    0%   { transform: scale(.4) translateY(0) rotate(-15deg); }
+    25%  { transform: scale(1.6) translateY(-14px) rotate(10deg); box-shadow: 0 8px 0 var(--mint-deep), 0 0 28px var(--mint), 0 0 60px rgba(20, 160, 133, .6); }
+    50%  { transform: scale(1.2) translateY(-6px) rotate(-4deg); }
+    72%  { transform: scale(.95) translateY(0) rotate(2deg); }
+    100% { transform: scale(1) translateY(0) rotate(0); }
+  }
+  .tile.number-revealed.just-revealed {
+    animation: tilePopGold .8s cubic-bezier(.34, 1.56, .64, 1);
+  }
+  @keyframes tilePopGold {
+    0%   { transform: scale(.4) rotate(-15deg); }
+    25%  { transform: scale(1.6) translateY(-14px) rotate(10deg); box-shadow: 0 8px 0 var(--gold-deep), 0 0 28px var(--gold-bright), 0 0 60px rgba(245, 197, 66, .6); }
+    50%  { transform: scale(1.2) translateY(-6px) rotate(-4deg); }
+    72%  { transform: scale(.95) translateY(0) rotate(2deg); }
+    100% { transform: scale(1) translateY(0) rotate(0); }
+  }
+  /* Indicator arrow drop above just-revealed tile */
+  .tile.just-revealed::before {
+    content: "▼";
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--mint);
+    font-size: .85rem;
+    animation: dropIndicator .7s ease-out;
+    pointer-events: none;
+    text-shadow: 0 0 6px var(--mint);
+  }
+  .tile.number-revealed.just-revealed::before {
+    color: var(--gold-bright);
+    text-shadow: 0 0 6px var(--gold-bright);
+  }
+  @keyframes dropIndicator {
+    0% { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+    30% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-50%) translateY(4px); }
   }
   .tile.vowel {
     background: linear-gradient(180deg, var(--gold-bright), var(--gold));
@@ -439,167 +525,153 @@
     to { transform: rotate(360deg); }
   }
 
-  /* ============ INPUT ZONE — CLAPPERBOARD ============ */
+  /* ============ INPUT ZONE — SLATE FEEDBACK + ON-SCREEN KEYBOARD ============ */
   .input-zone {
     flex-shrink: 0;
     text-align: center;
   }
 
-  .clapper {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
+  /* ============ LETTER FLASH (center-page letter feedback) ============ */
+  .letter-flash {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-family: 'Bungee Shade', 'Bungee', cursive;
+    font-size: clamp(7rem, 22vw, 12rem);
+    line-height: 1;
+    color: var(--gold-bright);
+    text-shadow:
+      0 4px 0 var(--ink),
+      0 8px 0 var(--ink-shadow),
+      0 14px 38px rgba(0, 0, 0, .5);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform, opacity;
+    user-select: none;
+  }
+  .letter-flash.show {
+    animation: letterFlashAnim .75s cubic-bezier(.34, 1.56, .64, 1) forwards;
+  }
+  .letter-flash.hit  { color: #6dd9c1; text-shadow: 0 4px 0 var(--ink), 0 8px 0 #1a3d33, 0 14px 38px rgba(52, 196, 166, .5); }
+  .letter-flash.miss { color: #ff7799; text-shadow: 0 4px 0 var(--ink), 0 8px 0 #5a0c2a, 0 14px 38px rgba(255, 119, 153, .55); }
+  @keyframes letterFlashAnim {
+    0%   { transform: translate(-50%, -50%) scale(0.25) rotate(-12deg); opacity: 0; }
+    20%  { transform: translate(-50%, -50%) scale(1.5) rotate(6deg); opacity: 1; }
+    55%  { transform: translate(-50%, -50%) scale(1.15) rotate(0deg); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2) rotate(0deg); opacity: 0; }
+  }
+
+  /* Keyboard */
+  .keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 4px;
     margin: 0 auto;
+    max-width: 480px;
+    width: 100%;
+  }
+  .keyboard-row {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  .key {
+    flex: 1 1 0;
+    max-width: 40px;
+    min-width: 0;
+    height: clamp(36px, 7vw, 48px);
+    padding: 0;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Bungee Inline', cursive;
+    font-size: clamp(.85rem, 2.6vw, 1.05rem);
     cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 3px 0 var(--ink-shadow);
+    transition: transform .12s, box-shadow .12s, background .25s;
+    -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
-  }
-
-  .clapper-top {
-    height: 30px;
-    background: repeating-linear-gradient(115deg,
-      #1a0510 0 14px,
-      #fff5d6 14px 28px);
-    border-radius: 8px 8px 0 0;
-    border: 3px solid var(--ink);
-    border-bottom: none;
-    transform-origin: bottom left;
-    transform: rotate(-14deg);
-    transition: transform .15s;
-    margin-bottom: -1px;
     position: relative;
-    z-index: 2;
-    box-shadow: 0 -4px 14px rgba(74, 14, 42, .15);
   }
-  .clapper.snap .clapper-top { animation: snapShut 1s cubic-bezier(.34, 1.56, .64, 1); }
-  @keyframes snapShut {
-    0% { transform: rotate(-14deg); }
-    18% { transform: rotate(3deg); }
-    28% { transform: rotate(-3deg); }
-    40% { transform: rotate(1deg); }
-    50% { transform: rotate(0deg); }
-    85% { transform: rotate(0deg); }
-    100% { transform: rotate(-14deg); }
+  .key:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 var(--ink-shadow);
   }
-  .clapper.snap .clapper-body { animation: clapperShake .35s ease-out .3s; }
-  @keyframes clapperShake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    50% { transform: translateX(3px); }
-    75% { transform: translateX(-1px); }
+  .key.vowel {
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color: var(--ink);
+    opacity: .55;
+    box-shadow: 0 3px 0 var(--gold-deep);
+    cursor: default;
   }
-
-  .clapper-body {
-    background: linear-gradient(180deg, #2a0816, #1a0510);
-    border: 3px solid var(--ink);
-    border-radius: 0 0 14px 14px;
-    padding: 14px 18px 16px;
-    color: var(--gold-light);
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 5px 0 var(--ink), 0 8px 24px rgba(74, 14, 42, .25);
+  .key.right {
+    background: linear-gradient(180deg, #34c4a6, var(--mint));
+    color: var(--surface);
+    box-shadow: 0 3px 0 var(--mint-deep);
+    cursor: default;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
   }
-
-  .slate-info {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Outfit', sans-serif;
-    font-size: .65rem;
-    letter-spacing: .25em;
-    color: var(--gold-light);
-    opacity: .7;
-    margin-bottom: 2px;
-    text-transform: uppercase;
+  .key.right.num {
+    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color: var(--ink);
+    box-shadow: 0 3px 0 var(--gold-deep);
+    text-shadow: none;
   }
-  .slate-info strong { color: var(--gold-bright); font-weight: 700; letter-spacing: .15em; }
-
-  .letter-display {
-    font-family: 'Bungee Inline', cursive;
-    font-size: clamp(2.6rem, 8vw, 3.6rem);
-    background: linear-gradient(180deg, var(--gold-light), var(--gold-bright), var(--saffron));
-    -webkit-background-clip: text; background-clip: text;
-    color: transparent;
-    height: clamp(58px, 11vw, 78px);
-    display: grid; place-items: center;
-    text-shadow: 0 0 30px rgba(245, 197, 66, .3);
-    transition: all .3s;
-  }
-  .letter-display.flash { animation: letterPunch .8s ease-out; }
-  @keyframes letterPunch {
-    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-    40% { transform: scale(1.4) rotate(8deg); opacity: 1; }
-    65% { transform: scale(.95) rotate(-2deg); }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-  }
-  .letter-display.empty::before {
-    content: "?";
-    background: linear-gradient(180deg, rgba(255, 216, 107, .3), rgba(245, 197, 66, .15));
-    -webkit-background-clip: text; background-clip: text;
-    animation: pulseHint 2s ease-in-out infinite;
-  }
-  @keyframes pulseHint {
-    0%, 100% { opacity: .3; }
-    50% { opacity: .7; }
-  }
-
-  .verdict {
-    font-family: 'Bungee', cursive;
-    font-size: .95rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    height: 22px;
-    margin-top: 2px;
-    opacity: 0;
-    transition: opacity .2s;
-  }
-  .verdict.show { opacity: 1; animation: verdictIn .4s ease-out; }
-  .verdict.hit { color: #34c4a6; text-shadow: 0 0 12px var(--mint); }
-  .verdict.miss { color: var(--pink); text-shadow: 0 0 12px var(--pink); }
-  @keyframes verdictIn {
-    from { transform: translateY(8px) scale(.7); }
-    to { transform: translateY(0) scale(1); }
-  }
-
-  .clapper-prompt {
-    font-family: 'Caveat', cursive;
-    font-weight: 700;
-    color: var(--gold-light);
-    font-size: .95rem;
-    margin-top: 4px;
-    opacity: .7;
-  }
-
-  .hidden-input {
-    position: absolute;
-    opacity: 0;
-    width: 1px; height: 1px;
-    pointer-events: none;
-  }
-
-  .clapper.disabled { opacity: .55; pointer-events: none; }
-
-  /* tried letters */
-  .tried {
-    margin-top: 10px;
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 5px; min-height: 26px;
-  }
-  .tried-letter {
-    width: 24px; height: 24px;
-    border-radius: 5px;
-    display: grid; place-items: center;
-    font-size: .75rem; font-weight: 700;
-    border: 2px solid var(--ink);
-  }
-  .tried-letter.right { background: var(--mint); color: var(--surface); }
-  .tried-letter.right.num { background: var(--gold); color: var(--ink); }
-  .tried-letter.wrong {
-    background: var(--surface-2); color: var(--ink-mute);
-    text-decoration: line-through; text-decoration-color: var(--pink);
+  .key.wrong {
+    background: var(--surface-2);
+    color: var(--ink-mute);
+    text-decoration: line-through;
+    text-decoration-color: var(--pink);
     text-decoration-thickness: 2px;
+    opacity: .55;
+    cursor: default;
+    box-shadow: 0 3px 0 rgba(74, 14, 42, .2);
+  }
+  .key:disabled { pointer-events: none; }
+  .key.just-revealed { animation: keyHit .55s ease-out; }
+  @keyframes keyHit {
+    0% { transform: scale(1); }
+    35% { transform: scale(1.25); box-shadow: 0 0 16px var(--mint), 0 3px 0 var(--mint-deep); }
+    100% { transform: scale(1); }
+  }
+  .key.just-wrong { animation: keyMiss .5s ease-out; }
+  @keyframes keyMiss {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); background: rgba(233, 30, 99, .35); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+  .keyboard.disabled { opacity: .5; pointer-events: none; }
+  .keyboard-row.digits .key {
+    max-width: 34px;
+    font-size: clamp(.8rem, 2.4vw, 1rem);
+    height: clamp(32px, 6vw, 42px);
+  }
+  .keyboard-row.row-1 { padding: 0 4%; }
+  .keyboard-row.row-2 { padding: 0 8%; }
+  .keyboard-row.digits { margin-top: 2px; }
+
+  /* Hidden physical-input fallback (off-screen) */
+  .kb-hidden-input {
+    position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px;
   }
 
-  .input-zone .btn-row { margin-top: 12px; }
+  /* tried letters (kept invisible since the keyboard now shows state) */
+  .tried { display: none; }
+
+  .input-zone .btn-row { margin-top: 10px; }
+
+  /* Secret movie input — never reveals the typed letter (no peek) */
+  .input.movie-secret { -webkit-text-security: disc; text-security: disc; }
+  .input.movie-secret.revealed { -webkit-text-security: none; text-security: none; }
 
   /* ============ CARTOON BUTTONS ============ */
   .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -948,12 +1020,183 @@
   @media (max-height: 700px) {
     .banner { padding: 12px 12px 10px; }
     .stage { padding: 10px 10px; }
-    .clapper-body { padding: 10px 14px 12px; }
-    .letter-display { height: 56px; font-size: 2.4rem; }
+    .key { height: clamp(34px, 6vw, 44px); }
     .welcome-modal { padding: 22px 18px; min-height: 340px; }
   }
+  @media (max-width: 360px) {
+    .key { max-width: 34px; font-size: .8rem; }
+    .keyboard-row.row-1 { padding: 0 2%; }
+    .keyboard-row.row-2 { padding: 0 5%; }
+  }
 
-  /* ============ ABOUT MODAL ============ */
+  /* ============ ADMIT-BADGE TICKET TILES (cartoon cinema theme) ============ */
+  /* Used for mode tiles, timer tiles, and genre tiles — same shape, different sizes/content */
+  .ticket-tile {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform .18s cubic-bezier(.34, 1.56, .64, 1), filter .18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ticket-tile svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .ticket-tile:hover { transform: translateY(-3px); }
+  .ticket-tile:active { transform: translateY(2px); }
+  .ticket-tile:focus-visible { outline: 3px dashed var(--gold); outline-offset: 4px; border-radius: 12px; }
+
+  /* Slab classes for SVG text — Alfa Slab One with fallbacks */
+  .slab { font-family: 'Alfa Slab One', 'Roboto Slab', 'Rockwell', Georgia, serif; font-weight: 400; }
+
+  /* ============ MODE PICKER (HOME) ============ */
+  .mode-modal { padding: 26px 18px 18px; max-width: 720px; }
+  .mode-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    margin: 28px 0 14px;
+  }
+  @media (min-width: 580px) {
+    .mode-tiles { flex-direction: row; gap: 18px; }
+  }
+
+  /* Counter chip on home */
+  .counter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: var(--surface-2);
+    border: 2px dashed var(--gold);
+    font-family: 'Outfit', sans-serif;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .counter-chip strong {
+    font-family: 'Bungee Inline', cursive;
+    color: var(--ink);
+    font-size: .95rem;
+  }
+  .counter-chip.loading { opacity: .6; }
+
+  /* ============ TIMER CHOICE PICKER ============ */
+  .timer-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0 6px;
+  }
+  @media (min-width: 480px) {
+    .timer-tiles { flex-direction: row; gap: 14px; }
+  }
+
+  /* ============ GENRE PICKER ============ */
+  .genre-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 12px;
+    margin: 22px 0 6px;
+  }
+  @media (min-width: 480px) {
+    .genre-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .ticket-tile.genre {
+    /* genre tickets are smaller versions of the same shape */
+  }
+  .ticket-tile.genre.surprise {
+    grid-column: 1 / -1;
+  }
+  .genre-mode-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 4px;
+    padding: 4px 12px;
+    background: var(--ink);
+    color: var(--gold-light);
+    border-radius: 30px;
+    font-size: .65rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Solo welcome variant */
+  .solo-welcome { padding: 28px 22px; min-height: 360px; }
+  .solo-context-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--ink);
+    color: var(--gold-light);
+    border-radius: 30px;
+    font-family: 'Yatra One', cursive;
+    font-size: .85rem;
+    border: 2px solid var(--gold);
+    margin-bottom: 10px;
+  }
+
+  /* ============ TIMER BAR ============ */
+  .timer-pill {
+    padding: 6px 12px;
+    border-radius: 30px;
+    background: var(--mint);
+    color: var(--surface);
+    font-size: .85rem;
+    font-weight: 800;
+    border: 2px solid var(--ink);
+    box-shadow: 0 2px 0 var(--ink-shadow);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .35s, color .35s, transform .15s;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: .01em;
+    min-width: 64px;
+    justify-content: center;
+  }
+  .timer-pill svg { stroke: currentColor; }
+  .timer-pill.warn { background: var(--gold-bright); color: var(--ink); }
+  .timer-pill.danger {
+    background: var(--pink);
+    color: var(--surface);
+    animation: timerPulse .55s ease-in-out infinite;
+  }
+  @keyframes timerPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 2px 0 var(--ink-shadow); }
+    50% { transform: scale(1.07); box-shadow: 0 2px 0 var(--ink-shadow), 0 0 14px var(--pink); }
+  }
+  .timer-pill.hidden { display: none; }
+
+  .timer-bar-wrap {
+    height: 5px;
+    margin-top: 8px;
+    background: rgba(74, 14, 42, .12);
+    border-radius: 3px;
+    overflow: hidden;
+    display: none;
+  }
+  .timer-bar-wrap.active { display: block; }
+  .timer-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--mint), #34c4a6);
+    width: 100%;
+    transition: width 1s linear, background .35s;
+    border-radius: 3px;
+  }
+  .timer-bar.warn { background: linear-gradient(90deg, var(--gold-bright), var(--saffron)); }
+  .timer-bar.danger { background: linear-gradient(90deg, var(--pink), #ff1744); }
+
+  /* ============ ABOUT modal additions ============ */
   .about-modal { padding: 26px 22px 22px; }
   .about-logo {
     margin: 0 auto 8px;
@@ -1016,9 +1259,55 @@
     border: 2px dashed var(--gold);
     line-height: 1.45;
   }
+  .install-fallback {
+    margin: 10px 0 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: .8rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    padding: 8px 12px;
+    background: rgba(245, 197, 66, .12);
+    border-radius: 8px;
+    border: 1.5px dashed rgba(212, 160, 23, .4);
+    transition: all .25s;
+  }
+  .install-fallback.highlight {
+    background: rgba(245, 197, 66, .3);
+    transform: scale(1.03);
+  }
+  .install-fallback strong { color: var(--ink); }
 </style>
 </head>
 <body>
+
+<!-- ============ TICKET SHAPES & DECORATIONS (reusable) ============ -->
+<svg width="0" height="0" style="position:absolute;visibility:hidden;pointer-events:none" aria-hidden="true">
+  <defs>
+    <!-- Wide ticket: used by mode tiles & timer tiles (620 x 180 viewBox) -->
+    <path id="tk" d="M 8 0 H 612 A 8 8 0 0 1 620 8 V 60 A 30 30 0 0 1 620 120 V 172 A 8 8 0 0 1 612 180 H 8 A 8 8 0 0 1 0 172 V 120 A 30 30 0 0 1 0 60 V 8 A 8 8 0 0 1 8 0 Z"/>
+    <!-- Square ticket: used by genre tiles (320 x 150 viewBox) -->
+    <path id="tkSq" d="M 8 0 H 312 A 8 8 0 0 1 320 8 V 50 A 25 25 0 0 1 320 100 V 142 A 8 8 0 0 1 312 150 H 8 A 8 8 0 0 1 0 142 V 100 A 25 25 0 0 1 0 50 V 8 A 8 8 0 0 1 8 0 Z"/>
+    <!-- Big red star sticker (sits on top of ticket) -->
+    <g id="bigStar">
+      <path d="M0 -14 L3.8 -4.3 L15 -2.2 L6.5 5.4 L9 15 L0 9.7 L-9 15 L-6.5 5.4 L-15 -2.2 L-3.8 -4.3 Z" fill="#e63946" stroke="#1a0510" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+    <!-- Vertical perforation dots for wide ticket -->
+    <g id="perfDots" fill="#4a0e2a">
+      <circle cx="150" cy="22" r="2.5"/>
+      <circle cx="150" cy="40" r="2.5"/>
+      <circle cx="150" cy="58" r="2.5"/>
+      <circle cx="150" cy="76" r="2.5"/>
+      <circle cx="150" cy="94" r="2.5"/>
+      <circle cx="150" cy="112" r="2.5"/>
+      <circle cx="150" cy="130" r="2.5"/>
+      <circle cx="150" cy="148" r="2.5"/>
+      <circle cx="150" cy="166" r="2.5"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- Center-page letter flash (announces chosen letter visually) -->
+<div class="letter-flash" id="letterFlash" aria-live="polite" aria-atomic="true"></div>
 
 <button class="sound-toggle" id="aboutToggle" aria-label="About this app" style="right:60px;">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1046,6 +1335,18 @@
         <div class="score-pill" id="hudP2"><span class="pname">Player 2</span> · <span class="pscore">0</span></div>
       </div>
       <div class="round-pill">Round <span id="gameRound">1</span></div>
+      <div class="timer-pill hidden" id="timerPill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="13" r="8"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="2" x2="12" y2="3"/>
+          <line x1="9" y1="2" x2="15" y2="2"/>
+        </svg>
+        <span id="timerText">45</span><span style="font-size:.75em;opacity:.85;margin-left:1px;">s</span>
+      </div>
+    </div>
+    <div class="timer-bar-wrap" id="timerBarWrap">
+      <div class="timer-bar" id="timerBar"></div>
     </div>
   </header>
 
@@ -1067,19 +1368,8 @@
   </main>
 
   <section class="input-zone">
-    <div class="clapper disabled" id="clapper">
-      <div class="clapper-top"></div>
-      <div class="clapper-body">
-        <div class="slate-info">
-          <span>SCENE <strong id="slateScene">01</strong></span>
-          <span>TAKE <strong id="slateTake">01</strong></span>
-        </div>
-        <div class="letter-display empty" id="letterDisplay"></div>
-        <div class="verdict" id="verdict"></div>
-        <div class="clapper-prompt" id="clapperPrompt">Tap to type · or use your keyboard</div>
-      </div>
-      <input type="text" class="hidden-input" id="hiddenInput" maxlength="1" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
-    </div>
+    <div class="keyboard disabled" id="keyboard"></div>
+    <input class="kb-hidden-input" id="kbHiddenInput" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
 
     <div class="tried" id="triedRow"></div>
 
@@ -1098,8 +1388,145 @@
 
 </div>
 
+<!-- ============ MODAL: HOME / MODE PICKER ============ -->
+<div class="modal-back show" id="modeModal">
+  <div class="modal mode-modal">
+    <div class="about-logo" style="margin-bottom: 4px;">
+      <svg viewBox="0 0 100 100" width="56" height="56">
+        <rect x="6" y="22" width="88" height="68" rx="10" fill="#4a0e2a"/>
+        <g transform="rotate(-12 14 18)">
+          <rect x="2" y="10" width="92" height="18" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
+          <rect x="10" y="13" width="14" height="12" fill="#fff5d6"/>
+          <rect x="38" y="13" width="14" height="12" fill="#fff5d6"/>
+          <rect x="66" y="13" width="14" height="12" fill="#fff5d6"/>
+        </g>
+        <text x="50" y="68" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="900" font-size="34" fill="#f5c542">B</text>
+      </svg>
+    </div>
+    <h2 class="modal-title">Bollywood</h2>
+
+    <div class="mode-tiles">
+      <button class="ticket-tile mode-tile" type="button" data-mode="solo" aria-label="Solo mode">
+        <svg viewBox="-15 -22 650 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tk" fill="#1a0510" opacity="0.22" transform="translate(0 5)"/>
+          <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+          <use href="#bigStar" transform="translate(310 -3)"/>
+          <use href="#perfDots"/>
+          <text class="slab" x="75" y="74" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">ADMIT</text>
+          <text class="slab" x="75" y="102" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">ONE</text>
+          <text class="slab" x="385" y="124" text-anchor="middle" font-size="92" fill="#4a0e2a" letter-spacing="2">SOLO</text>
+        </svg>
+      </button>
+
+      <button class="ticket-tile mode-tile" type="button" data-mode="duo" aria-label="Pass and Play mode">
+        <svg viewBox="-30 -28 690 230" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- Back ticket -->
+          <g transform="rotate(-7 310 90)">
+            <use href="#tk" fill="#1a0510" opacity="0.16" transform="translate(0 5)"/>
+            <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+            <use href="#perfDots"/>
+            <text class="slab" x="75" y="74" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">ADMIT</text>
+            <text class="slab" x="75" y="102" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">TWO</text>
+            <text class="slab" x="385" y="80" text-anchor="middle" font-size="40" fill="#4a0e2a" letter-spacing="2">PASS &amp;</text>
+            <text class="slab" x="385" y="132" text-anchor="middle" font-size="40" fill="#4a0e2a" letter-spacing="2">PLAY</text>
+          </g>
+          <!-- Front ticket -->
+          <g transform="rotate(2 310 90)">
+            <use href="#tk" fill="#1a0510" opacity="0.22" transform="translate(0 5)"/>
+            <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+            <use href="#bigStar" transform="translate(310 -3)"/>
+            <use href="#perfDots"/>
+            <text class="slab" x="75" y="74" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">ADMIT</text>
+            <text class="slab" x="75" y="102" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">TWO</text>
+            <text class="slab" x="385" y="80" text-anchor="middle" font-size="40" fill="#4a0e2a" letter-spacing="2">PASS &amp;</text>
+            <text class="slab" x="385" y="132" text-anchor="middle" font-size="40" fill="#4a0e2a" letter-spacing="2">PLAY</text>
+          </g>
+        </svg>
+      </button>
+    </div>
+
+    <div class="counter-chip loading" id="counterChip">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <strong id="counterValue">…</strong> movies guessed worldwide
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: TIMER CHOICE ============ -->
+<div class="modal-back" id="timerChoiceModal">
+  <div class="modal">
+    <h2 class="modal-title">Pick the Pace</h2>
+
+    <div class="timer-tiles">
+      <button class="ticket-tile" type="button" data-timer="on" aria-label="Time Attack mode, 45 seconds">
+        <svg viewBox="-10 -15 640 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tk" fill="#1a0510" opacity="0.2" transform="translate(0 5)"/>
+          <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+          <use href="#perfDots"/>
+          <text class="slab" x="75" y="74" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">TIME</text>
+          <text class="slab" x="75" y="102" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">ATTACK</text>
+          <text class="slab" x="385" y="100" text-anchor="middle" font-size="68" fill="#4a0e2a" letter-spacing="1">45s</text>
+        </svg>
+      </button>
+
+      <button class="ticket-tile" type="button" data-timer="off" aria-label="Take Your Time, no timer">
+        <svg viewBox="-10 -15 640 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tk" fill="#1a0510" opacity="0.2" transform="translate(0 5)"/>
+          <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+          <use href="#perfDots"/>
+          <text class="slab" x="75" y="74" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">TAKE</text>
+          <text class="slab" x="75" y="102" text-anchor="middle" font-size="22" fill="#4a0e2a" letter-spacing="1.5">YOUR TIME</text>
+          <text class="slab" x="385" y="108" text-anchor="middle" font-size="56" fill="#4a0e2a" letter-spacing="1">CHILL</text>
+        </svg>
+      </button>
+    </div>
+
+    <div class="btn-row" style="margin-top: 14px;">
+      <button class="btn btn-ghost btn-sm" id="timerBack">Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: GENRE PICKER ============ -->
+<div class="modal-back" id="genreModal">
+  <div class="modal">
+    <span class="genre-mode-tag" id="genreModeTag">Solo</span>
+    <h2 class="modal-title">Pick a Genre</h2>
+    <div class="genre-grid" id="genreGrid"></div>
+    <div class="btn-row" style="margin-top: 14px;">
+      <button class="btn btn-ghost btn-sm" id="genreBack">Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: SOLO WELCOME (single name) ============ -->
+<div class="modal-back" id="soloIntroModal">
+  <div class="modal solo-welcome">
+    <div class="solo-context-chip" id="soloContextChip">Solo · Surprise Me</div>
+    <div class="mascot">
+      <svg viewBox="0 0 100 100" width="78" height="78">
+        <rect x="10" y="38" width="80" height="50" rx="6" fill="#4a0e2a"/>
+        <line x1="20" y1="58" x2="80" y2="58" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>
+        <line x1="20" y1="68" x2="60" y2="68" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+        <line x1="20" y1="78" x2="70" y2="78" stroke="#ffd86b" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+        <g transform="rotate(-12 14 30)">
+          <rect x="6" y="22" width="84" height="16" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
+          <rect x="14" y="25" width="14" height="11" fill="#fff5d6"/>
+          <rect x="42" y="25" width="14" height="11" fill="#fff5d6"/>
+          <rect x="70" y="25" width="14" height="11" fill="#fff5d6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="speech-bubble">What's your name, rockstar?</div>
+    <input class="giant-input" id="soloNameInput" placeholder="Your name…" maxlength="18" />
+    <button class="btn btn-primary btn-giant" id="soloStart">Lights · Camera · Go!</button>
+  </div>
+</div>
+
 <!-- ============ MODAL: WELCOME (sequential names) ============ -->
-<div class="modal-back show" id="welcomeModal">
+<div class="modal-back" id="welcomeModal">
   <div class="modal welcome-modal">
 
     <!-- Stage 1: Player 1 -->
@@ -1118,7 +1545,7 @@
           </g>
         </svg>
       </div>
-      <div class="speech-bubble">First up… what's your name, hero?</div>
+      <div class="speech-bubble">First up… what's your name, rockstar?</div>
       <input class="giant-input" id="p1NameInput" placeholder="Player 1 name…" maxlength="18" />
       <button class="btn btn-primary btn-giant" id="p1Submit">Cue Player 2</button>
       <div class="progress-dots">
@@ -1157,7 +1584,7 @@
     <div class="field">
       <label class="field-label">Movie Title</label>
       <div class="input-with-toggle">
-        <input class="input" id="movieInput" type="password" placeholder="e.g. SHOLAY or 3 IDIOTS"
+        <input class="input movie-secret" id="movieInput" type="text" placeholder="e.g. SHOLAY or 3 IDIOTS"
                autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" />
         <button class="input-toggle" id="toggleMovie" type="button">
           <svg id="iconEye" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1205,7 +1632,14 @@
     <div class="modal-points-label">Points Earned</div>
     <div class="modal-points" id="modalPoints">0</div>
     <div class="modal-running" id="modalRunning"></div>
-    <div class="btn-row" style="margin-top:18px;">
+    <div class="btn-row" style="margin-top:18px; gap:10px; flex-wrap:wrap; justify-content:center;">
+      <button class="btn btn-ghost btn-sm" id="modalHome" aria-label="Back to home">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Home
+      </button>
       <button class="btn btn-primary btn-giant" id="modalContinue">Next Round</button>
     </div>
   </div>
@@ -1256,8 +1690,12 @@
         <span class="about-value">2 · pass &amp; play</span>
       </div>
       <div class="about-row">
+        <span class="about-label">Your plays</span>
+        <span class="about-value" id="aboutLocalPlays">0</span>
+      </div>
+      <div class="about-row">
         <span class="about-label">License</span>
-        <span class="about-value">MIT · © 2025</span>
+        <span class="about-value">MIT · © 2026</span>
       </div>
     </div>
 
@@ -1270,6 +1708,9 @@
         </svg>
         Install on this device
       </button>
+      <p id="installFallback" class="install-fallback">
+        Don't see the prompt? Open your browser menu and tap <strong>Install app</strong> or <strong>Add to Home Screen</strong>.
+      </p>
     </div>
 
     <div id="iosInstallHint" style="display:none; margin: 10px 0;">
@@ -1366,10 +1807,426 @@
     wrong: new Set(),
     strikes: 0,
     take: 1,
-    gameActive: false
+    gameActive: false,
+    // New: mode + solo + timer
+    mode: null,           // 'solo' | 'timeattack' | 'duo'
+    isSolo: false,
+    soloName: "Player",
+    soloScore: 0,
+    selectedGenre: null,  // string genre or null = surprise
+    usedMovies: new Set(),
+    timerEnabled: false,
+    timerSeconds: 90,
+    timerInterval: null,
+    timerTotal: 45    // total seconds for current timer mode
   };
 
+  // Helper used throughout — declared early so all code below can use it.
   const $ = (id) => document.getElementById(id);
+
+  // ============ MOVIE LIST (curated, 500+ Bollywood titles) ============
+  // All titles will be uppercased & sanitized automatically (punctuation stripped).
+  // Add more by editing the arrays.
+  const MOVIES_BY_GENRE = {
+    "Classic": [
+      "SHOLAY", "DEEWAR", "ZANJEER", "AMAR AKBAR ANTHONY", "MUGHAL E AZAM",
+      "MOTHER INDIA", "ARADHANA", "CHUPKE CHUPKE", "KABHI KABHIE", "KARZ",
+      "AANDHI", "AWAARA", "PYAASA", "NAYA DAUR", "MADHUMATI",
+      "GUIDE", "SANGAM", "ANARI", "ANAND", "BOBBY",
+      "PAKEEZAH", "MERA NAAM JOKER", "DON", "TRISHUL", "NASEEB",
+      "COOLIE", "KASHMIR KI KALI", "KATI PATANG", "MUQADDAR KA SIKANDAR", "SUHAAG",
+      "AGNEEPATH", "RAM LAKHAN", "MAINE PYAR KIYA", "QAYAMAT SE QAYAMAT TAK", "TEZAAB",
+      "DIL", "AASHIQUI", "SAAJAN", "DARR", "TRIDEV",
+      "MR INDIA", "ANDAZ", "BORDER", "KARMA", "KHALNAYAK",
+      "DAMINI", "RAJA HINDUSTANI", "ROJA", "DIL SE", "BOMBAY",
+      "RANGEELA", "SATYA", "VAASTAV", "GHULAM", "JEET",
+      "BAAZIGAR", "KARAN ARJUN", "DIWANA", "LAMHE", "CHANDNI",
+      "HERO", "NAGINA", "JEWEL THIEF", "JOHNY MERA NAAM", "GOLMAAL",
+      "KHATTA MEETHA", "NAMAK HALAAL", "DOSTANA", "HUM", "SAUDAGAR",
+      "DILWALE", "HUM AAPKE HAIN KOUN", "RAJA", "DIL TO PAGAL HAI", "KOYLA",
+      "PARDES", "BAADSHAH", "MOHRA", "KRANTIVEER"
+    ],
+    "Romance": [
+      "DILWALE DULHANIA LE JAYENGE", "KUCH KUCH HOTA HAI", "VEER ZAARA", "JAB WE MET", "YEH JAWAANI HAI DEEWANI",
+      "AASHIQUI 2", "BARFI", "KAL HO NAA HO", "JODHAA AKBAR", "KABHI KHUSHI KABHIE GHAM",
+      "MOHABBATEIN", "SAATHIYA", "HUM TUM", "SALAAM NAMASTE", "BUNTY AUR BABLI",
+      "FANAA", "TUM BIN", "DHADAK", "EK THA TIGER", "JAB TAK HAI JAAN",
+      "ZINDAGI NA MILEGI DOBARA", "TAMASHA", "ROCKSTAR", "HIGHWAY", "AE DIL HAI MUSHKIL",
+      "HUM HAIN RAHI PYAR KE", "JAANE TU YA JAANE NA", "BACHNA AE HASEENO", "WAKE UP SID", "BREAK KE BAAD",
+      "LOVE AAJ KAL", "BEFIKRE", "MANMARZIYAAN", "DEAR ZINDAGI", "TU JHOOTHI MAIN MAKKAAR",
+      "SOCHA NA THA", "PYAAR KE SIDE EFFECTS", "SAAWARIYA", "GUZAARISH", "HUM DIL DE CHUKE SANAM",
+      "DEVDAS", "HUM SAATH SAATH HAIN", "KAHO NAA PYAAR HAI", "MUJHSE DOSTI KAROGE", "ISHQ VISHK",
+      "HUM TUMHARE HAIN SANAM", "KYA KEHNA", "KABHI HAAN KABHI NAA", "RAB NE BANA DI JODI", "KISMAT KONNECTION",
+      "AISHA", "DULHA MIL GAYA", "MAIN HOON NA", "OM SHANTI OM", "EK MAIN AUR EKK TU",
+      "HASEE TOH PHASEE", "HAMARI ADHURI KAHANI", "FITOOR", "OK JAANU", "HALF GIRLFRIEND",
+      "BADRINATH KI DULHANIA", "SHUDDH DESI ROMANCE", "RAANJHANAA", "TANU WEDS MANU", "TANU WEDS MANU RETURNS",
+      "KEDARNATH", "SHIDDAT", "HUMPTY SHARMA KI DULHANIA", "MERI PYAARI BINDU", "KAPOOR AND SONS",
+      "EK VILLAIN", "STUDENT OF THE YEAR", "STUDENT OF THE YEAR 2", "2 STATES", "DIL DHADAKNE DO",
+      "JAANEMAN", "KISMAT", "AAJA NACHLE", "HUM TUM AUR GHOST"
+    ],
+    "Comedy": [
+      "3 IDIOTS", "HERA PHERI", "ANDAZ APNA APNA", "MUNNA BHAI MBBS", "DHAMAAL",
+      "WELCOME", "HOUSEFULL", "GOLMAAL RETURNS", "BHOOL BHULAIYAA", "PHIR HERA PHERI",
+      "BHEJA FRY", "CHASHME BUDDOOR", "GARAM MASALA", "NO ENTRY", "DHOL",
+      "PARTNER", "BHAGAM BHAG", "LAGE RAHO MUNNA BHAI", "SINGH IS KING", "AWARA PAGAL DEEWANA",
+      "HUNGAMA", "PYAAR KA PUNCHNAMA", "STREE", "BAREILLY KI BARFI", "SHUBH MANGAL SAAVDHAN",
+      "TOILET EK PREM KATHA", "PADMAN", "BALA", "DREAM GIRL", "JUGJUGG JEEYO",
+      "DE DANA DAN", "WELCOME BACK", "TOTAL DHAMAAL", "HOUSEFULL 2", "HOUSEFULL 3",
+      "HOUSEFULL 4", "MASTI", "GRAND MASTI", "GREAT GRAND MASTI", "DULHE RAJA",
+      "JOLLY LLB", "JOLLY LLB 2", "JUDWAA", "JUDWAA 2", "DELHI BELLY",
+      "FUKREY", "FUKREY RETURNS", "DUM LAGA KE HAISHA", "HINDI MEDIUM", "BADHAAI HO",
+      "BADHAAI DO", "GOOD NEWWZ", "GULLY BOY", "ANGREZI MEDIUM", "ALL THE BEST",
+      "READY", "MERE BAAP PEHLE AAP", "CHUP CHUP KE", "MALAMAAL WEEKLY", "BHEJA FRY 2",
+      "OYE LUCKY LUCKY OYE", "DELHI 6", "PHATA POSTER NIKHLA HERO", "ENTERTAINMENT", "ITS ENTERTAINMENT",
+      "KILL DIL", "KHOOBSURAT", "PIKU", "HAPPY NEW YEAR", "DESI BOYZ",
+      "BOL BACHCHAN", "OMG OH MY GOD", "PK", "DHANAK", "VEERE DI WEDDING",
+      "LUKA CHUPPI", "SHUBH MANGAL ZYADA SAAVDHAN", "PATI PATNI AUR WOH", "GOOD NEWS", "COOLIE NO 1",
+      "DHEERAJ"
+    ],
+    "Action": [
+      "DABANGG", "SINGHAM", "BAAHUBALI", "PATHAAN", "TIGER ZINDA HAI",
+      "KRRISH", "DHOOM", "SHIVAAY", "WANTED", "BANG BANG",
+      "WAR", "DON 2", "TIGER 3", "DABANGG 2", "DABANGG 3",
+      "SINGHAM RETURNS", "DHOOM 2", "DHOOM 3", "KRRISH 3", "RACE",
+      "RACE 2", "RACE 3", "HOLIDAY", "AKIRA", "JAI HO",
+      "KICK", "BODYGUARD", "SULTAN", "ROBOT", "SAAHO",
+      "KGF CHAPTER 1", "KGF CHAPTER 2", "RRR", "VIKRAM VEDHA", "FORCE",
+      "FORCE 2", "PHANTOM", "ONCE UPON A TIME IN MUMBAI", "BOMBAY VELVET", "KAMINEY",
+      "GANGS OF WASSEYPUR", "WAZIR", "LUCKNOW CENTRAL", "BAAGHI", "BAAGHI 2",
+      "BAAGHI 3", "COMMANDO", "COMMANDO 2", "MARDAANI", "NAAM SHABANA",
+      "ROCK ON", "ROCK ON 2", "AURANGZEB", "RUSTOM", "RAID",
+      "BATLA HOUSE", "URI THE SURGICAL STRIKE", "MISSION MANGAL", "KESARI", "BHARAT",
+      "ZERO", "ROBOT 2 0", "TIGER", "KRACK", "SOORYAVANSHI",
+      "SHAMSHERA", "VIKRAM", "INDIAN POLICE FORCE", "MR AND MRS MAHI", "MAIDAAN",
+      "FIGHTER", "YODHA", "RAUSHANI", "EK AUR EK GYARAH", "SHOOTOUT AT WADALA",
+      "ONCE UPON A TIME IN MUMBAAI DOBAARA", "TASHAN", "TEES MAAR KHAN", "PROFESSOR", "RANGEELA RAJA",
+      "BEHIND ENEMY LINES", "HUM SE BADHKAR KAUN"
+    ],
+    "Thriller": [
+      "ANDHADHUN", "KAHAANI", "DRISHYAM", "TALAASH", "BADLAPUR",
+      "SPECIAL 26", "A WEDNESDAY", "KARTHIK CALLING KARTHIK", "NO ONE KILLED JESSICA", "KAHAANI 2",
+      "DRISHYAM 2", "BABY", "AITRAAZ", "RAAZ", "RAAZ 2",
+      "RAAZ 3", "1920", "BHOOT", "PHOONK", "MURDER",
+      "MURDER 2", "MURDER 3", "JISM", "JISM 2", "AWARAPAN",
+      "JANNAT", "JANNAT 2", "HATE STORY", "JOHNNY GADDAAR", "MANORAMA SIX FEET UNDER",
+      "TALVAR", "SECTION 375", "ARTICLE 15", "MADRAS CAFE", "SHANGHAI",
+      "AIYAARY", "MOM", "NH10", "KAALAKAANDI", "HASEEN DILRUBA",
+      "MERRY CHRISTMAS", "DARLINGS", "GEHRAIYAAN", "JALSA", "FREDDY",
+      "BHEED", "TE3N", "ITTEFAQ", "RAAZI", "HICHKI",
+      "CHHAPAAK", "BLACKMAIL", "ANGREZI DHAVA", "BHOOL CHUK MAAF", "FOOTFAIRY",
+      "AB TAK CHHAPPAN", "KATHAL", "MONICA O MY DARLING", "DAHAAD", "SHEHAR LAKHOT",
+      "JAANE JAAN", "GARMI", "FUTURE PEOPLE", "BLACK FRIDAY", "KAUN",
+      "BLOODY BROTHERS", "RAKSHA BANDHAN"
+    ],
+    "Recent Hits": [
+      "JAWAN", "ANIMAL", "12TH FAIL", "LAAPATAA LADIES", "ARTICLE 370",
+      "DUNKI", "BAWAAL", "GADAR 2", "ROCKY AUR RANI KII PREM KAHAANI", "BHEDIYA",
+      "AN ACTION HERO", "GOVINDA NAAM MERA", "CIRKUS", "LAAL SINGH CHADDHA", "SHERNI",
+      "BHUJ", "BELL BOTTOM", "MUMBAI SAGA", "SALAAR", "STREE 2",
+      "BHOOL BHULAIYAA 3", "SINGHAM AGAIN", "MUNJYA", "CREW", "PIPPA",
+      "MRS CHATTERJEE VS NORWAY", "DREAM GIRL 2", "ZWIGATO", "SELFIEE", "KISI KA BHAI KISI KI JAAN",
+      "AFWAAH", "ADIPURUSH", "SHAITAAN", "DEVA", "BADE MIYAN CHOTE MIYAN",
+      "HEERAMANDI", "AAP JAISA KOI", "LOVE STORIYAAN", "KILL", "PHIR AAYI HASEEN DILRUBA",
+      "CARRY ON JATTA", "FUKREY 3", "GADAR EK PREM KATHA", "OMG 2", "TARLA",
+      "ZARA HATKE ZARA BACHKE", "BLOODY DADDY", "GHOOMER", "JIGRA", "SAM BAHADUR",
+      "FARRY", "MONKEY MAN", "AURON MEIN KAHAN DUM THA", "BARBIE", "ARANYAK",
+      "BAD NEWZ", "DO PATTI", "VEDAA"
+    ]
+  };
+
+  const GENRE_ICONS = {
+    "Classic": "🎞", "Romance": "❤", "Comedy": "😂",
+    "Action": "💥", "Thriller": "🔍", "Recent Hits": "⭐"
+  };
+
+  function pickRandomMovie(genreOrNull) {
+    let pool;
+    if (genreOrNull && MOVIES_BY_GENRE[genreOrNull]) {
+      pool = MOVIES_BY_GENRE[genreOrNull].slice();
+    } else {
+      pool = Object.values(MOVIES_BY_GENRE).flat();
+    }
+    // exclude already-used in this session
+    let candidates = pool.filter(m => !state.usedMovies.has(m));
+    if (candidates.length === 0) {
+      // Reset history if exhausted
+      state.usedMovies.clear();
+      candidates = pool;
+    }
+    const pick = candidates[Math.floor(Math.random() * candidates.length)];
+    state.usedMovies.add(pick);
+    return sanitizeMovie(pick);
+  }
+
+  // ============ COUNTER (global play count via free public API) ============
+  // Uses countapi.xyz — public, no signup, no auth.
+  // If the API is unreachable, the counter just hides silently.
+  // Want robust analytics later? Sign up at counterapi.dev or use Plausible/GoatCounter.
+  const COUNTER_NAMESPACE = "bollywood-app-ashishmishra2511";
+  const COUNTER_KEY = "games-played";
+
+  async function fetchGlobalCount() {
+    try {
+      const r = await fetch(`https://api.countapi.xyz/get/${COUNTER_NAMESPACE}/${COUNTER_KEY}`,
+        { method: "GET", cache: "no-store" });
+      if (!r.ok) return null;
+      const data = await r.json();
+      return (data && typeof data.value === "number") ? data.value : null;
+    } catch (e) { return null; }
+  }
+
+  async function bumpGlobalCount() {
+    try {
+      const r = await fetch(`https://api.countapi.xyz/hit/${COUNTER_NAMESPACE}/${COUNTER_KEY}`,
+        { method: "GET", cache: "no-store" });
+      if (!r.ok) return null;
+      const data = await r.json();
+      return (data && typeof data.value === "number") ? data.value : null;
+    } catch (e) { return null; }
+  }
+
+  async function refreshCounterChip() {
+    const chip = document.getElementById("counterChip");
+    const val = document.getElementById("counterValue");
+    if (!chip || !val) return;
+    const n = await fetchGlobalCount();
+    if (n === null) {
+      chip.style.display = "none"; // graceful: hide if unreachable
+      return;
+    }
+    val.textContent = n.toLocaleString();
+    chip.classList.remove("loading");
+  }
+
+  // Local play counter (always works, stored in browser)
+  function bumpLocalCount() {
+    try {
+      const n = (parseInt(localStorage.getItem("bw_local_plays") || "0", 10) || 0) + 1;
+      localStorage.setItem("bw_local_plays", String(n));
+      return n;
+    } catch (e) { return 0; }
+  }
+  function getLocalCount() {
+    try { return parseInt(localStorage.getItem("bw_local_plays") || "0", 10) || 0; }
+    catch { return 0; }
+  }
+
+  // ============ TIMER ============
+  function startTimer(seconds = 45) {
+    stopTimer();
+    state.timerEnabled = true;
+    state.timerSeconds = seconds;
+    state.timerTotal = seconds;
+    $("timerPill").classList.remove("hidden", "warn", "danger");
+    $("timerBarWrap").classList.add("active");
+    $("timerBar").classList.remove("warn", "danger");
+    updateTimerUI();
+    state.timerInterval = setInterval(tickTimer, 1000);
+  }
+
+  function tickTimer() {
+    if (!state.gameActive) return;
+    if (document.querySelector(".modal-back.show")) return; // pause when a modal is open
+    state.timerSeconds--;
+    updateTimerUI();
+    if (state.timerSeconds === 15) SFX.tap();
+    if (state.timerSeconds === 5) { SFX.buzz(); vibrate(20); }
+    if (state.timerSeconds <= 3 && state.timerSeconds > 0) SFX.tap();
+    if (state.timerSeconds <= 0) {
+      stopTimer();
+      vibrate([80, 50, 80]);
+      endRound(false);
+    }
+  }
+
+  function updateTimerUI() {
+    const pill = $("timerPill");
+    const text = $("timerText");
+    const bar = $("timerBar");
+    if (!pill || !text || !bar) return;
+    text.textContent = state.timerSeconds;
+    const total = state.timerTotal || 45;
+    const pct = Math.max(0, (state.timerSeconds / total) * 100);
+    bar.style.width = pct + "%";
+    pill.classList.remove("warn", "danger");
+    bar.classList.remove("warn", "danger");
+    if (state.timerSeconds <= 5) {
+      pill.classList.add("danger");
+      bar.classList.add("danger");
+    } else if (state.timerSeconds <= 15) {
+      pill.classList.add("warn");
+      bar.classList.add("warn");
+    }
+  }
+
+  function stopTimer() {
+    if (state.timerInterval) {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+    }
+  }
+
+  function hideTimer() {
+    stopTimer();
+    state.timerEnabled = false;
+    $("timerPill").classList.add("hidden");
+    $("timerBarWrap").classList.remove("active");
+  }
+
+  // ============ MODE PICKER LOGIC ============
+  function showModeScreen() {
+    hideAllModals();
+    hideTimer();
+    state.gameActive = false;
+    state.movie = "";
+    state.revealed = new Set();
+    state.wrong = new Set();
+    state.strikes = 0;
+    renderBrand(0);
+    renderBoard();
+    refreshKeyStates();
+    setKeyboardEnabled(false);
+    resetSlate();
+    showModal("modeModal");
+    refreshCounterChip();
+  }
+
+  function buildGenreGrid() {
+    const grid = $("genreGrid");
+    grid.innerHTML = "";
+    // Render each genre as a small admit-badge ticket — all same uniform font size
+    Object.keys(MOVIES_BY_GENRE).forEach(g => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "ticket-tile genre";
+      btn.setAttribute("aria-label", g + " genre");
+      btn.innerHTML = `
+        <svg viewBox="-6 -10 332 170" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tkSq" fill="#1a0510" opacity="0.2" transform="translate(0 4)"/>
+          <use href="#tkSq" fill="#fbbf24" stroke="#4a0e2a" stroke-width="3.5"/>
+          <text class="slab" x="160" y="88" text-anchor="middle" font-size="26" fill="#4a0e2a" letter-spacing="0.5">${g.toUpperCase()}</text>
+        </svg>`;
+      btn.addEventListener("click", () => selectGenre(g));
+      grid.appendChild(btn);
+    });
+    // Surprise me option (full-width, with star sticker)
+    const surp = document.createElement("button");
+    surp.type = "button";
+    surp.className = "ticket-tile genre surprise";
+    surp.setAttribute("aria-label", "Surprise me, any genre");
+    surp.innerHTML = `
+      <svg viewBox="-12 -22 344 188" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <use href="#tkSq" fill="#1a0510" opacity="0.2" transform="translate(0 4)"/>
+        <use href="#tkSq" fill="#fbbf24" stroke="#4a0e2a" stroke-width="3.5"/>
+        <use href="#bigStar" transform="translate(160 -2) scale(0.9)"/>
+        <text class="slab" x="160" y="88" text-anchor="middle" font-size="26" fill="#4a0e2a" letter-spacing="0.5">SURPRISE ME</text>
+      </svg>`;
+    surp.addEventListener("click", () => selectGenre(null));
+    grid.appendChild(surp);
+  }
+  buildGenreGrid();
+
+  function selectMode(mode) {
+    SFX.tap();
+    state.mode = mode;
+    state.isSolo = (mode === "solo");
+    state.scores = { p1: 0, p2: 0 };
+    state.soloScore = 0;
+    state.roundsPlayed = 0;
+    state.round = 1;
+    state.usedMovies = new Set();
+    showModal("timerChoiceModal");
+  }
+
+  function selectTimer(enabled) {
+    SFX.tap();
+    state.timerEnabled = !!enabled;
+    if (state.isSolo) {
+      $("genreModeTag").textContent =
+        (state.timerEnabled ? "Solo · Time Attack 45s" : "Solo · Take Your Time");
+      showModal("genreModal");
+    } else {
+      // Pass & Play - existing welcome flow
+      $("p1NameInput").value = state.p1 === "Player 1" ? "" : state.p1;
+      $("p2NameInput").value = state.p2 === "Player 2" ? "" : state.p2;
+      $("p1Chip").querySelector("span").textContent = state.p1;
+      setStage("p1");
+      showModal("welcomeModal");
+      setTimeout(() => $("p1NameInput").focus(), 300);
+    }
+  }
+
+  function selectGenre(genre) {
+    SFX.tap();
+    state.selectedGenre = genre;
+    const timerLabel = state.timerEnabled ? "Time Attack" : "Take Your Time";
+    const label = timerLabel + " · " + (genre || "Surprise Me");
+    $("soloContextChip").textContent = label;
+    $("soloNameInput").value = state.soloName === "Player" ? "" : state.soloName;
+    showModal("soloIntroModal");
+    setTimeout(() => $("soloNameInput").focus(), 250);
+  }
+
+  document.querySelectorAll('[data-mode]').forEach(tile => {
+    tile.addEventListener("click", () => selectMode(tile.dataset.mode));
+  });
+
+  document.querySelectorAll('[data-timer]').forEach(tile => {
+    tile.addEventListener("click", () => selectTimer(tile.dataset.timer === "on"));
+  });
+
+  $("timerBack").addEventListener("click", () => {
+    SFX.tap();
+    showModal("modeModal");
+  });
+
+  $("genreBack").addEventListener("click", () => {
+    SFX.tap();
+    showModal("timerChoiceModal");
+  });
+
+  $("soloStart").addEventListener("click", () => {
+    ensureAudio();
+    const name = $("soloNameInput").value.trim() || "Player";
+    state.soloName = name;
+    state.p1 = name;
+    state.p2 = "Computer";
+    state.scores = { p1: 0, p2: 0 };
+    state.guesser = "p1";
+    state.director = "p2";
+    state.round = 1;
+    state.roundsPlayed = 0;
+    SFX.fanfare();
+    vibrate([30, 50, 30]);
+    bigConfetti(20);
+    startSoloRound();
+  });
+
+  $("soloNameInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); $("soloStart").click(); }
+  });
+
+  function startSoloRound() {
+    state.movie = pickRandomMovie(state.selectedGenre);
+    state.revealed = new Set();
+    state.wrong = new Set();
+    state.strikes = 0;
+    state.take = 1;
+    state.gameActive = true;
+    renderBrand(0);
+    updateHud();
+    renderBoard();
+    refreshKeyStates();
+    updateDigitRowVisibility();
+    setKeyboardEnabled(true);
+    resetSlate();
+    hideAllModals();
+    SFX.chime();
+    if (state.timerEnabled) startTimer(45);
+    bumpLocalCount();
+    bumpGlobalCount(); // fire-and-forget
+  }
+
 
   function isDigit(ch) { return /^[0-9]$/.test(ch); }
   function isAutoShown(ch) { return VOWELS.has(ch); }   // numbers no longer auto-shown
@@ -1421,16 +2278,23 @@
     p1.querySelector(".pscore").textContent = state.scores.p1;
     p2.querySelector(".pname").textContent = state.p2;
     p2.querySelector(".pscore").textContent = state.scores.p2;
-    p1.classList.toggle("active", state.gameActive && state.guesser === "p1");
-    p2.classList.toggle("active", state.gameActive && state.guesser === "p2");
+    if (state.isSolo) {
+      p2.style.display = "none";
+      p1.classList.toggle("active", state.gameActive);
+    } else {
+      p2.style.display = "";
+      p1.classList.toggle("active", state.gameActive && state.guesser === "p1");
+      p2.classList.toggle("active", state.gameActive && state.guesser === "p2");
+    }
     $("gameRound").textContent = state.round;
   }
   updateHud();
 
   // ========== STAGE ==========
-  function renderBoard() {
+  function renderBoard(justRevealedChar = null) {
     const board = $("movieBoard");
     if (!state.gameActive) {
+      board.classList.remove("density-mid", "density-high");
       board.innerHTML = `<div class="stage-empty">
         <svg class="reel" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="32" cy="32" r="26"/>
@@ -1444,7 +2308,14 @@
       </div>`;
       return;
     }
+    // density: count visible chars (letters/digits, not spaces)
+    const visibleChars = state.movie.replace(/\s/g, "").length;
+    board.classList.remove("density-mid", "density-high");
+    if (visibleChars > 20) board.classList.add("density-high");
+    else if (visibleChars > 12) board.classList.add("density-mid");
+
     board.innerHTML = "";
+    const newlyRevealed = [];
     const words = state.movie.split(" ");
     words.forEach((word, idx) => {
       const wg = document.createElement("div");
@@ -1456,6 +2327,10 @@
           if (state.revealed.has(ch)) {
             tile.classList.add("number-revealed");
             tile.textContent = ch;
+            if (justRevealedChar && ch === justRevealedChar) {
+              tile.classList.add("just-revealed");
+              newlyRevealed.push(tile);
+            }
           } else {
             tile.classList.add("number-blank");
           }
@@ -1465,6 +2340,10 @@
         } else if (state.revealed.has(ch)) {
           tile.classList.add("revealed");
           tile.textContent = ch;
+          if (justRevealedChar && ch === justRevealedChar) {
+            tile.classList.add("just-revealed");
+            newlyRevealed.push(tile);
+          }
         } else {
           tile.textContent = "";
         }
@@ -1478,82 +2357,138 @@
         board.appendChild(sep);
       }
     });
+    // After layout, fire targeted sparkles from each just-revealed tile
+    if (newlyRevealed.length) {
+      requestAnimationFrame(() => {
+        newlyRevealed.forEach(tile => {
+          const r = tile.getBoundingClientRect();
+          sparkleBurstAt(r.left + r.width / 2, r.top + r.height / 2, 7);
+        });
+        setTimeout(() => {
+          newlyRevealed.forEach(t => t.classList.remove("just-revealed"));
+        }, 850);
+      });
+    }
   }
   renderBoard();
 
-  function renderTried() {
-    const row = $("triedRow");
-    row.innerHTML = "";
-    [...state.revealed].sort().forEach(ch => {
-      const el = document.createElement("span");
-      el.className = "tried-letter right" + (isDigit(ch) ? " num" : "");
-      el.textContent = ch;
-      row.appendChild(el);
+  function renderTried() { /* deprecated: keyboard now shows tried state */ }
+
+  // ========== KEYBOARD (on-screen) ==========
+  const KB_ROWS = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
+
+  function buildKeyboard() {
+    const kb = $("keyboard");
+    kb.innerHTML = "";
+    KB_ROWS.forEach((row, i) => {
+      const rowEl = document.createElement("div");
+      rowEl.className = "keyboard-row row-" + i;
+      [...row].forEach(ch => {
+        const key = document.createElement("button");
+        key.className = "key";
+        key.dataset.key = ch;
+        key.textContent = ch;
+        key.type = "button";
+        if (VOWELS.has(ch)) {
+          key.classList.add("vowel");
+          key.disabled = true;
+          key.title = "Vowels are revealed automatically";
+        } else {
+          key.addEventListener("click", () => onKeyTap(ch, key));
+        }
+        rowEl.appendChild(key);
+      });
+      kb.appendChild(rowEl);
     });
-    [...state.wrong].sort().forEach(ch => {
-      const el = document.createElement("span");
-      el.className = "tried-letter wrong";
-      el.textContent = ch;
-      row.appendChild(el);
+
+    // Digit row (created always; visibility toggled per-round)
+    const dr = document.createElement("div");
+    dr.className = "keyboard-row digits";
+    dr.id = "digitRow";
+    "0123456789".split("").forEach(d => {
+      const key = document.createElement("button");
+      key.className = "key num-key";
+      key.dataset.key = d;
+      key.textContent = d;
+      key.type = "button";
+      key.addEventListener("click", () => onKeyTap(d, key));
+      dr.appendChild(key);
     });
+    kb.appendChild(dr);
   }
 
-  // ========== CLAPPERBOARD ==========
-  function setClapperEnabled(on) { $("clapper").classList.toggle("disabled", !on); }
-  function updateSlate() {
-    $("slateScene").textContent = pad2(state.round);
-    $("slateTake").textContent = pad2(state.take);
-  }
-
-  function snapClapper(letter, kind, helpText) {
-    const clapper = $("clapper");
-    const display = $("letterDisplay");
-    const verdict = $("verdict");
-    const prompt = $("clapperPrompt");
-
-    display.classList.remove("empty", "flash");
-    void display.offsetWidth;
-    display.textContent = letter;
-    display.classList.add("flash");
-
-    verdict.classList.remove("hit", "miss", "show");
-    void verdict.offsetWidth;
-    if (kind === "hit") { verdict.textContent = "✓ HIT!"; verdict.classList.add("hit", "show"); }
-    else if (kind === "miss") { verdict.textContent = "✗ MISS!"; verdict.classList.add("miss", "show"); }
-
-    if (helpText) prompt.textContent = helpText;
-
-    clapper.classList.remove("snap");
-    void clapper.offsetWidth;
-    clapper.classList.add("snap");
-    SFX.snap();
-
-    setTimeout(() => {
-      display.textContent = "";
-      display.classList.add("empty");
-      verdict.classList.remove("show");
-      verdict.textContent = "";
-      prompt.textContent = "Tap to type · or use your keyboard";
-      clapper.classList.remove("snap");
-    }, 1200);
-  }
-
-  $("clapper").addEventListener("click", () => {
+  function onKeyTap(ch, keyEl) {
     if (!state.gameActive) return;
     ensureAudio();
-    $("hiddenInput").focus();
-  });
+    handleLetterChar(ch);
+  }
 
-  $("hiddenInput").addEventListener("input", (e) => {
-    const v = e.target.value;
-    e.target.value = "";
-    if (v && v.length > 0) handleLetterChar(v[v.length - 1]);
-  });
+  function refreshKeyStates() {
+    document.querySelectorAll(".key").forEach(k => {
+      const ch = k.dataset.key;
+      if (!ch || VOWELS.has(ch)) return;
+      k.classList.remove("right", "wrong");
+      if (state.revealed.has(ch)) {
+        k.classList.add("right");
+        if (/[0-9]/.test(ch)) k.classList.add("num");
+        k.disabled = true;
+      } else if (state.wrong.has(ch)) {
+        k.classList.add("wrong");
+        k.disabled = true;
+      } else {
+        k.disabled = false;
+      }
+    });
+  }
 
+  function flashKey(ch, kind) {
+    const key = document.querySelector(`.key[data-key="${ch}"]`);
+    if (!key) return;
+    const cls = kind === "hit" ? "just-revealed" : "just-wrong";
+    key.classList.remove(cls);
+    void key.offsetWidth;
+    key.classList.add(cls);
+    setTimeout(() => key.classList.remove(cls), 600);
+  }
+
+  function updateDigitRowVisibility() {
+    const dr = $("digitRow");
+    if (!dr) return;
+    const hasDigits = state.gameActive && /[0-9]/.test(state.movie);
+    dr.style.display = hasDigits ? "flex" : "none";
+  }
+
+  function setKeyboardEnabled(on) {
+    $("keyboard").classList.toggle("disabled", !on);
+  }
+
+  buildKeyboard();
+
+  // ========== LETTER FLASH (center-page feedback) ==========
+  function showLetterFlash(letter, kind) {
+    const el = $("letterFlash");
+    if (!el) return;
+    el.textContent = letter;
+    el.classList.remove("show", "hit", "miss");
+    void el.offsetWidth; // restart animation
+    if (kind === "hit") el.classList.add("hit");
+    else if (kind === "miss") el.classList.add("miss");
+    el.classList.add("show");
+  }
+
+  function resetSlate() {
+    const el = $("letterFlash");
+    if (!el) return;
+    el.classList.remove("show", "hit", "miss");
+    el.textContent = "";
+  }
+
+  // physical keyboard still works
   document.addEventListener("keydown", (e) => {
     if (!state.gameActive) return;
     if (document.querySelector(".modal-back.show")) return;
-    if (e.key.length === 1 && /^[a-zA-Z0-9]$/.test(e.key) && document.activeElement !== $("hiddenInput")) {
+    if (e.key.length === 1 && /^[a-zA-Z0-9]$/.test(e.key)) {
+      ensureAudio();
       handleLetterChar(e.key);
     }
   });
@@ -1572,26 +2507,27 @@
     ensureAudio();
 
     if (VOWELS.has(ch)) {
-      snapClapper(ch, null, "Vowels are revealed already!");
+      showLetterFlash(ch, null, "Vowels are auto-revealed");
       vibrate(15);
       return;
     }
     if (state.revealed.has(ch) || state.wrong.has(ch)) {
-      snapClapper(ch, null, "Already tried " + ch);
+      showLetterFlash(ch, null, "Already tried " + ch);
       vibrate(15);
       return;
     }
 
     state.take++;
-    updateSlate();
 
     if (state.movie.includes(ch)) {
       state.revealed.add(ch);
-      snapClapper(ch, "hit");
+      showLetterFlash(ch, "hit");
+      flashKey(ch, "hit");
       SFX.ding();
       vibrate(20);
       sparkleBurst(10);
-      renderBoard(); renderTried();
+      renderBoard(ch);
+      refreshKeyStates();
       checkAutoWin();
     } else {
       state.wrong.add(ch);
@@ -1600,11 +2536,12 @@
         renderBrand(state.strikes);
         shakeBanner();
       }
-      snapClapper(ch, "miss");
+      showLetterFlash(ch, "miss");
+      flashKey(ch, "miss");
       SFX.buzz();
       SFX.stamp();
       vibrate([40, 30, 40]);
-      renderTried();
+      refreshKeyStates();
       if (state.strikes >= BOLLYWOOD.length) setTimeout(() => endRound(false), 1000);
     }
   }
@@ -1654,6 +2591,7 @@
     state.round = 1;
     state.director = "p1";
     state.guesser = "p2";
+    state.usedMovies = new Set();
     updateHud();
     bigConfetti(20);
     goToSetMovie();
@@ -1668,7 +2606,7 @@
     $("setRound").textContent = state.round;
     $("directorName").textContent = state[state.director];
     $("movieInput").value = "";
-    $("movieInput").type = "password";
+    $("movieInput").classList.remove("revealed");
     $("toggleLabel").textContent = "Show";
     showModal("setModal");
     setTimeout(() => $("movieInput").focus(), 250);
@@ -1678,8 +2616,8 @@
     SFX.tap();
     const inp = $("movieInput");
     const lbl = $("toggleLabel");
-    if (inp.type === "password") { inp.type = "text"; lbl.textContent = "Hide"; }
-    else { inp.type = "password"; lbl.textContent = "Show"; }
+    inp.classList.toggle("revealed");
+    lbl.textContent = inp.classList.contains("revealed") ? "Hide" : "Show";
   });
 
   $("lockMovie").addEventListener("click", () => {
@@ -1716,22 +2654,30 @@
     renderBrand(0);
     updateHud();
     renderBoard();
-    renderTried();
-    updateSlate();
-    setClapperEnabled(true);
+    refreshKeyStates();
+    updateDigitRowVisibility();
+    setKeyboardEnabled(true);
+    resetSlate();
     hideAllModals();
     SFX.chime();
     vibrate(30);
-    setTimeout(() => $("hiddenInput").focus(), 250);
+    if (state.timerEnabled) startTimer(45);
+    bumpLocalCount();
+    bumpGlobalCount();
   });
 
   // ========== END ROUND ==========
   function endRound(won) {
     state.gameActive = false;
-    setClapperEnabled(false);
+    setKeyboardEnabled(false);
+    stopTimer();
     const remaining = BOLLYWOOD.length - state.strikes;
     const points = won ? remaining * 10 : 0;
-    state.scores[state.guesser] += points;
+    if (state.isSolo) {
+      state.scores.p1 += points;
+    } else {
+      state.scores[state.guesser] += points;
+    }
     state.roundsPlayed++;
     updateHud();
 
@@ -1749,11 +2695,18 @@
       $("modalTitle").classList.add("flop");
       $("modalSub").textContent = "— The movie was —";
     }
-    $("modalMovie").textContent = state.movie;
-    $("modalRunning").innerHTML = `
-      <span class="score-pill"><span class="pname">${state.p1}</span> · <span class="pscore">${state.scores.p1}</span></span>
-      <span class="score-pill"><span class="pname">${state.p2}</span> · <span class="pscore">${state.scores.p2}</span></span>
-    `;
+    $(  "modalMovie").textContent = state.movie;
+    if (state.isSolo) {
+      $("modalRunning").innerHTML = `
+        <span class="score-pill"><span class="pname">${state.p1}</span> · <span class="pscore">${state.scores.p1}</span></span>
+        <span class="score-pill"><span class="pname">Round</span> · <span class="pscore">${state.roundsPlayed}</span></span>
+      `;
+    } else {
+      $("modalRunning").innerHTML = `
+        <span class="score-pill"><span class="pname">${state.p1}</span> · <span class="pscore">${state.scores.p1}</span></span>
+        <span class="score-pill"><span class="pname">${state.p2}</span> · <span class="pscore">${state.scores.p2}</span></span>
+      `;
+    }
     showModal("roundModal");
     animateScore(points, $("modalPoints"));
   }
@@ -1775,8 +2728,17 @@
   $("modalContinue").addEventListener("click", () => {
     SFX.tap();
     state.round++;
-    [state.director, state.guesser] = [state.guesser, state.director];
-    goToSetMovie();
+    if (state.isSolo) {
+      startSoloRound();
+    } else {
+      [state.director, state.guesser] = [state.guesser, state.director];
+      goToSetMovie();
+    }
+  });
+
+  $("modalHome").addEventListener("click", () => {
+    SFX.tap();
+    showModeScreen();
   });
 
   // ========== NEW GAME ==========
@@ -1807,53 +2769,36 @@
   $("cancelNewGame").addEventListener("click", () => {
     SFX.tap();
     hideAllModals();
-    if (state.gameActive) setTimeout(() => $("hiddenInput").focus(), 100);
   });
 
   $("confirmNewGame").addEventListener("click", () => {
     SFX.tap();
-    state.scores = { p1: 0, p2: 0 };
-    state.roundsPlayed = 0;
-    state.round = 1;
-    state.director = "p1";
-    state.guesser = "p2";
-    state.gameActive = false;
-    state.movie = "";
-    state.revealed = new Set();
-    state.wrong = new Set();
-    state.strikes = 0;
-    renderBrand(0);
-    renderBoard();
-    renderTried();
-    updateHud();
-    setClapperEnabled(false);
-    $("p1NameInput").value = state.p1 === "Player 1" ? "" : state.p1;
-    $("p2NameInput").value = state.p2 === "Player 2" ? "" : state.p2;
-    $("p1Chip").querySelector("span").textContent = state.p1;
-    setStage("p1");
-    showModal("welcomeModal");
-    setTimeout(() => $("p1NameInput").focus(), 300);
+    showModeScreen();
   });
 
-  setTimeout(() => $("p1NameInput").focus(), 400);
+  // Initial counter refresh on first paint
+  setTimeout(refreshCounterChip, 300);
 
   // ========== SPARKLES ==========
-  function sparkleBurst(count = 8) {
+  function sparkleBurstAt(cx, cy, count = 8) {
     const layer = $("sparkleLayer");
     const symbols = ["✦","✧","★","✨","◆"];
-    const colors = ["#f5c542","#e91e63","#f97316","#14a085"];
-    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    const colors = ["#f5c542","#e91e63","#f97316","#14a085","#ffd86b"];
     for (let i = 0; i < count; i++) {
       const s = document.createElement("span");
       s.className = "sparkle";
       s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      s.style.left = (cx + (Math.random() - .5) * 240) + "px";
-      s.style.top = (cy + (Math.random() - .5) * 120) + "px";
+      s.style.left = (cx + (Math.random() - .5) * 80) + "px";
+      s.style.top = (cy + (Math.random() - .5) * 40) + "px";
       s.style.color = colors[Math.floor(Math.random() * colors.length)];
-      s.style.fontSize = (14 + Math.random() * 10) + "px";
+      s.style.fontSize = (12 + Math.random() * 10) + "px";
       layer.appendChild(s);
       setTimeout(() => s.remove(), 1500);
     }
+  }
+
+  function sparkleBurst(count = 8) {
+    sparkleBurstAt(window.innerWidth / 2, window.innerHeight / 2, count);
   }
 
   function bigConfetti(count = 50) {
@@ -1878,13 +2823,14 @@
   // ========== ABOUT MODAL ==========
   $("aboutToggle").addEventListener("click", () => {
     SFX.tap();
+    const localEl = $("aboutLocalPlays");
+    if (localEl) localEl.textContent = getLocalCount().toLocaleString();
     showModal("aboutModal");
     refreshInstallUI();
   });
   $("closeAbout").addEventListener("click", () => {
     SFX.tap();
     hideAllModals();
-    if (state.gameActive) setTimeout(() => $("hiddenInput").focus(), 100);
   });
 
   // ========== PWA INSTALL ==========
@@ -1912,6 +2858,7 @@
   function refreshInstallUI() {
     const installSection = $("installSection");
     const iosHint = $("iosInstallHint");
+    const installFallback = $("installFallback");
     if (!installSection || !iosHint) return;
 
     if (isStandalone()) {
@@ -1919,37 +2866,53 @@
       iosHint.style.display = "none";
       return;
     }
-    if (deferredInstallPrompt) {
-      installSection.style.display = "block";
-      iosHint.style.display = "none";
-    } else if (isIOS()) {
+    if (isIOS()) {
       installSection.style.display = "none";
       iosHint.style.display = "block";
-    } else {
-      // Other desktop browsers — show a generic note
-      installSection.style.display = "none";
-      iosHint.style.display = "none";
+      return;
+    }
+    // Show install option on every other browser (Android Chrome, desktop, etc.)
+    // Even if the prompt event hasn't fired yet, the button helps the user via hint text.
+    installSection.style.display = "block";
+    iosHint.style.display = "none";
+    if (installFallback) {
+      installFallback.style.display = deferredInstallPrompt ? "none" : "block";
     }
   }
 
   $("installBtn").addEventListener("click", async () => {
     SFX.tap();
-    if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    const { outcome } = await deferredInstallPrompt.userChoice;
-    if (outcome === "accepted") {
-      SFX.fanfare();
-      vibrate(40);
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      if (outcome === "accepted") {
+        SFX.fanfare();
+        vibrate(40);
+      }
+      deferredInstallPrompt = null;
+      refreshInstallUI();
+    } else {
+      // Prompt isn't available yet — guide the user to use the browser menu
+      const fb = $("installFallback");
+      if (fb) {
+        fb.style.display = "block";
+        fb.classList.add("highlight");
+        setTimeout(() => fb.classList.remove("highlight"), 1500);
+      }
     }
-    deferredInstallPrompt = null;
-    refreshInstallUI();
   });
 
   // ========== SERVICE WORKER ==========
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./service-worker.js")
-        .catch(err => console.warn("SW registration failed:", err));
+  // Probe for the worker file before registering — this avoids 404 noise
+  // in preview hosts, standalone runs, or any partial deployment.
+  if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    window.addEventListener("load", async () => {
+      try {
+        const probe = await fetch("./service-worker.js", { method: "HEAD", cache: "no-store" });
+        if (probe.ok) {
+          await navigator.serviceWorker.register("./service-worker.js");
+        }
+      } catch (_) { /* silent — environment doesn't host the worker */ }
     });
   }
 </script>
