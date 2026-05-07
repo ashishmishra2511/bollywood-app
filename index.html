@@ -1106,29 +1106,29 @@
 
   /* Logo image used in modals (replaces inline SVG clapperboard) */
   .modal-logo-img {
-    width: 72px;
-    height: 72px;
+    width: 144px;
+    height: 144px;
     display: block;
     margin: 0 auto;
     object-fit: contain;
-    filter: drop-shadow(0 3px 6px rgba(74, 14, 42, 0.22));
+    filter: drop-shadow(0 4px 8px rgba(74, 14, 42, 0.25));
   }
   .modal-logo-img.modal-logo-lg {
-    width: 88px;
-    height: 88px;
+    width: 176px;
+    height: 176px;
   }
   .modal-logo-wrap {
     margin-bottom: 4px;
   }
   /* On the small mode-picker (after industry chosen) the logo can stay slightly smaller */
   .mode-modal .modal-logo-img {
-    width: 56px;
-    height: 56px;
+    width: 112px;
+    height: 112px;
   }
   @media (max-width: 480px) {
-    .modal-logo-img { width: 60px; height: 60px; }
-    .modal-logo-img.modal-logo-lg { width: 72px; height: 72px; }
-    .mode-modal .modal-logo-img { width: 48px; height: 48px; }
+    .modal-logo-img { width: 120px; height: 120px; }
+    .modal-logo-img.modal-logo-lg { width: 144px; height: 144px; }
+    .mode-modal .modal-logo-img { width: 96px; height: 96px; }
   }
 
   /* Modal back button (used on mode picker, etc.) */
@@ -1248,6 +1248,44 @@
     50% { transform: scale(1.07); box-shadow: 0 2px 0 var(--ink-shadow), 0 0 14px var(--pink); }
   }
   .timer-pill.hidden { display: none; }
+
+  /* Hint button — sits next to timer in HUD */
+  .hint-pill {
+    padding: 6px 12px;
+    border-radius: 30px;
+    background: var(--gold-bright, #fbbf24);
+    color: var(--ink, #4a0e2a);
+    font-size: .85rem;
+    font-weight: 800;
+    border: 2px solid var(--ink, #4a0e2a);
+    box-shadow: 0 2px 0 var(--ink-shadow, rgba(74, 14, 42, 0.5));
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: .01em;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, background .25s ease, opacity .2s;
+  }
+  .hint-pill:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 var(--ink-shadow, rgba(74, 14, 42, 0.5));
+  }
+  .hint-pill:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--ink-shadow, rgba(74, 14, 42, 0.5));
+  }
+  .hint-pill svg { stroke: currentColor; }
+  .hint-pill.used,
+  .hint-pill:disabled {
+    background: rgba(74, 14, 42, 0.12);
+    color: rgba(74, 14, 42, 0.45);
+    border-color: rgba(74, 14, 42, 0.3);
+    box-shadow: 0 1px 0 rgba(74, 14, 42, 0.15);
+    cursor: not-allowed;
+    opacity: .85;
+  }
+  .hint-pill.hidden { display: none; }
 
   .timer-bar-wrap {
     height: 5px;
@@ -1416,6 +1454,14 @@
         </svg>
         <span id="timerText">45</span><span style="font-size:.75em;opacity:.85;margin-left:1px;">s</span>
       </div>
+      <button class="hint-pill hidden" id="hintBtn" type="button" aria-label="Reveal a free letter">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18h6"/>
+          <path d="M10 22h4"/>
+          <path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V18h6v-1.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/>
+        </svg>
+        <span>Hint</span>
+      </button>
     </div>
     <div class="timer-bar-wrap" id="timerBarWrap">
       <div class="timer-bar" id="timerBar"></div>
@@ -1766,7 +1812,7 @@
       <img src="icons/logo.png" alt="App logo" class="modal-logo-img modal-logo-lg" width="64" height="64" />
     </div>
     <h2 class="modal-title">Bollywood × Hollywood</h2>
-    <p class="modal-sub">A Movie Guessing Game · v1.3.2</p>
+    <p class="modal-sub">A Movie Guessing Game · v1.4.1</p>
 
     <div class="about-info">
       <div class="about-row">
@@ -1906,6 +1952,7 @@
     wrong: new Set(),
     strikes: 0,
     take: 1,
+    hintUsed: false,
     gameActive: false,
     // New: mode + solo + timer
     mode: null,           // 'solo' | 'timeattack' | 'duo'
@@ -2556,11 +2603,13 @@
     state.revealed = new Set();
     state.wrong = new Set();
     state.strikes = 0;
+    state.hintUsed = false;
     renderBrand(0);
     renderBoard();
     refreshKeyStates();
     setKeyboardEnabled(false);
     resetSlate();
+    updateHintButton();
     showModal("industryModal");
     refreshCounterChip();
   }
@@ -2719,6 +2768,7 @@
     state.wrong = new Set();
     state.strikes = 0;
     state.take = 1;
+    state.hintUsed = false;
     state.gameActive = true;
     renderBrand(0);
     updateHud();
@@ -2727,6 +2777,7 @@
     updateDigitRowVisibility();
     setKeyboardEnabled(true);
     resetSlate();
+    updateHintButton();
     hideAllModals();
     SFX.chime();
     if (state.timerEnabled) startTimer(45);
@@ -3064,6 +3115,58 @@
     }
   }
 
+  // ========== HINT (one free random consonant per round) ==========
+  function useHint() {
+    const btn = $("hintBtn");
+    if (!state.gameActive || state.hintUsed) return;
+    // Find guessable consonants in the movie that haven't been revealed yet
+    const allInMovie = [...new Set([...state.movie].filter(c => c !== " " && isGuessable(c)))];
+    const unrevealed = allInMovie.filter(c => !state.revealed.has(c));
+    if (unrevealed.length === 0) {
+      // nothing left to reveal — round is essentially solved
+      return;
+    }
+    ensureAudio();
+    const ch = unrevealed[Math.floor(Math.random() * unrevealed.length)];
+    state.revealed.add(ch);
+    state.hintUsed = true;
+    showLetterFlash(ch, "hit", "Hint!");
+    flashKey(ch, "hit");
+    SFX.ding();
+    vibrate(20);
+    sparkleBurst(8);
+    renderBoard(ch);
+    refreshKeyStates();
+    updateHintButton();
+    checkAutoWin();
+  }
+
+  function updateHintButton() {
+    const btn = $("hintBtn");
+    if (!btn) return;
+    if (state.gameActive && !state.hintUsed) {
+      btn.classList.remove("hidden", "used");
+      btn.disabled = false;
+    } else if (state.gameActive && state.hintUsed) {
+      btn.classList.remove("hidden");
+      btn.classList.add("used");
+      btn.disabled = true;
+    } else {
+      btn.classList.add("hidden");
+    }
+  }
+
+  // Wire up click
+  document.addEventListener("DOMContentLoaded", () => {
+    const hb = document.getElementById("hintBtn");
+    if (hb) hb.addEventListener("click", useHint);
+  });
+  // In case DOMContentLoaded already fired (the script runs at end of body)
+  (function () {
+    const hb = document.getElementById("hintBtn");
+    if (hb) hb.addEventListener("click", useHint);
+  })();
+
   // ========== WELCOME ==========
   function setStage(stageId) {
     document.querySelectorAll(".welcome-stage").forEach(s => {
@@ -3146,6 +3249,7 @@
     state.wrong = new Set();
     state.strikes = 0;
     state.take = 1;
+    state.hintUsed = false;
     SFX.tap();
     goToHandoff();
   });
@@ -3169,6 +3273,7 @@
     updateDigitRowVisibility();
     setKeyboardEnabled(true);
     resetSlate();
+    updateHintButton();
     hideAllModals();
     SFX.chime();
     vibrate(30);
@@ -3182,6 +3287,7 @@
     state.gameActive = false;
     setKeyboardEnabled(false);
     stopTimer();
+    updateHintButton();
     const remaining = currentWordmark().length - state.strikes;
     const points = won ? remaining * 10 : 0;
     if (state.isSolo) {
