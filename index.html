@@ -6,7 +6,7 @@
 <title>Bollywood — Movie Guessing Game</title>
 
 <!-- SEO & social -->
-<meta name="description" content="A two-player Bollywood-themed movie guessing game. Guess the movie before BOLLYWOOD strikes out!" />
+<meta name="description" content="A two-player movie guessing game with both Bollywood and Hollywood film libraries. Guess the movie before the wordmark strikes out!" />
 <meta name="author" content="Ashish Mishra" />
 <meta name="application-name" content="Bollywood" />
 
@@ -1056,7 +1056,7 @@
   .slab { font-family: 'Alfa Slab One', 'Roboto Slab', 'Rockwell', Georgia, serif; font-weight: 400; }
 
   /* ============ MODE PICKER (HOME) ============ */
-  .mode-modal { padding: 26px 18px 18px; max-width: 720px; }
+  .mode-modal { padding: 26px 18px 18px; max-width: 720px; position: relative; }
   .mode-tiles {
     display: flex;
     flex-direction: column;
@@ -1065,6 +1065,78 @@
   }
   @media (min-width: 580px) {
     .mode-tiles { flex-direction: row; gap: 18px; }
+  }
+
+  /* ============ INDUSTRY PICKER (FIRST LANDING) ============ */
+  .industry-modal {
+    padding: 18px 16px 14px;
+    max-width: 540px;
+  }
+  .industry-modal .modal-title {
+    font-size: clamp(1.7rem, 5.6vw, 2.3rem);
+    margin: 6px 0 2px;
+    line-height: 1.05;
+  }
+  .industry-modal .modal-sub {
+    margin: 0 0 6px;
+  }
+  .industry-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 14px auto 8px;
+    align-items: center;
+    width: 100%;
+  }
+  .industry-tile {
+    width: 100%;
+    max-width: 460px;
+  }
+  .industry-tile svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 150px;     /* hard cap so tickets stay compact on wide screens */
+  }
+  @media (max-width: 480px) {
+    .industry-modal { padding: 14px 12px 12px; }
+    .industry-tiles { gap: 10px; margin-top: 10px; }
+    .industry-tile svg { max-height: 130px; }
+  }
+
+  /* Logo image used in modals (replaces inline SVG clapperboard) */
+  .modal-logo-img {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(74, 14, 42, 0.22));
+  }
+  .modal-logo-img.modal-logo-lg {
+    width: 88px;
+    height: 88px;
+  }
+  .modal-logo-wrap {
+    margin-bottom: 4px;
+  }
+  /* On the small mode-picker (after industry chosen) the logo can stay slightly smaller */
+  .mode-modal .modal-logo-img {
+    width: 56px;
+    height: 56px;
+  }
+  @media (max-width: 480px) {
+    .modal-logo-img { width: 60px; height: 60px; }
+    .modal-logo-img.modal-logo-lg { width: 72px; height: 72px; }
+    .mode-modal .modal-logo-img { width: 48px; height: 48px; }
+  }
+
+  /* Modal back button (used on mode picker, etc.) */
+  .modal-back-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
   }
 
   /* Counter chip on home */
@@ -1388,22 +1460,58 @@
 
 </div>
 
-<!-- ============ MODAL: HOME / MODE PICKER ============ -->
-<div class="modal-back show" id="modeModal">
-  <div class="modal mode-modal">
-    <div class="about-logo" style="margin-bottom: 4px;">
-      <svg viewBox="0 0 100 100" width="56" height="56">
-        <rect x="6" y="22" width="88" height="68" rx="10" fill="#4a0e2a"/>
-        <g transform="rotate(-12 14 18)">
-          <rect x="2" y="10" width="92" height="18" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
-          <rect x="10" y="13" width="14" height="12" fill="#fff5d6"/>
-          <rect x="38" y="13" width="14" height="12" fill="#fff5d6"/>
-          <rect x="66" y="13" width="14" height="12" fill="#fff5d6"/>
-        </g>
-        <text x="50" y="68" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="900" font-size="34" fill="#f5c542">B</text>
-      </svg>
+<!-- ============ MODAL: INDUSTRY PICKER (HOME) ============ -->
+<div class="modal-back show" id="industryModal">
+  <div class="modal industry-modal">
+    <div class="about-logo modal-logo-wrap">
+      <img src="icons/logo.png" alt="App logo" class="modal-logo-img" width="48" height="48" />
     </div>
-    <h2 class="modal-title">Bollywood</h2>
+    <h2 class="modal-title">Pick Your Cinema</h2>
+    <p class="modal-sub">Choose an industry to begin</p>
+
+    <div class="industry-tiles">
+      <button class="ticket-tile industry-tile" type="button" data-industry="bollywood" aria-label="Bollywood">
+        <svg viewBox="-15 -22 650 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tk" fill="#1a0510" opacity="0.22" transform="translate(0 5)"/>
+          <use href="#tk" fill="#fbbf24" stroke="#4a0e2a" stroke-width="4"/>
+          <use href="#bigStar" transform="translate(310 -3)"/>
+          <use href="#perfDots"/>
+          <text class="slab" x="75" y="74" text-anchor="middle" font-size="20" fill="#4a0e2a" letter-spacing="1.5">FEATURE</text>
+          <text class="slab" x="75" y="102" text-anchor="middle" font-size="20" fill="#4a0e2a" letter-spacing="1.5">FILM</text>
+          <text class="slab" x="385" y="118" text-anchor="middle" font-size="62" fill="#4a0e2a" letter-spacing="2">BOLLYWOOD</text>
+        </svg>
+      </button>
+
+      <button class="ticket-tile industry-tile" type="button" data-industry="hollywood" aria-label="Hollywood">
+        <svg viewBox="-15 -22 650 220" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <use href="#tk" fill="#1a0510" opacity="0.22" transform="translate(0 5)"/>
+          <use href="#tk" fill="#c84638" stroke="#4a0e2a" stroke-width="4"/>
+          <use href="#bigStar" transform="translate(310 -3)"/>
+          <use href="#perfDots"/>
+          <text class="slab" x="75" y="74" text-anchor="middle" font-size="20" fill="#fff5d6" letter-spacing="1.5">FEATURE</text>
+          <text class="slab" x="75" y="102" text-anchor="middle" font-size="20" fill="#fff5d6" letter-spacing="1.5">FILM</text>
+          <text class="slab" x="385" y="118" text-anchor="middle" font-size="62" fill="#fff5d6" letter-spacing="2">HOLLYWOOD</text>
+        </svg>
+      </button>
+    </div>
+
+    <div class="counter-chip loading" id="counterChip">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <strong id="counterValue">…</strong> movies guessed worldwide
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: MODE PICKER ============ -->
+<div class="modal-back" id="modeModal">
+  <div class="modal mode-modal">
+    <button class="btn btn-ghost btn-sm modal-back-btn" id="modeBack" type="button" aria-label="Back">← Back</button>
+    <div class="about-logo modal-logo-wrap">
+      <img src="icons/logo.png" alt="App logo" class="modal-logo-img" width="48" height="48" />
+    </div>
+    <h2 class="modal-title" id="modeModalTitle">Bollywood</h2>
 
     <div class="mode-tiles">
       <button class="ticket-tile mode-tile" type="button" data-mode="solo" aria-label="Solo mode">
@@ -1443,13 +1551,6 @@
           </g>
         </svg>
       </button>
-    </div>
-
-    <div class="counter-chip loading" id="counterChip">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      <strong id="counterValue">…</strong> movies guessed worldwide
     </div>
   </div>
 </div>
@@ -1662,19 +1763,10 @@
 <div class="modal-back" id="aboutModal">
   <div class="modal about-modal">
     <div class="about-logo">
-      <svg viewBox="0 0 100 100" width="68" height="68">
-        <rect x="6" y="22" width="88" height="68" rx="10" fill="#4a0e2a"/>
-        <g transform="rotate(-12 14 18)">
-          <rect x="2" y="10" width="92" height="18" rx="3" fill="#4a0e2a" stroke="#1a0510" stroke-width="2"/>
-          <rect x="10" y="13" width="14" height="12" fill="#fff5d6"/>
-          <rect x="38" y="13" width="14" height="12" fill="#fff5d6"/>
-          <rect x="66" y="13" width="14" height="12" fill="#fff5d6"/>
-        </g>
-        <text x="50" y="68" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="900" font-size="34" fill="#f5c542">B</text>
-      </svg>
+      <img src="icons/logo.png" alt="App logo" class="modal-logo-img modal-logo-lg" width="64" height="64" />
     </div>
-    <h2 class="modal-title">Bollywood</h2>
-    <p class="modal-sub">A Movie Guessing Game · v1.0.0</p>
+    <h2 class="modal-title">Bollywood × Hollywood</h2>
+    <p class="modal-sub">A Movie Guessing Game · v1.3.2</p>
 
     <div class="about-info">
       <div class="about-row">
@@ -1792,9 +1884,16 @@
 
   // ========== STATE ==========
   const VOWELS = new Set(["A","E","I","O","U"]);
-  const BOLLYWOOD = "BOLLYWOOD".split("");
+  const WORDMARKS = {
+    bollywood: "BOLLYWOOD".split(""),
+    hollywood: "HOLLYWOOD".split("")
+  };
+  function currentWordmark() {
+    return WORDMARKS[state.industry] || WORDMARKS.bollywood;
+  }
 
   const state = {
+    industry: null,       // 'bollywood' | 'hollywood'
     p1: "Player 1",
     p2: "Player 2",
     scores: { p1: 0, p2: 0 },
@@ -1827,112 +1926,486 @@
   // ============ MOVIE LIST (curated, 500+ Bollywood titles) ============
   // All titles will be uppercased & sanitized automatically (punctuation stripped).
   // Add more by editing the arrays.
-  const MOVIES_BY_GENRE = {
-    "Classic": [
-      "SHOLAY", "DEEWAR", "ZANJEER", "AMAR AKBAR ANTHONY", "MUGHAL E AZAM",
-      "MOTHER INDIA", "ARADHANA", "CHUPKE CHUPKE", "KABHI KABHIE", "KARZ",
-      "AANDHI", "AWAARA", "PYAASA", "NAYA DAUR", "MADHUMATI",
-      "GUIDE", "SANGAM", "ANARI", "ANAND", "BOBBY",
-      "PAKEEZAH", "MERA NAAM JOKER", "DON", "TRISHUL", "NASEEB",
-      "COOLIE", "KASHMIR KI KALI", "KATI PATANG", "MUQADDAR KA SIKANDAR", "SUHAAG",
-      "AGNEEPATH", "RAM LAKHAN", "MAINE PYAR KIYA", "QAYAMAT SE QAYAMAT TAK", "TEZAAB",
-      "DIL", "AASHIQUI", "SAAJAN", "DARR", "TRIDEV",
-      "MR INDIA", "ANDAZ", "BORDER", "KARMA", "KHALNAYAK",
-      "DAMINI", "RAJA HINDUSTANI", "ROJA", "DIL SE", "BOMBAY",
-      "RANGEELA", "SATYA", "VAASTAV", "GHULAM", "JEET",
-      "BAAZIGAR", "KARAN ARJUN", "DIWANA", "LAMHE", "CHANDNI",
-      "HERO", "NAGINA", "JEWEL THIEF", "JOHNY MERA NAAM", "GOLMAAL",
-      "KHATTA MEETHA", "NAMAK HALAAL", "DOSTANA", "HUM", "SAUDAGAR",
-      "DILWALE", "HUM AAPKE HAIN KOUN", "RAJA", "DIL TO PAGAL HAI", "KOYLA",
-      "PARDES", "BAADSHAH", "MOHRA", "KRANTIVEER"
-    ],
-    "Romance": [
-      "DILWALE DULHANIA LE JAYENGE", "KUCH KUCH HOTA HAI", "VEER ZAARA", "JAB WE MET", "YEH JAWAANI HAI DEEWANI",
-      "AASHIQUI 2", "BARFI", "KAL HO NAA HO", "JODHAA AKBAR", "KABHI KHUSHI KABHIE GHAM",
-      "MOHABBATEIN", "SAATHIYA", "HUM TUM", "SALAAM NAMASTE", "BUNTY AUR BABLI",
-      "FANAA", "TUM BIN", "DHADAK", "EK THA TIGER", "JAB TAK HAI JAAN",
-      "ZINDAGI NA MILEGI DOBARA", "TAMASHA", "ROCKSTAR", "HIGHWAY", "AE DIL HAI MUSHKIL",
-      "HUM HAIN RAHI PYAR KE", "JAANE TU YA JAANE NA", "BACHNA AE HASEENO", "WAKE UP SID", "BREAK KE BAAD",
-      "LOVE AAJ KAL", "BEFIKRE", "MANMARZIYAAN", "DEAR ZINDAGI", "TU JHOOTHI MAIN MAKKAAR",
-      "SOCHA NA THA", "PYAAR KE SIDE EFFECTS", "SAAWARIYA", "GUZAARISH", "HUM DIL DE CHUKE SANAM",
-      "DEVDAS", "HUM SAATH SAATH HAIN", "KAHO NAA PYAAR HAI", "MUJHSE DOSTI KAROGE", "ISHQ VISHK",
-      "HUM TUMHARE HAIN SANAM", "KYA KEHNA", "KABHI HAAN KABHI NAA", "RAB NE BANA DI JODI", "KISMAT KONNECTION",
-      "AISHA", "DULHA MIL GAYA", "MAIN HOON NA", "OM SHANTI OM", "EK MAIN AUR EKK TU",
-      "HASEE TOH PHASEE", "HAMARI ADHURI KAHANI", "FITOOR", "OK JAANU", "HALF GIRLFRIEND",
-      "BADRINATH KI DULHANIA", "SHUDDH DESI ROMANCE", "RAANJHANAA", "TANU WEDS MANU", "TANU WEDS MANU RETURNS",
-      "KEDARNATH", "SHIDDAT", "HUMPTY SHARMA KI DULHANIA", "MERI PYAARI BINDU", "KAPOOR AND SONS",
-      "EK VILLAIN", "STUDENT OF THE YEAR", "STUDENT OF THE YEAR 2", "2 STATES", "DIL DHADAKNE DO",
-      "JAANEMAN", "KISMAT", "AAJA NACHLE", "HUM TUM AUR GHOST"
-    ],
-    "Comedy": [
-      "3 IDIOTS", "HERA PHERI", "ANDAZ APNA APNA", "MUNNA BHAI MBBS", "DHAMAAL",
-      "WELCOME", "HOUSEFULL", "GOLMAAL RETURNS", "BHOOL BHULAIYAA", "PHIR HERA PHERI",
-      "BHEJA FRY", "CHASHME BUDDOOR", "GARAM MASALA", "NO ENTRY", "DHOL",
-      "PARTNER", "BHAGAM BHAG", "LAGE RAHO MUNNA BHAI", "SINGH IS KING", "AWARA PAGAL DEEWANA",
-      "HUNGAMA", "PYAAR KA PUNCHNAMA", "STREE", "BAREILLY KI BARFI", "SHUBH MANGAL SAAVDHAN",
-      "TOILET EK PREM KATHA", "PADMAN", "BALA", "DREAM GIRL", "JUGJUGG JEEYO",
-      "DE DANA DAN", "WELCOME BACK", "TOTAL DHAMAAL", "HOUSEFULL 2", "HOUSEFULL 3",
-      "HOUSEFULL 4", "MASTI", "GRAND MASTI", "GREAT GRAND MASTI", "DULHE RAJA",
-      "JOLLY LLB", "JOLLY LLB 2", "JUDWAA", "JUDWAA 2", "DELHI BELLY",
-      "FUKREY", "FUKREY RETURNS", "DUM LAGA KE HAISHA", "HINDI MEDIUM", "BADHAAI HO",
-      "BADHAAI DO", "GOOD NEWWZ", "GULLY BOY", "ANGREZI MEDIUM", "ALL THE BEST",
-      "READY", "MERE BAAP PEHLE AAP", "CHUP CHUP KE", "MALAMAAL WEEKLY", "BHEJA FRY 2",
-      "OYE LUCKY LUCKY OYE", "DELHI 6", "PHATA POSTER NIKHLA HERO", "ENTERTAINMENT", "ITS ENTERTAINMENT",
-      "KILL DIL", "KHOOBSURAT", "PIKU", "HAPPY NEW YEAR", "DESI BOYZ",
-      "BOL BACHCHAN", "OMG OH MY GOD", "PK", "DHANAK", "VEERE DI WEDDING",
-      "LUKA CHUPPI", "SHUBH MANGAL ZYADA SAAVDHAN", "PATI PATNI AUR WOH", "GOOD NEWS", "COOLIE NO 1",
-      "DHEERAJ"
-    ],
-    "Action": [
-      "DABANGG", "SINGHAM", "BAAHUBALI", "PATHAAN", "TIGER ZINDA HAI",
-      "KRRISH", "DHOOM", "SHIVAAY", "WANTED", "BANG BANG",
-      "WAR", "DON 2", "TIGER 3", "DABANGG 2", "DABANGG 3",
-      "SINGHAM RETURNS", "DHOOM 2", "DHOOM 3", "KRRISH 3", "RACE",
-      "RACE 2", "RACE 3", "HOLIDAY", "AKIRA", "JAI HO",
-      "KICK", "BODYGUARD", "SULTAN", "ROBOT", "SAAHO",
-      "KGF CHAPTER 1", "KGF CHAPTER 2", "RRR", "VIKRAM VEDHA", "FORCE",
-      "FORCE 2", "PHANTOM", "ONCE UPON A TIME IN MUMBAI", "BOMBAY VELVET", "KAMINEY",
-      "GANGS OF WASSEYPUR", "WAZIR", "LUCKNOW CENTRAL", "BAAGHI", "BAAGHI 2",
-      "BAAGHI 3", "COMMANDO", "COMMANDO 2", "MARDAANI", "NAAM SHABANA",
-      "ROCK ON", "ROCK ON 2", "AURANGZEB", "RUSTOM", "RAID",
-      "BATLA HOUSE", "URI THE SURGICAL STRIKE", "MISSION MANGAL", "KESARI", "BHARAT",
-      "ZERO", "ROBOT 2 0", "TIGER", "KRACK", "SOORYAVANSHI",
-      "SHAMSHERA", "VIKRAM", "INDIAN POLICE FORCE", "MR AND MRS MAHI", "MAIDAAN",
-      "FIGHTER", "YODHA", "RAUSHANI", "EK AUR EK GYARAH", "SHOOTOUT AT WADALA",
-      "ONCE UPON A TIME IN MUMBAAI DOBAARA", "TASHAN", "TEES MAAR KHAN", "PROFESSOR", "RANGEELA RAJA",
-      "BEHIND ENEMY LINES", "HUM SE BADHKAR KAUN"
-    ],
-    "Thriller": [
-      "ANDHADHUN", "KAHAANI", "DRISHYAM", "TALAASH", "BADLAPUR",
-      "SPECIAL 26", "A WEDNESDAY", "KARTHIK CALLING KARTHIK", "NO ONE KILLED JESSICA", "KAHAANI 2",
-      "DRISHYAM 2", "BABY", "AITRAAZ", "RAAZ", "RAAZ 2",
-      "RAAZ 3", "1920", "BHOOT", "PHOONK", "MURDER",
-      "MURDER 2", "MURDER 3", "JISM", "JISM 2", "AWARAPAN",
-      "JANNAT", "JANNAT 2", "HATE STORY", "JOHNNY GADDAAR", "MANORAMA SIX FEET UNDER",
-      "TALVAR", "SECTION 375", "ARTICLE 15", "MADRAS CAFE", "SHANGHAI",
-      "AIYAARY", "MOM", "NH10", "KAALAKAANDI", "HASEEN DILRUBA",
-      "MERRY CHRISTMAS", "DARLINGS", "GEHRAIYAAN", "JALSA", "FREDDY",
-      "BHEED", "TE3N", "ITTEFAQ", "RAAZI", "HICHKI",
-      "CHHAPAAK", "BLACKMAIL", "ANGREZI DHAVA", "BHOOL CHUK MAAF", "FOOTFAIRY",
-      "AB TAK CHHAPPAN", "KATHAL", "MONICA O MY DARLING", "DAHAAD", "SHEHAR LAKHOT",
-      "JAANE JAAN", "GARMI", "FUTURE PEOPLE", "BLACK FRIDAY", "KAUN",
-      "BLOODY BROTHERS", "RAKSHA BANDHAN"
-    ],
-    "Recent Hits": [
-      "JAWAN", "ANIMAL", "12TH FAIL", "LAAPATAA LADIES", "ARTICLE 370",
-      "DUNKI", "BAWAAL", "GADAR 2", "ROCKY AUR RANI KII PREM KAHAANI", "BHEDIYA",
-      "AN ACTION HERO", "GOVINDA NAAM MERA", "CIRKUS", "LAAL SINGH CHADDHA", "SHERNI",
-      "BHUJ", "BELL BOTTOM", "MUMBAI SAGA", "SALAAR", "STREE 2",
-      "BHOOL BHULAIYAA 3", "SINGHAM AGAIN", "MUNJYA", "CREW", "PIPPA",
-      "MRS CHATTERJEE VS NORWAY", "DREAM GIRL 2", "ZWIGATO", "SELFIEE", "KISI KA BHAI KISI KI JAAN",
-      "AFWAAH", "ADIPURUSH", "SHAITAAN", "DEVA", "BADE MIYAN CHOTE MIYAN",
-      "HEERAMANDI", "AAP JAISA KOI", "LOVE STORIYAAN", "KILL", "PHIR AAYI HASEEN DILRUBA",
-      "CARRY ON JATTA", "FUKREY 3", "GADAR EK PREM KATHA", "OMG 2", "TARLA",
-      "ZARA HATKE ZARA BACHKE", "BLOODY DADDY", "GHOOMER", "JIGRA", "SAM BAHADUR",
-      "FARRY", "MONKEY MAN", "AURON MEIN KAHAN DUM THA", "BARBIE", "ARANYAK",
-      "BAD NEWZ", "DO PATTI", "VEDAA"
-    ]
+  const MOVIES = {
+    bollywood: {
+      "Classic": [
+        "AWAARA", "SHREE 420", "PYAASA", "KAGAZ KE PHOOL", "MOTHER INDIA",
+        "MUGHAL E AZAM", "ANDAZ", "BARSAAT", "AAH", "AAN",
+        "JIS DESH MEIN GANGA BEHTI HAI", "JEWEL THIEF", "GUIDE", "SANGAM", "ARADHANA",
+        "ANAND", "AMAR PREM", "NAYA DAUR", "MADHUMATI", "BARSAAT KI RAAT",
+        "CHAUDHVIN KA CHAND", "SAHIB BIBI AUR GHULAM", "KOHINOOR", "DIL EK MANDIR", "BANDINI",
+        "MEREY MEHBOOB", "AANKHEN", "ANARI", "AAN MILO SAJNA", "ANUPAMA",
+        "AKELE HUM AKELE TUM", "HARIYALI AUR RASTA", "JOHNY MERA NAAM", "SHOLAY", "DEEWAR",
+        "ZANJEER", "AMAR AKBAR ANTHONY", "DON", "TRISHUL", "NASEEB",
+        "MUQADDAR KA SIKANDAR", "SUHAAG", "COOLIE", "KASHMIR KI KALI", "KATI PATANG",
+        "BOBBY", "KABHI KABHIE", "YAARANA", "CHUPKE CHUPKE", "AANDHI",
+        "KARZ", "PAKEEZAH", "MERA NAAM JOKER", "ROTI KAPDA AUR MAKAAN", "BACK TO ROME",
+        "SATTE PE SATTA", "SAWAN BHADON", "BAWARCHI", "SACHAA JHUTHA", "HEER RANJHA",
+        "MERE APNE", "REFUGEE", "CHARITRAHEEN", "DUS LAKH", "DUS NUMBRI",
+        "DOSTI", "DREAM GIRL", "JANJEER", "WAKT", "SARGAM",
+        "AGNEEPATH", "RAM LAKHAN", "MAINE PYAR KIYA", "QAYAMAT SE QAYAMAT TAK", "TEZAAB",
+        "MR INDIA", "DISCO DANCER", "DARR", "TRIDEV", "KARMA",
+        "KHAL NAYAK", "DAMINI", "KHALNAYAK", "BORDER", "ROJA",
+        "DIL SE", "BOMBAY", "RANGEELA", "SATYA", "VAASTAV",
+        "GHULAM", "JEET", "BAAZIGAR", "KARAN ARJUN", "DIWANA",
+        "LAMHE", "CHANDNI", "HERO", "NAGINA", "SHAREEF BUDMAASH",
+        "GOLMAAL", "KHATTA MEETHA", "NAMAK HALAAL", "DOSTANA", "HUM",
+        "SAUDAGAR", "DIL", "AASHIQUI", "SAAJAN", "DILWALE",
+        "PARDES", "BAADSHAH", "MOHRA", "KRANTIVEER", "JUDAAI",
+        "BANDIT QUEEN", "SADAK", "HUM HAIN RAHI PYAR KE", "RAJA", "LOAFER",
+        "ANARI NO 1", "DIL TO PAGAL HAI", "BAAZI", "LAADLA", "KOYLA",
+        "CHALBAAZ", "RAJA HINDUSTANI", "DDLJ", "HUM AAPKE HAIN KOUN", "KUCH KUCH HOTA HAI",
+        "MOHABBATEIN", "BIWI NO 1", "KAHO NAA PYAAR HAI", "TAAL", "VIRASAT",
+        "HAM SAATH SAATH HAIN", "DUSHMAN", "ZIDDI", "CHAAHAT", "DULHE RAJA",
+        "DASTAK", "ZOR", "BANDISH", "JAANAM SAMJHA KARO", "HUM SAATH SAATH HAIN",
+        "HUM DIL DE CHUKE SANAM", "BAIRAAG", "KHOOBSURAT", "KHEL KHEL MEIN", "IMAAN DHARAM",
+        "KABHI KABHI", "MAUSAM", "ANOKHI RAAT", "KAALA PATTHAR", "SHAKTI",
+        "AJNABEE", "DHARM VEER", "AKRAMAN", "AURAT", "DHANWAN",
+        "NASEEB APNA APNA", "ANAND ASHRAM", "ZAMEER", "KHOON PASINA", "ANDHA KANOON",
+        "GHAR SANSAR", "KHUDA GAWAH", "DHARAM VEER", "AAINA", "AULAD",
+        "APNA DESH", "AAP KI KASAM", "JAANI DUSHMAN", "KHUDDAR", "HUM KISI SE KUM NAHEEN",
+        "JURMANA", "DHARM ADHIKARI", "NAYA ZAMANA", "VIDHAATA", "SHARMILEE",
+        "JAYABAJ", "HUM HAIN LAJAWAAB", "INSAAF KA TARAZU", "AAP AAYE BAHAAR AAYEE", "YAADON KI BAARAAT",
+        "HERA PHERI", "KAALIA", "SILSILA", "KUDRAT", "KHUDA KASAM",
+        "HUM PAANCH", "AAKHREE RAASTA", "CHAALBAAZ", "DEEDAAR", "ANGAREY",
+        "AAJ KA ARJUN", "RAM TERI GANGA MAILI", "ARJUN", "KOI MERE DIL SE POOCHE", "BAGHBAN",
+        "BAABUL", "WAQT THE RACE AGAINST TIME", "VAH LIFE HO TOH AISI", "DEEWAR LET THE LAW MEET JUSTICE", "ALAG ALAG",
+        "INSAAN", "SAAYA", "DOSTI FRIENDS FOREVER", "BACHKE REHNA RE BABA", "ANGAARAY",
+        "ANJAAM", "HUM KAUN HAI", "DARNA MANA HAI", "ZAKHM", "SAMAY",
+        "INSAAF KAUN KAREGA", "BANDHAN", "AAJA SANAM", "DIL HAI BETAAB", "AAJ KI AURAT",
+        "SAUDA THE DEAL", "DAYAVAN", "HATYA", "AANSOO BANE ANGAARE", "GUNAAH",
+        "AAPNE", "HUM HAIN BEMISAAL", "AAYA TOOFAN", "INSAAF KI AAWAAZ", "DHARM YODDHA"
+      ],
+      "Romance": [
+        "DILWALE DULHANIA LE JAYENGE", "VEER ZAARA", "JAB WE MET", "YEH JAWAANI HAI DEEWANI", "AASHIQUI 2",
+        "BARFI", "KAL HO NAA HO", "JODHAA AKBAR", "KABHI KHUSHI KABHIE GHAM", "SAATHIYA",
+        "HUM TUM", "SALAAM NAMASTE", "BUNTY AUR BABLI", "FANAA", "TUM BIN",
+        "DHADAK", "EK THA TIGER", "JAB TAK HAI JAAN", "ZINDAGI NA MILEGI DOBARA", "TAMASHA",
+        "ROCKSTAR", "HIGHWAY", "AE DIL HAI MUSHKIL", "JAANE TU YA JAANE NA", "BACHNA AE HASEENO",
+        "WAKE UP SID", "BREAK KE BAAD", "LOVE AAJ KAL", "BEFIKRE", "MANMARZIYAAN",
+        "DEAR ZINDAGI", "TU JHOOTHI MAIN MAKKAAR", "SOCHA NA THA", "SAAWARIYA", "GUZAARISH",
+        "DEVDAS", "MUJHSE DOSTI KAROGE", "ISHQ VISHK", "HUM TUMHARE HAIN SANAM", "KYA KEHNA",
+        "KABHI HAAN KABHI NAA", "RAB NE BANA DI JODI", "KISMAT KONNECTION", "AISHA", "DULHA MIL GAYA",
+        "MAIN HOON NA", "OM SHANTI OM", "EK MAIN AUR EKK TU", "HASEE TOH PHASEE", "HAMARI ADHURI KAHANI",
+        "FITOOR", "OK JAANU", "HALF GIRLFRIEND", "BADRINATH KI DULHANIA", "SHUDDH DESI ROMANCE",
+        "RAANJHANAA", "TANU WEDS MANU", "TANU WEDS MANU RETURNS", "KEDARNATH", "SHIDDAT",
+        "HUMPTY SHARMA KI DULHANIA", "MERI PYAARI BINDU", "KAPOOR AND SONS", "STUDENT OF THE YEAR", "STUDENT OF THE YEAR 2",
+        "2 STATES", "DIL DHADAKNE DO", "JAANEMAN", "KISMAT", "AAJA NACHLE",
+        "HUM TUM AUR GHOST", "NAMASTEY LONDON", "SALAAM E ISHQ", "ANJAANA ANJAANI", "I HATE LUV STORYS",
+        "NEW YORK", "HEYY BABYY", "ROCK ON", "ROCK ON 2", "DOR",
+        "JAB HARRY MET SEJAL", "RANJHANAA", "ISHAQZAADE", "TERE NAAM", "KAANK",
+        "KOI MIL GAYA", "CHAMELI", "NAACH", "HONEYMOON TRAVELS PVT LTD", "TEEN PATTI",
+        "LOVE BREAKUPS ZINDAGI", "TUM HI HO", "GOLIYON KI RAASLEELA RAM LEELA", "BAJIRAO MASTANI", "PADMAAVAT",
+        "HEROPANTI", "THE NIGHT MANAGER", "BADHAI HO", "HASEEN DILRUBA", "GULAB JAMUN",
+        "ALMOST PYAR WITH DJ MOHABBAT", "PHIR HERA PHERI", "DIL CHAHTA HAI", "BANG BANG", "TUMHARI SULU",
+        "BHAIYYAJI SUPERHIT", "SHANDAAR", "CHEF", "BUDHAA HOGA TERA BAAP", "HAPPY ENDING",
+        "FIRANGI", "SHUBH MANGAL ZYADA SAAVDHAN", "LOOTERA", "COCKTAIL", "SHAANDAAR",
+        "ANJAANI ANJAANA", "I AM", "UDTA PUNJAB", "JAGGA JASOOS", "PIKU",
+        "RANJHANA", "TAARE ZAMEEN PAR", "SAANWARIYA", "SIRF TUM", "CHALTE CHALTE",
+        "PHIR BHI DIL HAI HINDUSTANI", "MAST", "DAUD", "RAMJI LONDONWALEY", "BADHAAI",
+        "YES BOSS", "HO GAYA HAI TUJHKO TOH PYAR SAJNA", "YE DILLAGI", "BOOM", "NAAM GUM JAYEGA",
+        "PYAAR KE SIDE EFFECTS", "RISK", "AITRAAZ", "HELLO", "HEROINE",
+        "ENGLISH VINGLISH", "DUM MAARO DUM", "WE ARE FAMILY", "MY NAME IS KHAN", "MUJHSE SHAADI KAROGI",
+        "TA RA RUM PUM", "TASHAN", "ZINDAGI 50 50", "ACTION REPLAYY", "U ME AUR HUM",
+        "ROOP KI RANI CHORON KA RAJA", "DIL HAI KI MAANTA NAHIN", "PYAR JHUKTA NAHIN", "BETAAB", "LOVE STORY",
+        "SIRF EK PAGAL", "SAJAN", "DEEWANA", "AISA YEH DIL", "JEENA SIRF MERRE LIYE",
+        "TUMSA NAHIN DEKHA", "ITNA NA MUJHSE TU PYAAR BADHA", "PYAAR KIYA TO DARNA KYA", "DULHAN HUM LE JAYENGE", "HUM HO GAYE AAPKE",
+        "JAB PYAR KISI SE HOTA HAI", "DULHAN BANOO MAIN TERI", "KUCH KHATTI KUCH MEETHI", "ASOKA", "SOLDIER",
+        "HUM PYAR TUMHI SE KAR BAITHE", "PYAAR ISHQ AUR MOHABBAT", "KARZ THE BURDEN OF TRUTH", "CHORI CHORI CHUPKE CHUPKE", "DIWANGI",
+        "ARMAAN", "YEH DIL AASHIQANA", "MAINE PYAAR KYUN KIYA", "SHAADI NO 1", "GORI TERE PYAAR MEIN",
+        "PURANI JEANS", "SHAUKEEN", "KILL DIL", "ROY", "BOMBAY VELVET",
+        "KATTI BATTI", "FAN", "DEAR MAYA", "NOOR", "GUEST IIN LONDON"
+      ],
+      "Comedy": [
+        "3 IDIOTS", "ANDAZ APNA APNA", "MUNNA BHAI MBBS", "DHAMAAL", "WELCOME",
+        "HOUSEFULL", "GOLMAAL RETURNS", "BHOOL BHULAIYAA", "BHEJA FRY", "CHASHME BUDDOOR",
+        "GARAM MASALA", "NO ENTRY", "DHOL", "PARTNER", "BHAGAM BHAG",
+        "LAGE RAHO MUNNA BHAI", "SINGH IS KING", "AWARA PAGAL DEEWANA", "HUNGAMA", "PYAAR KA PUNCHNAMA",
+        "STREE", "BAREILLY KI BARFI", "SHUBH MANGAL SAAVDHAN", "TOILET EK PREM KATHA", "PADMAN",
+        "BALA", "JUGJUGG JEEYO", "DE DANA DAN", "WELCOME BACK", "TOTAL DHAMAAL",
+        "HOUSEFULL 2", "HOUSEFULL 3", "HOUSEFULL 4", "MASTI", "GRAND MASTI",
+        "GREAT GRAND MASTI", "JOLLY LLB", "JOLLY LLB 2", "JUDWAA", "JUDWAA 2",
+        "DELHI BELLY", "FUKREY", "FUKREY RETURNS", "DUM LAGA KE HAISHA", "HINDI MEDIUM",
+        "BADHAAI HO", "BADHAAI DO", "GOOD NEWWZ", "GULLY BOY", "ANGREZI MEDIUM",
+        "ALL THE BEST", "READY", "MERE BAAP PEHLE AAP", "CHUP CHUP KE", "MALAMAAL WEEKLY",
+        "BHEJA FRY 2", "OYE LUCKY LUCKY OYE", "DELHI 6", "PHATA POSTER NIKHLA HERO", "ENTERTAINMENT",
+        "ITS ENTERTAINMENT", "HAPPY NEW YEAR", "DESI BOYZ", "BOL BACHCHAN", "OMG OH MY GOD",
+        "PK", "DHANAK", "VEERE DI WEDDING", "LUKA CHUPPI", "PATI PATNI AUR WOH",
+        "COOLIE NO 1", "CHALTI KA NAAM GAADI", "HALF TICKET", "PADOSAN", "GOL MAAL",
+        "ANGOOR", "CHASHME BADDOOR", "JAANE BHI DO YAARO", "HUNGAMA 2", "KRRISH",
+        "KRRISH 3", "BHOOL BHULAIYAA 2", "AWESOME MAUSAM", "JOKER", "JAB JAB PHOOL KHILE",
+        "MUSAFIR", "SAJID NADIADWALA", "KYAA SUPER KOOL HAIN HUM", "GOLMAAL FUN UNLIMITED", "GOLMAAL 3",
+        "GOLMAAL AGAIN", "FUKREY 3", "DHAMAAL 2", "FUNTOOSH", "JUNG",
+        "HASEENA MAAN JAYEGI", "MAINE GANDHI KO NAHI MARA", "HEY RAM", "HALLA BOL", "JOHNNY GADDAAR",
+        "SINGH IS BLINGG", "LOC KARGIL", "KARZZZZ", "KISMET LOVE PAISA DILLI", "KYA KOOL HAIN HUM",
+        "MASTIZAADE", "KYA KOOL HAIN HUM 3", "MERE DAD KI MARUTI", "KHICHDI THE MOVIE", "GHANCHAKKAR",
+        "GULAAB GANG", "KARTIK CALLING KARTIK", "CHEMISTRY", "JANE TU YA JANE NA", "DREAM GIRL 2",
+        "RAKSHA BANDHAN", "KUCH NA KAHO", "CHEENI KUM", "SHAUKEENS", "ATITHI TUM KAB JAOGE",
+        "HOUSEFULL 5", "KISI KA BHAI KISI KI JAAN", "HAR HAR GANGE", "ARJUN PATIALA", "JIS NE JIYA SO USKO MILA",
+        "JABARIYA JODI", "KRAZZY 4", "ALADIN", "APNA SAPNA MONEY MONEY", "SHAADI MEIN ZAROOR AANA",
+        "YAMLA PAGLA DEEWANA", "YAMLA PAGLA DEEWANA 2", "TOH BAAT PAKKI", "CHALA MUSSADDI OFFICE OFFICE", "KRISHNA COTTAGE",
+        "KUCCH LUV JAISAA", "WELCOME 2 KARACHI", "BHAAG BEANIE BHAAG", "CHILLAR PARTY", "STANLEY KA DABBA",
+        "SINGH SAAB THE GREAT", "JODI BREAKERS", "PAGLAIT", "DOLLY KITTY AUR WOH CHAMAKTE SITARE", "NAUGHTY AT 40",
+        "BADHAAI HO BADHAAI", "BAS ITNA SA KHWAB HAI", "HALCHAL", "DEEWANA MASTANA", "MUJHE KUCCH KEHNA HAI",
+        "YEH HAI MUMBAI MERI JAAN", "TURNING 30", "FATSO", "KAL KISSNE DEKHA", "CHHODON KAL KI BAATEIN",
+        "DOLLY KI DOLI", "SHAADI KE SIDE EFFECTS", "JOLLY LLB 3", "UJDA CHAMAN", "BHEDIYA",
+        "MUNJYA", "MIMI", "PHIR AAYI HASEEN DILRUBA", "KHALI PEELI", "CHHALAANG",
+        "GINNY WEDS SUNNY", "ROOH AFZA", "MUMBAIKARS", "BAGHI", "NIKAMMA",
+        "BLOODY DADDY", "KISMET KONNECTION", "DRONA", "TUM MILE", "HUM HAIN MARRIED COUPLE",
+        "CHANCE PE DANCE", "LITTLE ZIZOU", "BAJATEY RAHO", "RUNNING SHAADI", "ANARKALI OF AARAH",
+        "PHILLAURI", "TUM BIN 2"
+      ],
+      "Action": [
+        "DABANGG", "SINGHAM", "BAAHUBALI", "BAAHUBALI 2", "PATHAAN",
+        "TIGER ZINDA HAI", "DHOOM", "SHIVAAY", "WANTED", "WAR",
+        "DON 2", "TIGER 3", "DABANGG 2", "DABANGG 3", "SINGHAM RETURNS",
+        "DHOOM 2", "DHOOM 3", "RACE", "RACE 2", "RACE 3",
+        "HOLIDAY", "AKIRA", "JAI HO", "KICK", "BODYGUARD",
+        "SULTAN", "ROBOT", "SAAHO", "KGF CHAPTER 1", "KGF CHAPTER 2",
+        "RRR", "VIKRAM VEDHA", "EK VILLAIN", "FORCE", "FORCE 2",
+        "PHANTOM", "ONCE UPON A TIME IN MUMBAI", "KAMINEY", "GANGS OF WASSEYPUR", "WAZIR",
+        "LUCKNOW CENTRAL", "BAAGHI", "BAAGHI 2", "BAAGHI 3", "COMMANDO",
+        "COMMANDO 2", "MARDAANI", "NAAM SHABANA", "AURANGZEB", "RUSTOM",
+        "RAID", "BATLA HOUSE", "URI THE SURGICAL STRIKE", "MISSION MANGAL", "KESARI",
+        "BHARAT", "ZERO", "TIGER", "KRACK", "SOORYAVANSHI",
+        "SHAMSHERA", "VIKRAM", "INDIAN POLICE FORCE", "FIGHTER", "YODHA",
+        "RAUSHANI", "SHOOTOUT AT WADALA", "ONCE UPON A TIME IN MUMBAAI DOBAARA", "TEES MAAR KHAN", "PROFESSOR",
+        "RANGEELA RAJA", "HUM SE BADHKAR KAUN", "KAALICHARAN", "SADMA", "KOMMANDO",
+        "INSAAF", "PARINDA", "ANGAAR", "KSHATRIYA", "HATHYAR",
+        "GHATAK", "HUKUMAT", "JEHAD", "HATHYARA", "AGNI VARSHA",
+        "AB TUMHARE HAWALE WATAN SAATHIYO", "YUVA", "WAR CHHOD NA YAAR", "NEPHEW", "JAGRUTI",
+        "SHIKARI", "ARZOO", "WANTED CHOR", "INSPECTOR PRADHAN", "MISSION KASHMIR",
+        "KABUL EXPRESS", "CARGO", "HALFA NIKE", "SARFAROSH", "LAKSHYA",
+        "GHAJINI", "RAAZ", "BHOOMI", "RAAZI", "MISSION MAJNU",
+        "MISSION RAJ", "NAAM", "DEEWAAR", "MISSION 2025", "ROCKY HANDSOME",
+        "D DAY", "DRISHYAM", "MAIN AZAAD HOON", "HUM HAIN PYAAR KE LIYE", "CHHOTA CHETAN",
+        "EK ANJAANI BAAT", "HUM AAPKE DIL MEIN REHTE HAIN", "KAALA", "KAALAPATTHAR", "HOOR",
+        "FITRAT", "POOJA", "ROBOT 2 0", "KAABIL", "AKSHAR",
+        "MAARDAANGI", "DAREDEVIL", "MAIN HOON NAA", "RAGHU ROMEO", "WAR 2",
+        "WELCOME TO THE JUNGLE", "BHOLA", "SPY BHANWRA", "PHALTU", "SRIDEVI BUNGALOW",
+        "THAR", "CUTTPUTLLI", "HEROPANTI 2", "KABADDI", "SAIYAARA",
+        "JHANJHARIYA", "AATMA", "ROCKY AUR RANI", "YAARON KI BAARAAT", "VANDE BHARAT",
+        "OPERATION KHUKRI", "BANG BANG 2", "RAGHAV JUYAL", "JAIL", "ACID FACTORY",
+        "FORCE 3", "ATTACK", "RAUF", "MISSION GANGA", "HUM SE HAI ZAMANA",
+        "DAUD SARDAR", "FAUJI", "ANTIM", "MUMBAI MERI JAAN", "BHAVESH JOSHI SUPERHERO",
+        "BACHKE BHARAT", "POLICEWALA GUNDA", "ZALIM", "INDIAN", "INDIAN 2",
+        "INDIAN 3", "SAARTHI", "JAANBAAZ", "GHATAK LETHAL", "DUSHMAN DEVTA",
+        "INSAAF KI MANZIL", "INDRAJEET", "KARMA YODDHA", "RAID 2", "SHOOTOUT AT LOKHANDWALA",
+        "NAAYAK THE REAL HERO", "KHILADI", "MAIN KHILADI TU ANARI", "SABSE BADA KHILADI", "INTERNATIONAL KHILADI",
+        "KHILADI 786", "KHEL", "TAQDEERWALA", "ELAAN", "KARTOOS",
+        "ANGAARA", "TARZAN THE WONDER CAR", "HATIM TAI", "DEEWAANE HUYE PAAGAL", "TUMKO NA BHOOL PAYENGE",
+        "BLACKMAIL", "HASEENA PARKAR", "SAAGAR", "INSAAF KI DEVI", "BABLI BOUNCER",
+        "SARDAR KA GRANDSON", "ROBOT 3", "BAGHAMBAR", "ANTYA"
+      ],
+      "Thriller": [
+        "ANDHADHUN", "KAHAANI", "TALAASH", "BADLAPUR", "SPECIAL 26",
+        "A WEDNESDAY", "KARTHIK CALLING KARTHIK", "NO ONE KILLED JESSICA", "KAHAANI 2", "DRISHYAM 2",
+        "BABY", "RAAZ 2", "RAAZ 3", "1920", "BHOOT",
+        "PHOONK", "MURDER", "MURDER 2", "MURDER 3", "JISM",
+        "JISM 2", "AWARAPAN", "JANNAT", "JANNAT 2", "HATE STORY",
+        "MANORAMA SIX FEET UNDER", "TALVAR", "SECTION 375", "ARTICLE 15", "MADRAS CAFE",
+        "SHANGHAI", "AIYAARY", "MOM", "NH10", "KAALAKAANDI",
+        "MERRY CHRISTMAS", "DARLINGS", "GEHRAIYAAN", "JALSA", "FREDDY",
+        "BHEED", "TE3N", "ITTEFAQ", "HICHKI", "CHHAPAAK",
+        "ANGREZI DHAVA", "BHOOL CHUK MAAF", "FOOTFAIRY", "AB TAK CHHAPPAN", "KATHAL",
+        "MONICA O MY DARLING", "DAHAAD", "SHEHAR LAKHOT", "JAANE JAAN", "GARMI",
+        "FUTURE PEOPLE", "BLACK FRIDAY", "KAUN", "BLOODY BROTHERS", "16 DECEMBER",
+        "AKS", "AGENT VINOD", "D", "SARKAR", "SARKAR RAJ",
+        "SARKAR 3", "COMPANY", "RAKTBEEJ", "DHARM", "SHABNAM MAUSI",
+        "RAGINI MMS", "RAGINI MMS 2", "HATE STORY 2", "HATE STORY 3", "HATE STORY 4",
+        "DEHRAA", "TUMBBAD", "KAANCHLI", "FORENSIC", "CHEHRE",
+        "MUKKABAAZ", "SAR", "KHUDA HAFIZ", "ARDH", "NETAJI",
+        "TAANDAV", "BADLA", "MAJNU", "URI", "THE FAMILY MAN",
+        "CRIMINAL JUSTICE", "SCAM 1992", "SCAM 2003", "DELHI CRIME", "ARYA",
+        "ARYA 2", "AAYE HEEROK", "JOY MUKHERJEE", "NAYAGAN", "DOOSRA AADMI",
+        "CHAKRA", "JAAGTE RAHO", "DETECTIVE BYOMKESH BAKSHY", "KOHRA", "WOH KAUN THI",
+        "TEESRI MANZIL", "KAMATI BAI", "BHARAT BHAGYA VIDHATA", "BAAZ", "SUSPECT",
+        "HUSN", "TALAASH THE HUNT BEGINS", "ZINDA", "MURDER RETURNS", "MURDER 4",
+        "AKSAR", "AKSAR 2", "DASSEHRA", "ROOPA", "LIPSTICK UNDER MY BURKHA",
+        "PATANG", "PHOBIA", "DRISHTI", "LUST STORIES", "36 CHINA TOWN",
+        "CHOCOLATE", "NH8", "NH 24", "TALAASH 2", "EK HASINA THI",
+        "MARDAANI 2", "MARDAANI 3", "GAME", "JHALAK DIKHHLA JAA", "SHAITAN",
+        "DARNA ZAROORI HAI", "KAUN HAI JO SAPNON MEIN AAYA", "RAAZ THE MYSTERY CONTINUES", "RAAZ REBOOT", "1920 EVIL RETURNS",
+        "1921", "1920 LONDON", "1920 HORRORS OF THE HEART", "HASEENA", "HOLIDAY A SOLDIER IS NEVER OFF DUTY",
+        "HUMRAAZ", "ALONE", "CREATURE 3D", "HORROR STORY", "PIZZA",
+        "MUMBAI MIRROR", "BABLOO BACHELOR", "JAZBAA", "NIRBHAY", "DARJI",
+        "HALAHAL", "BHRAM", "RAAT AKELI HAI", "CHOKED", "SADAK 2",
+        "DURGAMATI", "GUMRAAH", "DOSTANA 2", "RAJ 2", "JEHANABAD",
+        "FAMILY MAN 2", "MIRZAPUR", "MIRZAPUR 2", "MIRZAPUR 3", "SACRED GAMES",
+        "SACRED GAMES 2", "BREATHE", "BREATHE INTO THE SHADOWS"
+      ],
+      "Recent Hits": [
+        "JAWAN", "ANIMAL", "12TH FAIL", "LAAPATAA LADIES", "ARTICLE 370",
+        "DUNKI", "BAWAAL", "GADAR 2", "ROCKY AUR RANI KII PREM KAHAANI", "AN ACTION HERO",
+        "GOVINDA NAAM MERA", "CIRKUS", "LAAL SINGH CHADDHA", "SHERNI", "BHUJ",
+        "BELL BOTTOM", "MUMBAI SAGA", "SALAAR", "STREE 2", "BHOOL BHULAIYAA 3",
+        "SINGHAM AGAIN", "CREW", "PIPPA", "MRS CHATTERJEE VS NORWAY", "ZWIGATO",
+        "SELFIEE", "AFWAAH", "ADIPURUSH", "SHAITAAN", "DEVA",
+        "BADE MIYAN CHOTE MIYAN", "HEERAMANDI", "AAP JAISA KOI", "LOVE STORIYAAN", "KILL",
+        "CARRY ON JATTA", "GADAR EK PREM KATHA", "OMG 2", "TARLA", "ZARA HATKE ZARA BACHKE",
+        "GHOOMER", "JIGRA", "SAM BAHADUR", "FARRY", "MONKEY MAN",
+        "AURON MEIN KAHAN DUM THA", "BARBIE", "ARANYAK", "BAD NEWZ", "DO PATTI",
+        "VEDAA", "BHAKSHAK", "MURDER MUBARAK", "TEJAS", "MISSION RANIGANJ",
+        "JIGARTHANDA", "SUKHEE", "DONO", "PARI HOON MAIN", "RAUTU KA RAAZ",
+        "BANDA SINGH", "MAHARAJ", "MR AND MRS MAHI", "CHANDU CHAMPION", "KAKUDA",
+        "SAVI", "AUR PHIR JINDAGI", "BLOODY ISHQ", "SARDAR UDHAM", "SHERSHAAH",
+        "SOORMA", "TOOFAAN", "MAIDAAN", "RUSLAAN", "CHAL ZINDAGI",
+        "NEEYAT", "TIKU WEDS SHERU", "IB 71", "RACHANA", "CHASHMA",
+        "CHATRAPATI", "CASTAWAY", "ULAJH", "DO AUR DO PYAAR", "CHANDIGARH KARE AASHIQUI",
+        "GOSSIP GIRLS", "HAU TI MORI", "JOY", "BACHELOR", "BABY JOHN",
+        "DESPATCH", "PHIR HERA PHERI 3", "HISAAB BARABAR", "SKY FORCE", "KESARI 2",
+        "SIMMBA", "SANJU", "SATYAMEVA JAYATE", "GOLD", "SUI DHAAGA",
+        "BATTI GUL METER CHALU", "NAMASTE ENGLAND", "BAAZAAR", "FRYDAY", "FANNEY KHAN",
+        "HELICOPTER EELA", "PATAAKHA", "KALANK", "DE DE PYAAR DE", "KABIR SINGH",
+        "CHHICHHORE", "PAGALPANTI", "COMMANDO 3", "MOTICHOOR CHAKNACHOOR", "TANHAJI",
+        "STREET DANCER 3D", "GULABO SITABO", "SHAKUNTALA DEVI", "AK VS AK", "TANDAV",
+        "WHITE TIGER", "TUGHLAQ DURBAR", "TUGHLAQ", "BHOOT THE HAUNTED SHIP", "ROOHI",
+        "PAGGLAIT", "RADHE", "BHUJ THE PRIDE OF INDIA", "BOB BISWAS", "KAAGAZ",
+        "SOORARAI POTTRU", "ATRANGI RE", "83", "JERSEY", "GANGUBAI KATHIAWADI",
+        "BACHCHHAN PAANDEY", "RUNWAY 34", "JAYESHBHAI JORDAAR", "SAMRAT PRITHVIRAJ", "JANHIT MEIN JAARI",
+        "DOBAARAA", "BRAHMASTRA", "CHUP", "GOODBYE", "DOCTOR G",
+        "RAM SETU", "THANK GOD", "KUTTEY", "SHEHZADA", "SATYAPREM KI KATHA",
+        "JAILER", "KING OF KOTHA", "THE VACCINE WAR", "KHUFIYA", "TERI BAATON MEIN AISA ULJHA JIYA",
+        "BASTAR", "SRIKANTH", "KALKI 2898 AD"
+      ],
+    },
+    hollywood: {
+      "Classic": [
+        "CITIZEN KANE", "GONE WITH THE WIND", "CASABLANCA", "THE WIZARD OF OZ", "KING KONG",
+        "DRACULA", "FRANKENSTEIN", "THE MALTESE FALCON", "DOUBLE INDEMNITY", "ITS A WONDERFUL LIFE",
+        "REBECCA", "MR SMITH GOES TO WASHINGTON", "ALL ABOUT EVE", "SUNSET BOULEVARD", "SINGIN IN THE RAIN",
+        "ON THE WATERFRONT", "12 ANGRY MEN", "SOME LIKE IT HOT", "NORTH BY NORTHWEST", "VERTIGO",
+        "PSYCHO", "REAR WINDOW", "TO CATCH A THIEF", "ROMAN HOLIDAY", "SABRINA",
+        "BREAKFAST AT TIFFANYS", "FUNNY FACE", "AN AMERICAN IN PARIS", "HIGH NOON", "SHANE",
+        "THE QUIET MAN", "STAGECOACH", "RED RIVER", "THE SEARCHERS", "THE BIG SLEEP",
+        "NOTORIOUS", "STRANGERS ON A TRAIN", "SHADOW OF A DOUBT", "THE 39 STEPS", "THE LADY VANISHES",
+        "THE PHILADELPHIA STORY", "BRINGING UP BABY", "HIS GIRL FRIDAY", "DUCK SOUP", "A NIGHT AT THE OPERA",
+        "MODERN TIMES", "CITY LIGHTS", "THE GOLD RUSH", "THE GENERAL", "NOSFERATU",
+        "METROPOLIS", "M", "LAWRENCE OF ARABIA", "THE SOUND OF MUSIC", "WEST SIDE STORY",
+        "MARY POPPINS", "MY FAIR LADY", "DR ZHIVAGO", "THE GRADUATE", "BONNIE AND CLYDE",
+        "COOL HAND LUKE", "IN THE HEAT OF THE NIGHT", "EASY RIDER", "2001 A SPACE ODYSSEY", "ROSEMARYS BABY",
+        "NIGHT OF THE LIVING DEAD", "THE WILD BUNCH", "MIDNIGHT COWBOY", "BUTCH CASSIDY AND THE SUNDANCE KID", "THE GODFATHER",
+        "THE GODFATHER PART II", "CHINATOWN", "THE FRENCH CONNECTION", "THE EXORCIST", "JAWS",
+        "ROCKY", "TAXI DRIVER", "NETWORK", "ANNIE HALL", "STAR WARS",
+        "THE EMPIRE STRIKES BACK", "RETURN OF THE JEDI", "CLOSE ENCOUNTERS OF THE THIRD KIND", "ALIEN", "APOCALYPSE NOW",
+        "ALL THE PRESIDENTS MEN", "DOG DAY AFTERNOON", "ONE FLEW OVER THE CUCKOOS NEST", "THE STING", "SERPICO",
+        "THE CONVERSATION", "CABARET", "THE TOWERING INFERNO", "THE POSEIDON ADVENTURE", "FIDDLER ON THE ROOF",
+        "DELIVERANCE", "A CLOCKWORK ORANGE", "DIRTY HARRY", "FOXY BROWN", "SUPER FLY",
+        "SHAFT", "BLAZING SADDLES", "YOUNG FRANKENSTEIN", "THE PRODUCERS", "MASH",
+        "CARRIE", "THE OMEN", "RAIDERS OF THE LOST ARK", "INDIANA JONES AND THE TEMPLE OF DOOM", "INDIANA JONES AND THE LAST CRUSADE",
+        "ET THE EXTRA TERRESTRIAL", "BACK TO THE FUTURE", "BACK TO THE FUTURE PART II", "BACK TO THE FUTURE PART III", "GHOSTBUSTERS",
+        "GHOSTBUSTERS II", "BEETLEJUICE", "BATMAN", "TIM BURTONS BATMAN", "THE PRINCESS BRIDE",
+        "STAND BY ME", "THE GOONIES", "GREMLINS", "CADDYSHACK", "NATIONAL LAMPOONS VACATION",
+        "ANIMAL HOUSE", "THE BREAKFAST CLUB", "SIXTEEN CANDLES", "FERRIS BUELLERS DAY OFF", "PRETTY IN PINK",
+        "SAY ANYTHING", "WHEN HARRY MET SALLY", "WORKING GIRL", "TOOTSIE", "BEVERLY HILLS COP",
+        "BEVERLY HILLS COP II", "TOP GUN", "RISKY BUSINESS", "COCKTAIL", "THE COLOR OF MONEY",
+        "RAIN MAN", "AMADEUS", "PLATOON", "FULL METAL JACKET", "BORN ON THE FOURTH OF JULY",
+        "WALL STREET", "THE UNTOUCHABLES", "SCARFACE", "ONCE UPON A TIME IN AMERICA", "BLADE RUNNER",
+        "THE THING", "THE TERMINATOR", "ROBOCOP", "PREDATOR", "DIE HARD",
+        "DIE HARD 2", "LETHAL WEAPON", "LETHAL WEAPON 2", "COMING TO AMERICA", "TRADING PLACES",
+        "THREE MEN AND A BABY", "BIG", "FIELD OF DREAMS", "BULL DURHAM", "DIRTY DANCING",
+        "FOOTLOOSE", "FLASHDANCE", "FATAL ATTRACTION", "9 TO 5", "TERMS OF ENDEARMENT",
+        "ORDINARY PEOPLE", "RAGING BULL", "THE SHINING", "BREAKER MORANT", "CHARIOTS OF FIRE",
+        "GANDHI", "OUT OF AFRICA", "WITNESS", "THE COLOR PURPLE", "DRIVING MISS DAISY",
+        "DEAD POETS SOCIETY", "GLORY", "DO THE RIGHT THING", "WHO FRAMED ROGER RABBIT", "THE LITTLE MERMAID",
+        "GOODFELLAS", "DANCES WITH WOLVES", "UNFORGIVEN", "PULP FICTION", "RESERVOIR DOGS",
+        "THE SILENCE OF THE LAMBS", "MISERY", "SCHINDLERS LIST", "FORREST GUMP", "THE SHAWSHANK REDEMPTION",
+        "BRAVEHEART", "HEAT", "CASINO", "FARGO", "SE7EN",
+        "TITANIC", "SAVING PRIVATE RYAN", "THE TRUMAN SHOW", "THE BIG LEBOWSKI"
+      ],
+      "Romance": [
+        "NOTTING HILL", "FOUR WEDDINGS AND A FUNERAL", "BRIDGET JONESS DIARY", "PRETTY WOMAN", "THE NOTEBOOK",
+        "GHOST", "SLEEPLESS IN SEATTLE", "YOUVE GOT MAIL", "LOVE ACTUALLY", "ABOUT TIME",
+        "P S I LOVE YOU", "THE TIME TRAVELERS WIFE", "A WALK TO REMEMBER", "DEAR JOHN", "THE LUCKY ONE",
+        "SAFE HAVEN", "THE LONGEST RIDE", "ME BEFORE YOU", "THE FAULT IN OUR STARS", "ETERNAL SUNSHINE OF THE SPOTLESS MIND",
+        "500 DAYS OF SUMMER", "LA LA LAND", "BEFORE SUNRISE", "BEFORE SUNSET", "BEFORE MIDNIGHT",
+        "AN AFFAIR TO REMEMBER", "ROMEO AND JULIET", "THE WEDDING SINGER", "NEVER BEEN KISSED", "TEN THINGS I HATE ABOUT YOU",
+        "SHES ALL THAT", "CRAZY STUPID LOVE", "FRIENDS WITH BENEFITS", "NO STRINGS ATTACHED", "HE IS JUST NOT THAT INTO YOU",
+        "27 DRESSES", "WEDDING CRASHERS", "MY BIG FAT GREEK WEDDING", "MY BEST FRIENDS WEDDING", "THE PROPOSAL",
+        "THE UGLY TRUTH", "HOW TO LOSE A GUY IN 10 DAYS", "WHATS YOUR NUMBER", "THE BREAK UP", "DEFINITELY MAYBE",
+        "SHES THE MAN", "SHES OUT OF MY LEAGUE", "HITCH", "JUST GO WITH IT", "GROWN UPS",
+        "CHANCES ARE", "SLEEPING WITH OTHER PEOPLE", "TRAINWRECK", "BRIDESMAIDS", "THE HOLIDAY",
+        "ENCHANTED", "LADY AND THE TRAMP", "BEAUTY AND THE BEAST", "ALADDIN", "TANGLED",
+        "FROZEN", "CINDERELLA", "SLEEPING BEAUTY", "SNOW WHITE", "THE PRINCESS AND THE FROG",
+        "MOULIN ROUGE", "PHANTOM OF THE OPERA", "CHICAGO", "BURLESQUE", "DIRTY DANCING HAVANA NIGHTS",
+        "STEP UP", "STEP UP 2", "STEP UP 3D", "MAGIC MIKE", "HONEY",
+        "CENTER STAGE", "SAVE THE LAST DANCE", "BLACK SWAN", "LAST TANGO IN PARIS", "9 1 2 WEEKS",
+        "AMERICAN PIE", "THE GIRL NEXT DOOR", "PRETTY LITTLE LIARS", "CRAZY RICH ASIANS", "TO ALL THE BOYS IVE LOVED BEFORE",
+        "SET IT UP", "ALWAYS BE MY MAYBE", "THE KISSING BOOTH", "ANYONE BUT YOU", "TICKET TO PARADISE",
+        "MARRY ME", "HOLIDATE", "THE LOVERS", "HER", "AMOUR",
+        "BLUE VALENTINE", "BROKEBACK MOUNTAIN", "CALL ME BY YOUR NAME", "CAROL", "MOONLIGHT",
+        "GHOST WORLD", "LOST IN TRANSLATION", "AMELIE", "CHOCOLAT", "COLD MOUNTAIN",
+        "THE ENGLISH PATIENT", "COMING HOME", "THE WAY WE WERE", "AN OFFICER AND A GENTLEMAN", "ST ELMOS FIRE",
+        "JERRY MAGUIRE", "AS GOOD AS IT GETS", "SOMETHINGS GOTTA GIVE", "ITS COMPLICATED", "HOPE FLOATS",
+        "STEEL MAGNOLIAS", "BEACHES", "THELMA AND LOUISE", "AUTUMN IN NEW YORK", "SERENDIPITY",
+        "MAID IN MANHATTAN", "SHALL WE DANCE", "RUNAWAY BRIDE", "NEVER SAY NEVER", "THE FIRST WIVES CLUB",
+        "SOMETHING ABOUT MARY", "THE BOUNTY HUNTER", "LIFE AS WE KNOW IT", "ONE FINE DAY", "FAILURE TO LAUNCH",
+        "WHILE YOU WERE SLEEPING", "FORCES OF NATURE", "SHES HAVING A BABY", "AMERICAN WEDDING", "WEDDING DATE",
+        "WEDDING SINGER", "KATE AND LEOPOLD", "SOMEONE LIKE YOU", "THE CUTTING EDGE", "MUST LOVE DOGS",
+        "NEW IN TOWN", "LARRY CROWNE", "JULIE AND JULIA", "ELIZABETHTOWN", "GARDEN STATE",
+        "UP IN THE AIR", "JULIET NAKED"
+      ],
+      "Comedy": [
+        "AIRPLANE", "THE BLUES BROTHERS", "STRIPES", "THIS IS SPINAL TAP", "PLANES TRAINS AND AUTOMOBILES",
+        "GROUNDHOG DAY", "ANCHORMAN", "ANCHORMAN 2", "TALLADEGA NIGHTS", "STEP BROTHERS",
+        "THE OTHER GUYS", "BLADES OF GLORY", "SEMI PRO", "ELF", "DADDY DAY CARE",
+        "MEET THE PARENTS", "MEET THE FOCKERS", "LITTLE FOCKERS", "ZOOLANDER", "ZOOLANDER 2",
+        "DODGEBALL", "MEN IN BLACK", "MEN IN BLACK II", "MEN IN BLACK 3", "BIG MOMMAS HOUSE",
+        "NORBIT", "JINGLE ALL THE WAY", "KINDERGARTEN COP", "TWINS", "JUNIOR",
+        "THE MASK", "ACE VENTURA PET DETECTIVE", "DUMB AND DUMBER", "ME MYSELF AND IRENE", "LIAR LIAR",
+        "BRUCE ALMIGHTY", "EVAN ALMIGHTY", "YES MAN", "CABLE GUY", "THE WATERBOY",
+        "HAPPY GILMORE", "BILLY MADISON", "MR DEEDS", "BIG DADDY", "50 FIRST DATES",
+        "CLICK", "I NOW PRONOUNCE YOU CHUCK AND LARRY", "GROWN UPS 2", "JACK AND JILL", "BLENDED",
+        "PIXELS", "GIRL MOST LIKELY", "LITTLE NICKY", "BEDTIME STORIES", "BLOCKERS",
+        "NEIGHBORS", "NEIGHBORS 2", "KNOCKED UP", "SUPERBAD", "PINEAPPLE EXPRESS",
+        "TROPIC THUNDER", "THE 40 YEAR OLD VIRGIN", "THIS IS THE END", "THE INTERVIEW", "GOOD BOYS",
+        "BOOKSMART", "THE HANGOVER", "THE HANGOVER PART II", "THE HANGOVER PART III", "THE HEAT",
+        "SPY", "GHOSTBUSTERS AFTERLIFE", "GHOSTBUSTERS FROZEN EMPIRE", "FRIENDS WITH KIDS", "POPSTAR NEVER STOP NEVER STOPPING",
+        "THE CAMPAIGN", "THIS IS 40", "PARENTHOOD", "CITY SLICKERS", "FORGETTING SARAH MARSHALL",
+        "ROLE MODELS", "WALK HARD", "FUNNY PEOPLE", "I LOVE YOU MAN", "RUN FATBOY RUN",
+        "WAITING", "DUDE WHERES MY CAR", "HAROLD AND KUMAR GO TO WHITE CASTLE", "HAROLD AND KUMAR ESCAPE FROM GUANTANAMO BAY", "AMERICAN PIE 2",
+        "AMERICAN REUNION", "ROAD TRIP", "EUROTRIP", "SEX DRIVE", "OLD SCHOOL",
+        "ELECTION", "MEAN GIRLS", "JUNO", "THE EDGE OF SEVENTEEN", "EASY A",
+        "BRING IT ON", "BRING IT ON AGAIN", "FRESHMAN ORIENTATION", "CLUELESS", "ROMY AND MICHELES HIGH SCHOOL REUNION",
+        "LEGALLY BLONDE", "LEGALLY BLONDE 2", "UNCLE BUCK", "HOME ALONE", "HOME ALONE 2",
+        "CHRISTMAS WITH THE KRANKS", "FOUR CHRISTMASES", "THE NIGHT BEFORE", "BAD SANTA", "SCROOGED",
+        "NATIONAL LAMPOONS CHRISTMAS VACATION", "BORAT", "BRUNO", "THE DICTATOR", "COME TO DADDY",
+        "SISTER ACT", "SISTER ACT 2", "SCHOOL OF ROCK", "NACHO LIBRE", "NAPOLEON DYNAMITE",
+        "MS CONGENIALITY", "MS CONGENIALITY 2", "WHITE CHICKS", "SCARY MOVIE", "SCARY MOVIE 2",
+        "SCARY MOVIE 3", "SCARY MOVIE 4", "SCARY MOVIE 5", "NOT ANOTHER TEEN MOVIE", "DATE MOVIE",
+        "EPIC MOVIE", "DISASTER MOVIE", "SUPERHERO MOVIE", "SHREK", "SHREK 2",
+        "SHREK THE THIRD", "SHREK FOREVER AFTER", "DESPICABLE ME", "DESPICABLE ME 2", "DESPICABLE ME 3",
+        "DESPICABLE ME 4", "MINIONS", "THE SECRET LIFE OF PETS", "THE BAD GUYS", "THE LEGO MOVIE",
+        "THE LEGO BATMAN MOVIE", "CLOUDY WITH A CHANCE OF MEATBALLS", "HOTEL TRANSYLVANIA", "THE SIMPSONS MOVIE", "RICK AND MORTY THE ANIME",
+        "ZOMBIELAND", "ZOMBIELAND DOUBLE TAP", "SHAUN OF THE DEAD", "HOT FUZZ", "THE WORLDS END",
+        "BABY DRIVER", "FREE GUY", "BARB AND STAR GO TO VISTA DEL MAR", "DEATH AT A FUNERAL"
+      ],
+      "Action": [
+        "DIE HARD WITH A VENGEANCE", "LIVE FREE OR DIE HARD", "A GOOD DAY TO DIE HARD", "TERMINATOR 2 JUDGMENT DAY", "TERMINATOR 3 RISE OF THE MACHINES",
+        "TERMINATOR SALVATION", "TERMINATOR GENISYS", "TERMINATOR DARK FATE", "ROBOCOP 2", "ROBOCOP 3",
+        "TOTAL RECALL", "PREDATOR 2", "PREDATORS", "THE PREDATOR", "ALIENS",
+        "ALIEN 3", "ALIEN RESURRECTION", "PROMETHEUS", "ALIEN COVENANT", "ALIEN ROMULUS",
+        "THE MATRIX", "THE MATRIX RELOADED", "THE MATRIX REVOLUTIONS", "THE MATRIX RESURRECTIONS", "MISSION IMPOSSIBLE",
+        "MISSION IMPOSSIBLE II", "MISSION IMPOSSIBLE III", "MISSION IMPOSSIBLE GHOST PROTOCOL", "MISSION IMPOSSIBLE ROGUE NATION", "MISSION IMPOSSIBLE FALLOUT",
+        "MISSION IMPOSSIBLE DEAD RECKONING", "JOHN WICK", "JOHN WICK CHAPTER 2", "JOHN WICK CHAPTER 3", "JOHN WICK CHAPTER 4",
+        "BALLERINA", "FAST AND FURIOUS", "2 FAST 2 FURIOUS", "FAST AND FURIOUS TOKYO DRIFT", "FAST AND FURIOUS 4",
+        "FAST FIVE", "FAST AND FURIOUS 6", "FURIOUS 7", "THE FATE OF THE FURIOUS", "F9",
+        "FAST X", "HOBBS AND SHAW", "RAMPAGE", "GLADIATOR", "THE LAST SAMURAI",
+        "TROY", "KINGDOM OF HEAVEN", "THE PATRIOT", "WE WERE SOLDIERS", "THE EAGLE",
+        "ROBIN HOOD", "BLACK HAWK DOWN", "THE HURT LOCKER", "ZERO DARK THIRTY", "AMERICAN SNIPER",
+        "LONE SURVIVOR", "13 HOURS", "LIONS FOR LAMBS", "FURY", "INGLOURIOUS BASTERDS",
+        "ENEMY AT THE GATES", "DUNKIRK", "1917", "WAR HORSE", "HACKSAW RIDGE",
+        "MIDWAY", "PEARL HARBOR", "OBLIVION", "EDGE OF TOMORROW", "STARSHIP TROOPERS",
+        "INDEPENDENCE DAY", "INDEPENDENCE DAY RESURGENCE", "WAR OF THE WORLDS", "DAY THE EARTH STOOD STILL", "ARMAGEDDON",
+        "DEEP IMPACT", "2012", "THE DAY AFTER TOMORROW", "SAN ANDREAS", "GREENLAND",
+        "DONT LOOK UP", "CONTAGION", "OUTBREAK", "WORLD WAR Z", "I AM LEGEND",
+        "WALL E", "TRUE LIES", "THE EXPENDABLES", "THE EXPENDABLES 2", "THE EXPENDABLES 3",
+        "THE EXPENDABLES 4", "RAMBO", "RAMBO FIRST BLOOD PART II", "RAMBO III", "RAMBO LAST BLOOD",
+        "DEMOLITION MAN", "JUDGE DREDD", "DREDD", "ESCAPE PLAN", "ESCAPE PLAN 2",
+        "BULLET TRAIN", "NOBODY", "ATOMIC BLONDE", "SALT", "HANNA",
+        "RED SPARROW", "PEPPERMINT", "WIDOWS", "THE EQUALIZER", "THE EQUALIZER 2",
+        "THE EQUALIZER 3", "TAKEN", "TAKEN 2", "TAKEN 3", "UNKNOWN",
+        "NON STOP", "COLD PURSUIT", "THE COMMUTER", "HONEST THIEF", "MARLOWE",
+        "MEMORY", "BLACKLIGHT", "ICE ROAD", "BAD BOYS", "BAD BOYS II",
+        "BAD BOYS FOR LIFE", "BAD BOYS RIDE OR DIE", "LETHAL WEAPON 3", "LETHAL WEAPON 4", "RUSH HOUR",
+        "RUSH HOUR 2", "RUSH HOUR 3", "MIB INTERNATIONAL", "WILD WILD WEST", "I ROBOT",
+        "HANCOCK", "HITMAN", "HITMAN AGENT 47", "WANTED", "SHOOT EM UP",
+        "CRANK", "CRANK HIGH VOLTAGE", "DEATH RACE", "FAST AND THE FURIOUS", "THE TRANSPORTER",
+        "TRANSPORTER 2", "TRANSPORTER 3", "THE TRANSPORTER REFUELED", "THE MECHANIC", "MECHANIC RESURRECTION",
+        "HOMEFRONT", "PARKER", "KIDNAP", "BRIGHTBURN", "THE NEGOTIATOR",
+        "INSIDE MAN", "DEJA VU", "ENEMY OF THE STATE", "AVENGERS", "AVENGERS AGE OF ULTRON",
+        "AVENGERS INFINITY WAR", "AVENGERS ENDGAME", "BLACK PANTHER", "BLACK PANTHER WAKANDA FOREVER", "IRON MAN",
+        "IRON MAN 2", "IRON MAN 3", "CAPTAIN AMERICA THE FIRST AVENGER", "CAPTAIN AMERICA THE WINTER SOLDIER", "CAPTAIN AMERICA CIVIL WAR",
+        "CAPTAIN AMERICA BRAVE NEW WORLD", "THOR", "THOR THE DARK WORLD", "THOR RAGNAROK", "THOR LOVE AND THUNDER",
+        "DOCTOR STRANGE", "DOCTOR STRANGE IN THE MULTIVERSE OF MADNESS", "SPIDER MAN HOMECOMING", "SPIDER MAN FAR FROM HOME", "SPIDER MAN NO WAY HOME",
+        "SPIDER MAN INTO THE SPIDER VERSE", "SPIDER MAN ACROSS THE SPIDER VERSE", "GUARDIANS OF THE GALAXY", "GUARDIANS OF THE GALAXY VOL 2", "GUARDIANS OF THE GALAXY VOL 3",
+        "ANT MAN", "ANT MAN AND THE WASP", "ANT MAN AND THE WASP QUANTUMANIA", "SHANG CHI", "ETERNALS",
+        "BLACK WIDOW", "HAWKEYE", "WANDAVISION", "MOON KNIGHT", "DEADPOOL",
+        "DEADPOOL 2", "DEADPOOL AND WOLVERINE", "X MEN", "X MEN UNITED", "X MEN THE LAST STAND",
+        "X MEN ORIGINS WOLVERINE", "X MEN FIRST CLASS", "X MEN DAYS OF FUTURE PAST", "X MEN APOCALYPSE", "X MEN DARK PHOENIX",
+        "LOGAN", "THE WOLVERINE", "FANTASTIC FOUR", "FANTASTIC FOUR RISE OF THE SILVER SURFER", "BATMAN BEGINS",
+        "THE DARK KNIGHT", "THE DARK KNIGHT RISES", "MAN OF STEEL", "BATMAN V SUPERMAN", "JUSTICE LEAGUE",
+        "ZACK SNYDERS JUSTICE LEAGUE", "SUICIDE SQUAD", "THE SUICIDE SQUAD", "BIRDS OF PREY", "WONDER WOMAN",
+        "WONDER WOMAN 1984", "AQUAMAN", "AQUAMAN AND THE LOST KINGDOM", "SHAZAM", "SHAZAM FURY OF THE GODS",
+        "BLACK ADAM", "THE BATMAN", "JOKER", "JOKER FOLIE A DEUX", "BLUE BEETLE"
+      ],
+      "Thriller": [
+        "THE USUAL SUSPECTS", "FIGHT CLUB", "MEMENTO", "THE DEPARTED", "INCEPTION",
+        "GONE GIRL", "SHUTTER ISLAND", "PRISONERS", "ZODIAC", "NO COUNTRY FOR OLD MEN",
+        "THERE WILL BE BLOOD", "AMERICAN PSYCHO", "BASIC INSTINCT", "SLEEPING WITH THE ENEMY", "THE HAND THAT ROCKS THE CRADLE",
+        "SINGLE WHITE FEMALE", "BODY OF EVIDENCE", "CAPE FEAR", "THE FUGITIVE", "US MARSHALS",
+        "RANSOM", "PANIC ROOM", "FLIGHTPLAN", "RED EYE", "THE GIRL ON THE TRAIN",
+        "THE WOMAN IN THE WINDOW", "BEFORE I GO TO SLEEP", "SECRET WINDOW", "HIDE AND SEEK", "THE ROOMMATE",
+        "ORPHAN", "THE STRANGERS", "THE PURGE", "THE PURGE ANARCHY", "THE PURGE ELECTION YEAR",
+        "DONT BREATHE", "DONT BREATHE 2", "HUSH", "YOU", "THE INVITATION",
+        "THE GIFT", "NIGHTCRAWLER", "DRIVE", "JOHN Q", "ONE HOUR PHOTO",
+        "INSOMNIA", "COLLATERAL", "TRAINING DAY", "BAD LIEUTENANT", "THE GODFATHER PART III",
+        "ANALYZE THIS", "ANALYZE THAT", "DONNIE BRASCO", "CARLITOS WAY", "ROAD TO PERDITION",
+        "MILLERS CROSSING", "MIDNIGHT IN PARIS", "BLOOD SIMPLE", "BURN AFTER READING", "NICK OF TIME",
+        "HOLLOW MAN", "DISCLOSURE", "JADE", "BOUND", "THE LAST SEDUCTION",
+        "RED ROCK WEST", "BLOOD WORK", "ABSOLUTE POWER", "PERFECT MURDER", "THE BONE COLLECTOR",
+        "THE ORDER", "8MM", "STIGMATA", "FALLEN", "DEVILS ADVOCATE",
+        "ANGEL HEART", "JACOBS LADDER", "SEVEN POUNDS", "THE PLEDGE", "MYSTIC RIVER",
+        "GONE BABY GONE", "CHANGELING", "BLACK MASS", "SPOTLIGHT", "THE INSIDER",
+        "MICHAEL CLAYTON", "DUPLICITY", "ARBITRAGE", "THE BIG SHORT", "MARGIN CALL",
+        "BOILER ROOM", "WALL STREET MONEY NEVER SLEEPS", "INSIDE JOB", "THE INTERNATIONAL", "BANK JOB",
+        "THE TOWN", "THE ITALIAN JOB", "OCEANS ELEVEN", "OCEANS TWELVE", "OCEANS THIRTEEN",
+        "OCEANS 8", "NOW YOU SEE ME", "NOW YOU SEE ME 2", "FOCUS", "AMERICAN HUSTLE",
+        "CATCH ME IF YOU CAN", "THE KING OF MARVIN GARDENS", "PRINCE OF THE CITY", "CRUISING", "THE LONG GOODBYE",
+        "KISS KISS BANG BANG", "BRICK", "RIAN JOHNSON KNIVES OUT", "KNIVES OUT", "GLASS ONION",
+        "SEE HOW THEY RUN", "DEATH ON THE NILE", "MURDER ON THE ORIENT EXPRESS", "A HAUNTING IN VENICE", "BAD TIMES AT THE EL ROYALE",
+        "HELL OR HIGH WATER", "WIND RIVER", "THREE BILLBOARDS OUTSIDE EBBING MISSOURI", "SEVEN PSYCHOPATHS", "IN BRUGES",
+        "THE BANSHEES OF INISHERIN", "PROMISING YOUNG WOMAN", "SAINT MAUD", "HER SMELL", "TONI ERDMANN",
+        "THE LOBSTER", "THE FAVOURITE", "POOR THINGS", "THE NORTHMAN", "THE LIGHTHOUSE",
+        "THE WITCH", "HEREDITARY", "MIDSOMMAR", "SMILE", "SMILE 2",
+        "TALK TO ME", "GET OUT", "US", "NOPE", "CANDYMAN",
+        "CANDYMAN 2021", "INSIDIOUS", "INSIDIOUS CHAPTER 2", "INSIDIOUS CHAPTER 3", "INSIDIOUS THE LAST KEY",
+        "INSIDIOUS THE RED DOOR", "SINISTER", "SINISTER 2", "CONJURING", "CONJURING 2",
+        "THE CONJURING THE DEVIL MADE ME DO IT", "ANNABELLE", "ANNABELLE CREATION", "ANNABELLE COMES HOME", "THE NUN",
+        "THE NUN II", "IT", "IT CHAPTER TWO", "ITS A WONDERFUL KNIFE", "SCREAM",
+        "SCREAM 2", "SCREAM 3", "SCREAM 4", "SCREAM 5", "SCREAM VI",
+        "HALLOWEEN", "HALLOWEEN II", "HALLOWEEN ENDS", "HALLOWEEN KILLS", "FRIDAY THE 13TH",
+        "NIGHTMARE ON ELM STREET", "FREDDY VS JASON", "CHILDS PLAY", "CHUCKY", "BRIDE OF CHUCKY",
+        "M3GAN", "M3GAN 2", "SAW", "SAW II", "SAW III",
+        "SAW IV", "SAW V", "SAW VI", "SAW 3D", "JIGSAW",
+        "SPIRAL", "SAW X", "HOSTEL", "HOSTEL PART II", "HOSTEL PART III",
+        "FINAL DESTINATION", "FINAL DESTINATION 2", "FINAL DESTINATION 3", "FINAL DESTINATION THE FINAL DESTINATION", "FINAL DESTINATION 5",
+        "FINAL DESTINATION BLOODLINES", "ESTHER", "ORPHAN FIRST KILL", "FIRESTARTER"
+      ],
+      "Recent Hits": [
+        "OPPENHEIMER", "BARBIE", "TOP GUN MAVERICK", "DUNE", "DUNE PART TWO",
+        "KILLERS OF THE FLOWER MOON", "EVERYTHING EVERYWHERE ALL AT ONCE", "TAR", "TRIANGLE OF SADNESS", "WOMEN TALKING",
+        "THE WHALE", "THE FABELMANS", "ELVIS", "BABYLON", "ARGYLLE",
+        "WONKA", "MIGRATION", "NIGHT SWIM", "THE BEEKEEPER", "LISA FRANKENSTEIN",
+        "BOB MARLEY ONE LOVE", "MADAME WEB", "ARTHUR THE KING", "KUNG FU PANDA 4", "IMMACULATE",
+        "MONKEY MAN", "CIVIL WAR", "ABIGAIL", "CHALLENGERS", "THE FALL GUY",
+        "KINGDOM OF THE PLANET OF THE APES", "IF", "BACK TO BLACK", "FURIOSA A MAD MAX SAGA", "THE GARFIELD MOVIE",
+        "INSIDE OUT 2", "A QUIET PLACE DAY ONE", "KINDS OF KINDNESS", "LONGLEGS", "TWISTERS",
+        "HARRY POTTER REUNION", "BORDERLANDS", "BLINK TWICE", "BEETLEJUICE BEETLEJUICE", "TRANSFORMERS ONE",
+        "SPEAK NO EVIL", "MEGALOPOLIS", "THE WILD ROBOT", "TERRIFIER 3", "HEREDITARY 2",
+        "WICKED", "GLADIATOR II", "MOANA 2", "RED ONE", "HERETIC",
+        "COMPLETE UNKNOWN", "BABYGIRL", "BETTER MAN", "WE LIVE IN TIME", "ANORA",
+        "THE BRUTALIST", "CONCLAVE", "A REAL PAIN", "SEPTEMBER 5", "NICKEL BOYS",
+        "EMILIA PEREZ", "THE SUBSTANCE", "SING SING", "SAVING BIKINI BOTTOM", "THE LAST SHOWGIRL",
+        "CARRY ON", "HERE", "QUEER", "FLOW", "THE LORD OF THE RINGS THE WAR OF THE ROHIRRIM",
+        "THUNDERBOLTS", "PADDINGTON IN PERU", "DOG MAN", "BRIDGET JONES MAD ABOUT THE BOY", "COMPANION",
+        "PRESENCE", "HEART EYES", "LOVE HURTS", "THE MONKEY", "SCREAM 7",
+        "JURASSIC WORLD REBIRTH", "M3GAN 2 0", "FREAKIER FRIDAY", "JUMANJI 4", "MORTAL KOMBAT 2",
+        "ZOOTOPIA 2", "SPACE JAM 3", "MICKEY 17", "CRY ME A RIVER", "DEN OF THIEVES 2 PANTERA",
+        "IN THE LOST LANDS", "NOVOCAINE", "THE GORGE", "ONE OF THEM DAYS", "DEATH OF A UNICORN",
+        "DROP", "THE AMATEUR", "WARFARE", "SINNERS", "UNTIL DAWN",
+        "A MINECRAFT MOVIE", "THE KING OF KINGS", "THE LIFE OF CHUCK", "ELIO", "HOW TO TRAIN YOUR DRAGON",
+        "FAST X PART 2", "JOHN WICK CHAPTER 5", "WICKED FOR GOOD", "AVATAR FIRE AND ASH", "TRON ARES",
+        "TOY STORY 5", "MOANA", "NOW YOU SEE ME 3", "WORLD WAR Z 2", "CONSTANTINE 2",
+        "LILO AND STITCH", "FOUR LETTERS OF LOVE", "MISSION IMPOSSIBLE THE FINAL RECKONING"
+      ],
+    },
   };
+
+  // Helper: get the active library based on selected industry
+  function getCurrentMovies() {
+    return MOVIES[state.industry] || MOVIES.bollywood;
+  }
 
   const GENRE_ICONS = {
     "Classic": "🎞", "Romance": "❤", "Comedy": "😂",
@@ -1941,10 +2414,10 @@
 
   function pickRandomMovie(genreOrNull) {
     let pool;
-    if (genreOrNull && MOVIES_BY_GENRE[genreOrNull]) {
-      pool = MOVIES_BY_GENRE[genreOrNull].slice();
+    if (genreOrNull && getCurrentMovies()[genreOrNull]) {
+      pool = getCurrentMovies()[genreOrNull].slice();
     } else {
-      pool = Object.values(MOVIES_BY_GENRE).flat();
+      pool = Object.values(getCurrentMovies()).flat();
     }
     // exclude already-used in this session
     let candidates = pool.filter(m => !state.usedMovies.has(m));
@@ -2073,11 +2546,12 @@
     $("timerBarWrap").classList.remove("active");
   }
 
-  // ============ MODE PICKER LOGIC ============
+  // ============ INDUSTRY + MODE PICKER LOGIC ============
   function showModeScreen() {
     hideAllModals();
     hideTimer();
     state.gameActive = false;
+    state.industry = null;       // reset on Home — re-pick industry
     state.movie = "";
     state.revealed = new Set();
     state.wrong = new Set();
@@ -2087,15 +2561,33 @@
     refreshKeyStates();
     setKeyboardEnabled(false);
     resetSlate();
-    showModal("modeModal");
+    showModal("industryModal");
     refreshCounterChip();
+  }
+
+  function selectIndustry(industry) {
+    SFX.tap();
+    state.industry = industry;
+    // Reset session state and rebuild genre grid for the new library
+    state.usedMovies = new Set();
+    state.scores = { p1: 0, p2: 0 };
+    state.soloScore = 0;
+    state.roundsPlayed = 0;
+    state.round = 1;
+    renderBrand(0);  // re-renders BOLLYWOOD/HOLLYWOOD wordmark
+    renderBoard();
+    buildGenreGrid();
+    // Update modal title to show selected industry
+    const t = $("modeModalTitle");
+    if (t) t.textContent = (industry === "hollywood") ? "Hollywood" : "Bollywood";
+    showModal("modeModal");
   }
 
   function buildGenreGrid() {
     const grid = $("genreGrid");
     grid.innerHTML = "";
     // Render each genre as a small admit-badge ticket — all same uniform font size
-    Object.keys(MOVIES_BY_GENRE).forEach(g => {
+    Object.keys(getCurrentMovies()).forEach(g => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "ticket-tile genre";
@@ -2141,9 +2633,10 @@
   function selectTimer(enabled) {
     SFX.tap();
     state.timerEnabled = !!enabled;
+    const indLabel = (state.industry === "hollywood") ? "Hollywood" : "Bollywood";
     if (state.isSolo) {
       $("genreModeTag").textContent =
-        (state.timerEnabled ? "Solo · Time Attack 45s" : "Solo · Take Your Time");
+        indLabel + " · " + (state.timerEnabled ? "Solo · Time Attack 45s" : "Solo · Take Your Time");
       showModal("genreModal");
     } else {
       // Pass & Play - existing welcome flow
@@ -2160,16 +2653,30 @@
     SFX.tap();
     state.selectedGenre = genre;
     const timerLabel = state.timerEnabled ? "Time Attack" : "Take Your Time";
-    const label = timerLabel + " · " + (genre || "Surprise Me");
+    const indLabel = (state.industry === "hollywood") ? "Hollywood" : "Bollywood";
+    const label = indLabel + " · " + timerLabel + " · " + (genre || "Surprise Me");
     $("soloContextChip").textContent = label;
     $("soloNameInput").value = state.soloName === "Player" ? "" : state.soloName;
     showModal("soloIntroModal");
     setTimeout(() => $("soloNameInput").focus(), 250);
   }
 
+  document.querySelectorAll('[data-industry]').forEach(tile => {
+    tile.addEventListener("click", () => selectIndustry(tile.dataset.industry));
+  });
+
   document.querySelectorAll('[data-mode]').forEach(tile => {
     tile.addEventListener("click", () => selectMode(tile.dataset.mode));
   });
+
+  // Back button on mode picker → return to industry picker
+  const modeBackBtn = document.getElementById("modeBack");
+  if (modeBackBtn) {
+    modeBackBtn.addEventListener("click", () => {
+      SFX.tap();
+      showModal("industryModal");
+    });
+  }
 
   document.querySelectorAll('[data-timer]').forEach(tile => {
     tile.addEventListener("click", () => selectTimer(tile.dataset.timer === "on"));
@@ -2243,7 +2750,11 @@
 
   function renderBrand(strikes = 0) {
     const el = $("brandMain");
-    if (el.children.length === BOLLYWOOD.length) {
+    const word = currentWordmark();
+    // Force a fresh render if the wordmark has changed (industry switch) or letter count differs
+    const currentText = [...el.children].map(s => s.textContent).join("");
+    const targetText = word.join("");
+    if (el.children.length === word.length && currentText === targetText) {
       [...el.children].forEach((span, i) => {
         const isStruck = i < strikes;
         const wasStruck = span.classList.contains("struck");
@@ -2256,7 +2767,7 @@
       return;
     }
     el.innerHTML = "";
-    BOLLYWOOD.forEach((ch, i) => {
+    word.forEach((ch, i) => {
       const span = document.createElement("span");
       span.className = "brand-letter" + (i < strikes ? " struck" : "");
       span.textContent = ch;
@@ -2531,7 +3042,7 @@
       checkAutoWin();
     } else {
       state.wrong.add(ch);
-      if (state.strikes < BOLLYWOOD.length) {
+      if (state.strikes < currentWordmark().length) {
         state.strikes++;
         renderBrand(state.strikes);
         shakeBanner();
@@ -2542,7 +3053,7 @@
       SFX.stamp();
       vibrate([40, 30, 40]);
       refreshKeyStates();
-      if (state.strikes >= BOLLYWOOD.length) setTimeout(() => endRound(false), 1000);
+      if (state.strikes >= currentWordmark().length) setTimeout(() => endRound(false), 1000);
     }
   }
 
@@ -2671,7 +3182,7 @@
     state.gameActive = false;
     setKeyboardEnabled(false);
     stopTimer();
-    const remaining = BOLLYWOOD.length - state.strikes;
+    const remaining = currentWordmark().length - state.strikes;
     const points = won ? remaining * 10 : 0;
     if (state.isSolo) {
       state.scores.p1 += points;
