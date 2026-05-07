@@ -9,7 +9,7 @@
  * Bump VERSION on each deploy that changes app shell.
  */
 
-const VERSION = 'v1.3.2';
+const VERSION = 'v1.4.1';
 const CACHE_NAME = `bollywood-${VERSION}`;
 const RUNTIME_CACHE = `bollywood-runtime-${VERSION}`;
 
